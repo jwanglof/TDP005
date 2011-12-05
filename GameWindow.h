@@ -14,14 +14,18 @@ private:
   int gameHighscore;
   int gameCurrentscore;
 
-  SDL_Surface* mainWindow;
+/*  SDL_Surface* mainWindow;
   SDL_Surface* tempSurface;
   SDL_Surface* returnSurface;
 
   SDL_Surface* message;
   SDL_Surface* screen;
 
+  bool running;*/
+
   bool running;
+  SDL_Surface* displaySurface;
+  SDL_Surface* testSurface;
 public:
   GameWindow();
   ~GameWindow();
@@ -32,7 +36,18 @@ public:
   void setHighscore(const int highscore);
   void setCurrentscore(const int currentscore);
 
-  bool loadMenu();
+  static SDL_Surface* loadImage(std::string imagePath);
+  static bool drawSurface(SDL_Surface* dest, SDL_Surface* src, int x, int y);
+
+  void cleanupSDL();
+
+  void renderSurface();
+
+  int runGame();
+
+  void onEvent(SDL_Event* eventInput);
+
+/*  bool loadMenu();
   bool loadGamewindow();
   
   bool initSDL();
@@ -42,7 +57,7 @@ public:
   bool runGame();
   static SDL_Surface* loadImage(std::string image);
 
-  void onEvent(SDL_Event* event);
+  void onEvent(SDL_Event* event);*/
 };
 
 #endif

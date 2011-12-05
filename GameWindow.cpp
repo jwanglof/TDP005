@@ -1,127 +1,96 @@
 #include "GameWindow.h"
 
-SDL_Event event;
-TTF_Font *font = NULL;
-SDL_Color textColor = {255, 255, 255};
-
 GameWindow::GameWindow()
 {
-  mainWindow = NULL;
+  displaySurface = NULL;
+  testSurface = NULL;
+
+  running = true;
 }
 
 GameWindow::~GameWindow()
 { }
 
-bool GameWindow::loadFont(const int size)
+SDL_Surface* GameWindow::loadImage(std::string imagePath)
 {
-  font = TTF_OpenFont("DejaVuSans.ttf", size);
+  SDL_Surface* originImage = NULL;
+  SDL_Surface* returnImage = NULL;
 
-  if (font == NULL)
+  if ((originImage = IMG_Load(imagePath.c_str())) == NULL)
     return false;
+
+  returnImage = SDL_DisplayFormat(originImage);
+  SDL_FreeSurface(originImage);
+
+  return returnImage;
+}
+
+bool GameWindow::drawSurface(SDL_Surface* dest, SDL_Surface* src, int x, int y)
+{
+  if (dest == NULL || src == NULL)
+    return false;
+
+  SDL_Rect destRect;
+
+  destRect.x = x;
+  destRect.y = y;
+
+  SDL_BlitSurface(src, NULL, dest, &destRect);
 
   return true;
 }
 
-bool GameWindow::initSDL()
+void GameWindow::cleanupSDL()
 {
-  //Initialize all SDL subsystems
+  SDL_FreeSurface(displaySurface);
+  SDL_FreeSurface(testSurface);
+  SDL_Quit();
+}
+
+void GameWindow::renderSurface()
+{
+  GameWindow::drawSurface(displaySurface, testSurface, 0, 0);
+  SDL_Flip(displaySurface);
+}
+
+void GameWindow::onEvent(SDL_Event* eventInput)
+{
+  if (eventInput->type == SDL_QUIT)
+    running = false;
+}
+
+int GameWindow::runGame()
+{
+  SDL_Event SDLEvent;
+
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     return false;
-    
-  //Set up the screen
-  if ((mainWindow = SDL_SetVideoMode(800, 600, 32, SDL_SWSURFACE)) == NULL)
-      return false;
 
-  //Set the window caption
-  SDL_WM_SetCaption("SUPER", NULL);
-
-  //If everything initialized fine
-  return true;
-}
-
-// Will NOT load .bmp files!
-SDL_Surface* GameWindow::loadImage(std::string image)
-{
-  SDL_Surface* tempSurface = NULL;
-  SDL_Surface* returnSurface = NULL;
-
-  if ((tempSurface = IMG_Load(image.c_str())) == NULL)
+  if ((displaySurface = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL)
     return false;
 
-  returnSurface = SDL_DisplayFormat(tempSurface);
-  SDL_FreeSurface(tempSurface);
-
-  return returnSurface;
-}
-
-// Will load an image to x, y on destination from source
-bool GameWindow::drawSurface(SDL_Surface* destination, SDL_Surface* source, int x, int y)
-{
-  if (destination == NULL || source == NULL)
-    return false;
-
-  SDL_Rect destinationRect;
-
-  destinationRect.x = x;
-  destinationRect.y = y;
-
-  SDL_BlitSurface(source, NULL, destination, &destinationRect);
-
-  return true;
-}
-
-// The gamewindow with score and highscore
-bool GameWindow::loadGamewindow()
-{
-  if (!loadImage("gameWindow_withoutText.png"))
-    return false;
-
-  if (!drawSurface(screen, returnSurface, 0, 0))
-    return false;
-
-  return true;
-}
-
-bool GameWindow::runGame()
-{
-  if (!initSDL())
-    return false;
-
-  if (!loadGamewindow())
+  if ((testSurface = GameWindow::loadImage("gameWindow_withoutText.png")) == NULL)
     return false;
 
   while (running)
   {
-    while (SDL_PollEvent(&event))
-      onEvent(&event);
+    while (SDL_PollEvent(&SDLEvent))
+    {
+      onEvent(&SDLEvent);
+    }
+    GameWindow::drawSurface(displaySurface, testSurface, 0, 0);
+    SDL_Flip(displaySurface);
   }
 
-  cleanSDL();
+  GameWindow::cleanupSDL();
 
-  return true;
-}
-
-void GameWindow::onEvent(SDL_Event* event)
-{
-// Be able to close the window on the "X" button
-  if(event->type == SDL_QUIT)
-    running = false;
-}
-
-void GameWindow::cleanSDL()
-{
-//  SDL_FreeSurface(image);
-  SDL_Quit();
+  return 0;
 }
 
 int main()
 {
   GameWindow windoz;
   windoz.runGame();
-  bool asd;
-  asd = windoz.loadImage("gameWindow_withoutText.png");
-  if (asd)
-    std::cout << 2 << std::endl;
-
+  windoz.cleanupSDL();
   return 0;
 }
