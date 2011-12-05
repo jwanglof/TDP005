@@ -1,11 +1,27 @@
+#ifndef GAMEWINDOW_H_
+#define GAMEWINDOW_H_
+
 #include <iostream>
 #include <string>
+
+#include "SDL/SDL.h"
+#include "SDL/SDL_ttf.h"
+#include "SDL/SDL_image.h"
 
 class GameWindow
 {
 private:
-  int highscore;
-  int currentscore;
+  int gameHighscore;
+  int gameCurrentscore;
+
+  SDL_Surface* mainWindow;
+  SDL_Surface* tempSurface;
+  SDL_Surface* returnSurface;
+
+  SDL_Surface* message;
+  SDL_Surface* screen;
+
+  bool running;
 public:
   GameWindow();
   ~GameWindow();
@@ -13,7 +29,20 @@ public:
   int getHighscore();
   int getCurrentscore();
   
-  void setHighscore(int highscore const);
-  void setCurrentscore(int currentscore const);
+  void setHighscore(const int highscore);
+  void setCurrentscore(const int currentscore);
+
+  bool loadMenu();
+  bool loadGamewindow();
+  
+  bool initSDL();
+  void cleanSDL();
+  bool loadFont(const int size);
+  bool drawSurface(SDL_Surface* destination, SDL_Surface* source, int x, int y);
+  bool runGame();
+  static SDL_Surface* loadImage(std::string image);
+
+  void onEvent(SDL_Event* event);
 };
 
+#endif
