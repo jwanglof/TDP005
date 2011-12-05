@@ -25,7 +25,7 @@ private:
 
   bool running;
   SDL_Surface* displaySurface;
-  SDL_Surface* testSurface;
+  SDL_Surface* gameView;
 public:
   GameWindow();
   ~GameWindow();

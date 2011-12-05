@@ -3,7 +3,7 @@
 GameWindow::GameWindow()
 {
   displaySurface = NULL;
-  testSurface = NULL;
+  gameView = NULL;
 
   running = true;
 }
@@ -43,13 +43,13 @@ bool GameWindow::drawSurface(SDL_Surface* dest, SDL_Surface* src, int x, int y)
 void GameWindow::cleanupSDL()
 {
   SDL_FreeSurface(displaySurface);
-  SDL_FreeSurface(testSurface);
+  SDL_FreeSurface(gameView);
   SDL_Quit();
 }
 
 void GameWindow::renderSurface()
 {
-  GameWindow::drawSurface(displaySurface, testSurface, 0, 0);
+  GameWindow::drawSurface(displaySurface, gameView, 0, 0);
   SDL_Flip(displaySurface);
 }
 
@@ -69,7 +69,7 @@ int GameWindow::runGame()
   if ((displaySurface = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL)
     return false;
 
-  if ((testSurface = GameWindow::loadImage("gameWindow_withoutText.png")) == NULL)
+  if ((gameView = GameWindow::loadImage("gameWindow_withoutText.png")) == NULL)
     return false;
 
   while (running)
@@ -78,7 +78,7 @@ int GameWindow::runGame()
     {
       onEvent(&SDLEvent);
     }
-    GameWindow::drawSurface(displaySurface, testSurface, 0, 0);
+    GameWindow::drawSurface(displaySurface, gameView, 0, 0);
     SDL_Flip(displaySurface);
   }
 
