@@ -8,7 +8,7 @@ class Projectile : public Entity
 		double move_x, move_y;
 		double angle;
 	public:
-		Projectile(double start_x, double start_y);
+		Projectile(double, double, double, double);
 		~Projectile();
 
 		void move();

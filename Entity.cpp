@@ -30,7 +30,8 @@ SDL_Surface* Entity::loadSurface(std::string File)
  
     surface = SDL_DisplayFormat(Surf_Temp);
     SDL_SetColorKey(surface, SDL_SRCCOLORKEY | SDL_RLEACCEL, 
-		SDL_MapRGB(surface->format, 255, 255, 255));
+		SDL_MapRGB(surface->format, 255, 0, 0));
+
 
     SDL_FreeSurface(Surf_Temp);
 

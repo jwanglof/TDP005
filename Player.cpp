@@ -66,8 +66,7 @@ void Player::check_events(SDL_Event &event)
 	if (event.type == SDL_MOUSEBUTTONUP) {
 	// If the player clicks mouse1, shoot
 		if (event.button.button == SDL_BUTTON_LEFT) {
-			std::cout << "Clicked Mouse1" << std::endl;
-			Projectile *p = new Projectile(x, y);
+			Projectile *p = new Projectile(x, y, event.button.x, event.button.y);
 			projectiles.push_back(p);
 		}
 	}
