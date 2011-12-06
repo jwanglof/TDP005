@@ -1,13 +1,12 @@
 #include "Entity.h"
 
-Entity::Entity()
+Entity::Entity(std::string File)
 {
-	surface = NULL;
-	loadSurface("./mario.bmp");
-	right = false;
-
 	x = 0;
 	y = 0;
+
+	surface = loadSurface(File);
+	EntityList.push_back(this);
 }
 
 Entity::~Entity()
@@ -15,12 +14,18 @@ Entity::~Entity()
 	SDL_FreeSurface(surface);
 }
 
-bool Entity::loadSurface(std::string File)
+std::vector<Entity *> Entity::EntityList;
+
+/* SDL_Surface* Entity::get_surface() {
+	return surface;
+} */
+
+SDL_Surface* Entity::loadSurface(std::string File)
 {
     SDL_Surface* Surf_Temp = NULL;
+	SDL_Surface* surface = NULL;
  
     if((Surf_Temp = SDL_LoadBMP(File.c_str())) == NULL) {
-        return false;
     }
  
     surface = SDL_DisplayFormat(Surf_Temp);
@@ -29,22 +34,11 @@ bool Entity::loadSurface(std::string File)
 
     SDL_FreeSurface(Surf_Temp);
 
-	return true;
+	return surface;
 }
 
 void Entity::move()
-{ 
-
-	if (x > 500)
-		right = false;
-	else if (x < 0)
-		right = true;
-
-	if (right)
-		x++;
-	else
-		x--;
-}
+{ }
 
 void Entity::draw(SDL_Surface *destination)
 {

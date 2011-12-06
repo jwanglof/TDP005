@@ -1,3 +1,6 @@
+#ifndef ENTITY_H_
+#define ENTITY_H_
+
 #include "SDL/SDL.h"
 #include "SDL/SDL_ttf.h"
 #include "SDL/SDL_image.h"
@@ -8,19 +11,18 @@
 class Entity
 {
 	private:
-		static std::vector<Entity *> EntityList;
-		SDL_Surface *surface;
-		bool right;
+		SDL_Surface* surface;
 	public:
-		Entity();
+		Entity(std::string);
 		~Entity();
 
-		bool loadSurface(std::string File);
-		virtual void move();
+		virtual void move() = 0;
 		void draw(SDL_Surface*);
+		static std::vector<Entity *> EntityList;
+		SDL_Surface* loadSurface(std::string File);
 
-		float x;
-		float y;
-		int width;
-		int height;
+		double x;
+		double y;
 };
+
+#endif

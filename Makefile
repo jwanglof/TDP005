@@ -4,11 +4,14 @@ GameWindow : GameWindow.cpp GameWindow_score.o Player.o
 GameWindow_score.o : GameWindow_score.cpp
 	g++ -c GameWindow_score.cpp
 
-Player.o : Player.cpp Entity.o
-	g++ -c Player.cpp Entity.o
+Player.o : Player.cpp Projectile.o Entity.o
+	g++ -c Player.cpp Projectile.o Entity.o
+
+Projectile.o : Projectile.cpp Entity.o
+	g++ -c Projectile.cpp Entity.o
 
 Entity.o : Entity.cpp
 	g++ -c Entity.cpp
 
 clean :
-	rm GameWindow 
+	rm GameWindow *.o

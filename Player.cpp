@@ -1,70 +1,74 @@
 #include "Player.h"
 
-Player::Player()
+Player::Player() : Entity("./player.bmp")
 {
-	x = 0;
-	y = 0;
+	velocity = 4;
 
-	surface = NULL;
-	loadSurface("./player.bmp");
+	// A map for checking if key is pressed down, and move if it is
+	isPressed["SDLK_w"] = false;
+	isPressed["SDLK_a"] = false;
+	isPressed["SDLK_s"] = false;
+	isPressed["SDLK_d"] = false;
 }
 
 Player::~Player()
 {
-	SDL_FreeSurface(surface);
 }
 
-void Player::move(SDL_Event *event)
+void Player::move() {
+	// Move the player accordingly	
+	if (isPressed["SDLK_w"])
+		y -= velocity;
+	else if (isPressed["SDLK_s"])
+		y += velocity;
+
+	if (isPressed["SDLK_a"])
+		x -= velocity;
+	else if (isPressed["SDLK_d"])
+		x += velocity;
+
+	/*std::cout << "x: " << x << std::endl;
+	std::cout << "y: " << y << std::endl;*/
+}
+
+void Player::check_events(SDL_Event &event)
 {
+	// Get keyinput
+	// Check if it's pressed or released
 
-	switch (event->type) {
-    case SDL_KEYDOWN:
-      switch(event->key.keysym.sym){
-        case SDLK_LEFT:
-          x += -1;
-          break;
-        case SDLK_RIGHT:
-          x += 1;
-          break;
-        case SDLK_UP:
-          y += -1;
-          break;
-        case SDLK_DOWN:
-          y += 1;
-          break;
-        default:
-          break;
-       }
-       break;
-    case SDL_KEYUP:
-      switch(event->key.keysym.sym){
-        case SDLK_LEFT:
-          x += 0;
-          break;
-        case SDLK_RIGHT:
-          x += 0;
-          break;
-        case SDLK_UP:
-          y += 0;
-          break;
-        case SDLK_DOWN:
-          y += 0;
-          break;
-        default:
-          break;
-      }
-}
+	if (event.type == SDL_KEYDOWN) {
+		// Check up-down movement
+		if (event.key.keysym.sym == SDLK_w)
+			isPressed["SDLK_w"] = true;
+		else if (event.key.keysym.sym == SDLK_s)
+			isPressed["SDLK_s"] = true;
 
-	/*
-	// Check up-down movement
-	if (event->key.keysym.sym == SDLK_w)
-		y--;
-	else if (event->key.keysym.sym == SDLK_s)
-		y++;
+		// Check left-right movement
+		if (event.key.keysym.sym == SDLK_a)
+			isPressed["SDLK_a"] = true;
+		else if (event.key.keysym.sym == SDLK_d)
+			isPressed["SDLK_d"] = true;
+	}
+	else if (event.type == SDL_KEYUP) {
+		// Check up-down movement
+		if (event.key.keysym.sym == SDLK_w)
+			isPressed["SDLK_w"] = false;
+		else if (event.key.keysym.sym == SDLK_s)
+			isPressed["SDLK_s"] = false;
+		// Check left-right movement
+		if (event.key.keysym.sym == SDLK_a)
+			isPressed["SDLK_a"] = false;
+		else if (event.key.keysym.sym == SDLK_d)
+			isPressed["SDLK_d"] = false;
+	}
 
-	// Check left-right movement
-	if (event->key.keysym.sym == SDLK_d)
-		x++;
-	else if (event->key.keysym.sym == SDLK_a)
-		x--; */
+	// If you click one of the mouse-buttons
+	if (event.type == SDL_MOUSEBUTTONUP) {
+	// If the player clicks mouse1, shoot
+		if (event.button.button == SDL_BUTTON_LEFT) {
+			std::cout << "Clicked Mouse1" << std::endl;
+			Projectile *p = new Projectile(x, y);
+			projectiles.push_back(p);
+		}
+	}
 }

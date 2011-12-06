@@ -1,4 +1,5 @@
 #include "GameWindow.h"
+#include "Player.h"
 
 GameWindow::GameWindow()
 {
@@ -72,14 +73,36 @@ int GameWindow::runGame()
   if ((testSurface = GameWindow::loadImage("gameWindow_withoutText.png")) == NULL)
     return false;
 
+	Player *p = new Player();
+	std::vector<Entity *>::iterator it;
+	int x = 0;
+
   while (running)
   {
-    while (SDL_PollEvent(&SDLEvent))
-    {
-      onEvent(&SDLEvent);
-    }
+	// Get all events
+    while (SDL_PollEvent(&SDLEvent)) {
+    	onEvent(&SDLEvent);
+		p->check_events(SDLEvent);
+	}
+
+	x++;
+	//std::cout << "Number of Entities: " << Entity::EntityList.size() << std::endl;
+
+	// Move everything
+	it = Entity::EntityList.begin();
+	for (; it != Entity::EntityList.end(); it++) {
+		(*it)->move();
+	}
+	
+	// Draw all everything
     GameWindow::drawSurface(displaySurface, testSurface, 0, 0);
+	it = Entity::EntityList.begin();
+	for (; it != Entity::EntityList.end(); it++) {
+		(*it)->draw(displaySurface);
+	}
+
     SDL_Flip(displaySurface);
+	SDL_Delay(10);
   }
 
   GameWindow::cleanupSDL();

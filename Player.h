@@ -1,12 +1,18 @@
 #include "Entity.h"
+#include "Projectile.h"
+
+#include <map>
+#include <vector>
 
 class Player : public Entity
 {
 	private:
-		SDL_Surface *surface;
-		SDL_Event Event;
+		std::map<std::string, bool> isPressed;
+		std::vector<Projectile *> projectiles;
+		int velocity;
 	public:
-		void move(SDL_Event *event);
+		void move();
+		void check_events(SDL_Event&);
 		Player();
 		~Player();
 };
