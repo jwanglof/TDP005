@@ -1,4 +1,4 @@
-GameWindow : GameWindow.cpp GameWindow_score.o Player.o
+GameWindow : GameWindow.cpp GameWindow_score.o Player.o Enemy.o
 	g++ -o GameWindow -lSDL_ttf -lSDL_image GameWindow.cpp *.o
 
 GameWindow_score.o : GameWindow_score.cpp
@@ -6,6 +6,9 @@ GameWindow_score.o : GameWindow_score.cpp
 
 Player.o : Player.cpp Projectile.o Entity.o
 	g++ -c Player.cpp Projectile.o Entity.o
+
+Enemy.o : Enemy.cpp Entity.o
+	g++ -c Enemy.cpp Entity.o
 
 Projectile.o : Projectile.cpp Entity.o
 	g++ -c Projectile.cpp Entity.o

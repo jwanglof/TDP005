@@ -1,8 +1,15 @@
 #include "Player.h"
 
-Player::Player() : Entity("./player.bmp")
+Player::Player() : Entity("./player_new.bmp")
 {
 	velocity = 4;
+	// Init the player at this position
+	surfaceRectangle.x = 400;
+	surfaceRectangle.y = 300;
+
+	// Set collision rectangle
+	surfaceRectangle.h = 40;
+	surfaceRectangle.w = 40;
 
 	// A map for checking if key is pressed down, and move if it is
 	isPressed["SDLK_w"] = false;
@@ -18,17 +25,14 @@ Player::~Player()
 void Player::move() {
 	// Move the player accordingly	
 	if (isPressed["SDLK_w"])
-		y -= velocity;
+		surfaceRectangle.y -= velocity;
 	else if (isPressed["SDLK_s"])
-		y += velocity;
+		surfaceRectangle.y += velocity;
 
 	if (isPressed["SDLK_a"])
-		x -= velocity;
+		surfaceRectangle.x -= velocity;
 	else if (isPressed["SDLK_d"])
-		x += velocity;
-
-	/*std::cout << "x: " << x << std::endl;
-	std::cout << "y: " << y << std::endl;*/
+		surfaceRectangle.x += velocity;
 }
 
 void Player::check_events(SDL_Event &event)
@@ -66,8 +70,15 @@ void Player::check_events(SDL_Event &event)
 	if (event.type == SDL_MOUSEBUTTONUP) {
 	// If the player clicks mouse1, shoot
 		if (event.button.button == SDL_BUTTON_LEFT) {
-			Projectile *p = new Projectile(x, y, event.button.x, event.button.y);
-			projectiles.push_back(p);
+			new Projectile(surfaceRectangle.x + (surfaceRectangle.w / 2),
+				surfaceRectangle.y + (surfaceRectangle.h / 2), 
+				event.button.x, event.button.y);
 		}
 	}
+	// If player clicks mouse2, check if he has bombs left, and remove all entites except player
+}
+
+std::string Player::get_type()
+{
+	return "Player";
 }

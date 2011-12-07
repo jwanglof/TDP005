@@ -1,5 +1,6 @@
 #include "GameWindow.h"
 #include "Player.h"
+#include "Enemy.h"
 
 GameWindow::GameWindow()
 {
@@ -74,8 +75,8 @@ int GameWindow::runGame()
     return false;
 
 	Player *p = new Player();
-	std::vector<Entity *>::iterator it;
-	int x = 0;
+	std::list<Entity *>::iterator it;
+	Enemy *e = new Enemy(100, 100);
 
   while (running)
   {
@@ -85,8 +86,13 @@ int GameWindow::runGame()
 		p->check_events(SDLEvent);
 	}
 
-	x++;
-	//std::cout << "Number of Entities: " << Entity::EntityList.size() << std::endl;
+	// Check for collisions
+	it = Entity::EntityList.begin();
+	for (; it != Entity::EntityList.end(); it++) {
+		if ((*it)->hasCollided((*it)->surfaceRectangle, e->surfaceRectangle)
+			&& (*it)->get_type() != e->get_type())
+			std::cout << "TRÄFF!" << std::endl;
+	}
 
 	// Move everything
 	it = Entity::EntityList.begin();

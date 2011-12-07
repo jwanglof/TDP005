@@ -2,8 +2,9 @@
 
 Entity::Entity(std::string File)
 {
-	x = 0;
-	y = 0;
+	// Set collision-rectangle
+	surfaceRectangle.x = 0;
+	surfaceRectangle.y = 0;
 
 	surface = loadSurface(File);
 	EntityList.push_back(this);
@@ -14,11 +15,7 @@ Entity::~Entity()
 	SDL_FreeSurface(surface);
 }
 
-std::vector<Entity *> Entity::EntityList;
-
-/* SDL_Surface* Entity::get_surface() {
-	return surface;
-} */
+std::list<Entity *> Entity::EntityList;
 
 SDL_Surface* Entity::loadSurface(std::string File)
 {
@@ -41,12 +38,50 @@ SDL_Surface* Entity::loadSurface(std::string File)
 void Entity::move()
 { }
 
+std::string Entity::get_type()
+{ }
+
+bool Entity::hasCollided(SDL_Rect first, SDL_Rect second)
+{
+	// The sides of the recangle
+	int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+
+    //Calculate the sides of rect A
+    leftA = first.x;
+    rightA = first.x + first.w;
+    topA = first.y;
+    bottomA = first.y + first.h;
+        
+    //Calculate the sides of rect B
+    leftB = second.x;
+    rightB = second.x + second.w;
+    topB = second.y;
+    bottomB = second.y + second.h;
+
+	//If any of the sides from A are outside of B
+    if(bottomA <= topB) {
+        return false;
+    }
+    
+    if(topA >= bottomB) {
+        return false;
+    }
+    
+    if(rightA <= leftB) {
+        return false;
+    }
+    
+    if(leftA >= rightB) {
+        return false;
+    }
+
+	return true;
+}
+
 void Entity::draw(SDL_Surface *destination)
 {
-    SDL_Rect DestR;
- 
-    DestR.x = x;
-    DestR.y = y;
-
-    SDL_BlitSurface(surface, NULL, destination, &DestR);
+    SDL_BlitSurface(surface, NULL, destination, &surfaceRectangle);
 }

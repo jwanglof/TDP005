@@ -1,9 +1,14 @@
 #include "Projectile.h"
 
-Projectile::Projectile(double start_x, double start_y, double mouse_x, double mouse_y) : Entity("./shot.bmp") {
-	x = start_x;
-	y = start_y;
-	velocity = 5;
+Projectile::Projectile(double start_x, double start_y, double mouse_x, double mouse_y) : Entity("./shot_new.bmp") {
+
+	velocity = 8;
+	// Set start-positions and the size of the entity
+	surfaceRectangle.x = start_x;
+	surfaceRectangle.y = start_y;
+
+	surfaceRectangle.w = 3;
+	surfaceRectangle.h = 3;
 
 	// Calc how to walk for each loop
 	double delta_y = (mouse_y - start_y);
@@ -35,6 +40,11 @@ Projectile::~Projectile()
 void Projectile::move()
 { 
 	// Move the projectile
-	x += cos(angle) * velocity;
-	y -= sin(angle) * velocity;
+	surfaceRectangle.x += (cos(angle) * velocity);
+	surfaceRectangle.y -= (sin(angle) * velocity);
+}
+
+std::string Projectile::get_type()
+{
+	return "Projectile";
 }

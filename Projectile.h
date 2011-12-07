@@ -10,6 +10,7 @@ class Projectile : public Entity
 	public:
 		Projectile(double, double, double, double);
 		~Projectile();
+		std::string get_type();
 
 		void move();
 };
