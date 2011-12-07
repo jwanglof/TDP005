@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player() : Entity("./player_new.bmp")
+Player::Player() : Entity("./gfx/ghostie.bmp")
 {
 	velocity = 4;
 	// Init the player at this position

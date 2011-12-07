@@ -76,7 +76,6 @@ int GameWindow::runGame()
 
 	Player *p = new Player();
 	std::list<Entity *>::iterator it;
-	Enemy *e = new Enemy(100, 100);
 
   while (running)
   {
@@ -86,12 +85,21 @@ int GameWindow::runGame()
 		p->check_events(SDLEvent);
 	}
 
+	std::cout << Entity::EntityList.size() << std::endl;
+
 	// Check for collisions
 	it = Entity::EntityList.begin();
 	for (; it != Entity::EntityList.end(); it++) {
-		if ((*it)->hasCollided((*it)->surfaceRectangle, e->surfaceRectangle)
+		/* if ((*it)->hasCollided((*it)->surfaceRectangle, e->surfaceRectangle)
 			&& (*it)->get_type() != e->get_type())
-			std::cout << "TRÄFF!" << std::endl;
+			std::cout << "TRÄFF!" << std::endl; */
+	}
+
+	// Give all stalker-enemies the position of the player
+	std::list<Enemy *>::iterator enemy_iterator;
+	for (enemy_iterator = Enemy::enemyList.begin(); 
+			enemy_iterator != Enemy::enemyList.end(); enemy_iterator++) {
+		(*enemy_iterator)->set_chase(p->surfaceRectangle);
 	}
 
 	// Move everything

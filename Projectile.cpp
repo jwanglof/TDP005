@@ -1,6 +1,6 @@
 #include "Projectile.h"
 
-Projectile::Projectile(double start_x, double start_y, double mouse_x, double mouse_y) : Entity("./shot_new.bmp") {
+Projectile::Projectile(double start_x, double start_y, double mouse_x, double mouse_y) : Entity("./gfx/shot.bmp") {
 
 	velocity = 8;
 	// Set start-positions and the size of the entity
