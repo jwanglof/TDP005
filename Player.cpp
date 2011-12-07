@@ -24,14 +24,14 @@ Player::~Player()
 
 void Player::move() {
 	// Move the player accordingly	
-	if (isPressed["SDLK_w"])
+	if (isPressed["SDLK_w"] && surfaceRectangle.y > 0)
 		surfaceRectangle.y -= velocity;
-	else if (isPressed["SDLK_s"])
+	else if (isPressed["SDLK_s"] && surfaceRectangle.y < (600 - surfaceRectangle.h))
 		surfaceRectangle.y += velocity;
 
-	if (isPressed["SDLK_a"])
+	if (isPressed["SDLK_a"] && surfaceRectangle.x > 0)
 		surfaceRectangle.x -= velocity;
-	else if (isPressed["SDLK_d"])
+	else if (isPressed["SDLK_d"] && surfaceRectangle.x < (800 - surfaceRectangle.w))
 		surfaceRectangle.x += velocity;
 }
 

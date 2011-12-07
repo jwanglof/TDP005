@@ -42,6 +42,7 @@ void Projectile::move()
 	// Move the projectile
 	surfaceRectangle.x += (cos(angle) * velocity);
 	surfaceRectangle.y -= (sin(angle) * velocity);
+
 }
 
 std::string Projectile::get_type()

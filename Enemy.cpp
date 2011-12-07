@@ -36,8 +36,10 @@ void Enemy::move()
 		angle = -((atan(delta_y / delta_x)) - PI/2) + (PI * 1.5);
 
 	// Move the enemy
-	surfaceRectangle.x += (cos(angle) * velocity);
-	surfaceRectangle.y -= (sin(angle) * velocity);
+	if (surfaceRectangle.x < 800)
+		surfaceRectangle.x += (cos(angle) * velocity);
+	if (!surfaceRectangle.y < 600)
+		surfaceRectangle.y -= (sin(angle) * velocity);
 
 }
 

@@ -57,6 +57,7 @@ void GameWindow::renderSurface()
 
 void GameWindow::onEvent(SDL_Event* eventInput)
 {
+	// Check if the player has paused the game
   if (eventInput->type == SDL_QUIT)
     running = false;
 }
@@ -76,6 +77,7 @@ int GameWindow::runGame()
 
 	Player *p = new Player();
 	std::list<Entity *>::iterator it;
+	new Enemy(100, 100);
 
   while (running)
   {
@@ -85,7 +87,7 @@ int GameWindow::runGame()
 		p->check_events(SDLEvent);
 	}
 
-	std::cout << Entity::EntityList.size() << std::endl;
+	std::cout << "Number of entities: " << Entity::EntityList.size() << std::endl;
 
 	// Check for collisions
 	it = Entity::EntityList.begin();
@@ -105,10 +107,21 @@ int GameWindow::runGame()
 	// Move everything
 	it = Entity::EntityList.begin();
 	for (; it != Entity::EntityList.end(); it++) {
+		// Move every entity
 		(*it)->move();
+
+		// Check if remove any Projectiles
+		if ((*it)->get_type() == "Projectile") {
+			if (((*it)->surfaceRectangle.x < 0 || (*it)->surfaceRectangle.x > 800) ||
+				((*it)->surfaceRectangle.y < 0 || (*it)->surfaceRectangle.y > 600)) {
+				Entity *del = *it;
+				it = Entity::EntityList.erase(it);
+				delete del;
+			}
+		}
 	}
 	
-	// Draw all everything
+	// Draw everything
     GameWindow::drawSurface(displaySurface, testSurface, 0, 0);
 	it = Entity::EntityList.begin();
 	for (; it != Entity::EntityList.end(); it++) {
