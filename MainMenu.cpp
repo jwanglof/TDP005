@@ -40,19 +40,19 @@ SDL_Surface* MainMenu::Init(const char* title, int width, int height, int bpp)
 
 void MainMenu::HandleEvents(SDL_Event &event)
 {
-  if (SDL_PollEvent(&event))
+  while (SDL_PollEvent(&event))
   {
     switch (event.type)
     {
       case SDL_KEYDOWN:
         switch (event.key.keysym.sym)
         {
-          case SDLK_UP:
+          case SDLK_w:
             if (getMenuMovementY() <= 310)
               setMenuMovementY(400);
             setMenuMovementY(getMenuMovementY() - 30);
             break;
-          case SDLK_DOWN:
+          case SDLK_s:
             if (getMenuMovementY() >= 370)
               setMenuMovementY(280);
             setMenuMovementY(getMenuMovementY() + 30);
@@ -61,8 +61,9 @@ void MainMenu::HandleEvents(SDL_Event &event)
 			// If you wanna start the game
 			if (getMenuMovementY() == 310) {
 				std::cout << "Starting game" << std::endl;
-				GameWindow r(screen, event);
-				r.runGame();
+				GameWindow *r = new GameWindow(screen, event);
+				r->runGame();
+				delete r;
 			}
 			// If you wanna check the highscore
 			else if (getMenuMovementY() == 340) {
@@ -134,8 +135,8 @@ void MainMenu::RunMenu()
     SDL_FillRect(screen, NULL, 0x000000);
 
     // The title and subtitle
-    DrawText(screen, "SUPER", 100, 150, 51, 108, 184);
-    DrawText(screen, "Super    Unique    Death    Efficient    Rally", 16, 260, 176, 54, 56);
+    DrawText(screen, "SUPER", 137, 120, 51, 108, 184);
+    DrawText(screen, "Super    Unique    Death    Efficient    Rally", 25, 260, 176, 54, 56);
     
     // The menu entries
     if (getMenuMovementY() == 310)

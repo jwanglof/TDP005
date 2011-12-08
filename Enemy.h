@@ -10,6 +10,7 @@ class Enemy : public Entity
 		Enemy(double, double);
 		~Enemy();
 
+		//bool hasCollided(SDL_Rect);
 		static std::list<Enemy *> enemyList;
 		void move();
 		void set_chase(SDL_Rect);

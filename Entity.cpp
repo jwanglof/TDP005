@@ -41,7 +41,7 @@ void Entity::move()
 std::string Entity::get_type()
 { }
 
-bool Entity::hasCollided(SDL_Rect first, SDL_Rect second)
+bool Entity::hasCollided(SDL_Rect second)
 {
 	// The sides of the recangle
 	int leftA, leftB;
@@ -50,10 +50,10 @@ bool Entity::hasCollided(SDL_Rect first, SDL_Rect second)
     int bottomA, bottomB;
 
     //Calculate the sides of rect A
-    leftA = first.x;
-    rightA = first.x + first.w;
-    topA = first.y;
-    bottomA = first.y + first.h;
+    leftA = surfaceRectangle.x;
+    rightA = surfaceRectangle.x + surfaceRectangle.w;
+    topA = surfaceRectangle.y;
+    bottomA = surfaceRectangle.y + surfaceRectangle.h;
         
     //Calculate the sides of rect B
     leftB = second.x;

@@ -18,7 +18,7 @@ class Entity
 		~Entity();
 
 		// Check collision between two objects  (takes SDL_Rect from other class)
-		bool hasCollided(SDL_Rect, SDL_Rect);
+		virtual bool hasCollided(SDL_Rect);
 		virtual void move() = 0;
 		void draw(SDL_Surface*);
 		static std::list<Entity *> EntityList;

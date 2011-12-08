@@ -3,6 +3,8 @@
 Player::Player() : Entity("./gfx/ghostie.bmp")
 {
 	velocity = 4;
+	lives = 3;
+
 	// Init the player at this position
 	surfaceRectangle.x = 400;
 	surfaceRectangle.y = 300;
@@ -81,4 +83,14 @@ void Player::check_events(SDL_Event &event)
 std::string Player::get_type()
 {
 	return "Player";
+}
+
+int Player::get_lives() const
+{
+	return lives;
+}
+
+void Player::set_lives(int i)
+{
+	lives += i;
 }

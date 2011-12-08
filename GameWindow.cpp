@@ -6,7 +6,9 @@ GameWindow::GameWindow(SDL_Surface* screen, SDL_Event& events)
 {
   displaySurface = screen;
   SDLEvent = events;
-  testSurface = NULL;
+  numberOfEnemies = 4;
+  heartSurface = loadImage("./gfx/heart.png");
+  
 
   running = true;
 }
@@ -45,14 +47,8 @@ bool GameWindow::drawSurface(SDL_Surface* dest, SDL_Surface* src, int x, int y)
 
 void GameWindow::cleanupSDL()
 {
-  SDL_FreeSurface(displaySurface);
-  SDL_FreeSurface(testSurface);
-}
-
-void GameWindow::renderSurface()
-{
-  GameWindow::drawSurface(displaySurface, testSurface, 0, 0);
-  SDL_Flip(displaySurface);
+  Entity::EntityList.clear();
+  Enemy::enemyList.clear();
 }
 
 void GameWindow::onEvent(SDL_Event* eventInput)
@@ -60,10 +56,38 @@ void GameWindow::onEvent(SDL_Event* eventInput)
 	// Check for keyboard events
 	if (eventInput->type == SDL_KEYDOWN) {
 		// If escape, exit gameloop
-		if (eventInput->key.keysym.sym == SDLK_ESCAPE) {
+		if (eventInput->key.keysym.sym == SDLK_ESCAPE)
 			running = false;
-		}
+		/*else if (eventInput->key.keysym.sym == SDLK_j)
+			spawnEnemy();*/
 	}
+}
+
+// Spawn an enemy
+void GameWindow::spawnEnemy(int x, int y)
+{
+	if (x > 750)
+		x = 600;
+	if (y > 550)
+		y = 400;
+
+	int spawnDistance = 200;
+
+	// Randomize some coordinates that's < 100px from the edge
+	if (rand() % 2 == 0 && (x - spawnDistance > 0))
+		x -= spawnDistance;
+	else 
+		x += spawnDistance;
+
+	if (rand() % 2 == 0 && (y - spawnDistance > 0))
+		y -= spawnDistance;
+	else 
+		y += spawnDistance;
+
+	//std::cout << "x: " << x << std::endl;
+	//std::cout << "y: " << y << std::endl;
+
+	new Enemy(x, y);
 }
 
 int GameWindow::runGame()
@@ -75,14 +99,10 @@ int GameWindow::runGame()
   if ((displaySurface = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL)
     return false;
 
-  if ((testSurface = GameWindow::loadImage("gameWindow_withoutText.png")) == NULL)
-    return false;
-
 	Player *p = new Player();
 	std::list<Entity *>::iterator it;
-	new Enemy(100, 100);
 
-  while (running)
+  while (running && p->get_lives() > 0)
   {
 	// Get all events
     while (SDL_PollEvent(&SDLEvent)) {
@@ -90,14 +110,72 @@ int GameWindow::runGame()
 		p->check_events(SDLEvent);
 	}
 
-	std::cout << "Number of entities: " << Entity::EntityList.size() << std::endl;
+	//std::cout << Entity::EntityList.size() << std::endl;
+
+	// Set max enemys on the playfield
+	if (Enemy::enemyList.size() <= numberOfEnemies)
+		spawnEnemy(p->surfaceRectangle.x, p->surfaceRectangle.y);
 
 	// Check for collisions
-	it = Entity::EntityList.begin();
-	for (; it != Entity::EntityList.end(); it++) {
-		/* if ((*it)->hasCollided((*it)->surfaceRectangle, e->surfaceRectangle)
-			&& (*it)->get_type() != e->get_type())
-			std::cout << "TRÄFF!" << std::endl; */
+	for (it = Entity::EntityList.begin(); it != Entity::EntityList.end(); it++) {
+		/* if ((*it)->hasCollided((*it)->surfaceRectangle, e->surfaceRectangle) && (*it)->get_type() != e->get_type()) {
+			Entity *del = *it;
+			it = Entity::EntityList.erase(it);
+			delete del;
+		} */
+		if (Enemy::enemyList.size() != 0)
+		{
+			std::list<Enemy *>::iterator eit = Enemy::enemyList.begin();
+			for (; eit != Enemy::enemyList.end(); eit++) 
+			{
+				// If a projectile collides with an enemy
+				if ((*it)->get_type() == "Projectile" && (*eit)->hasCollided((*it)->surfaceRectangle)) 
+				{
+					// Delete the projectile
+					Entity *del = *it;
+					it = Entity::EntityList.erase(it);
+					delete del;
+	
+					// Find and delete the enemy from the Entity- and Enemylist
+					std::list<Entity*>::iterator it2 = Entity::EntityList.begin();
+					for (; it2 != Entity::EntityList.end(); it2++) {
+						if (*it2 == *eit) 
+						{
+							Entity *del2 = *it2;
+							eit = Enemy::enemyList.erase(eit);
+							it2 = Entity::EntityList.erase(it2);
+							delete del2;
+							it = Entity::EntityList.begin();
+						}
+					}
+
+				/*Enemy *enemy_del = *eit;
+				std::cerr << "3" << std::endl;
+				eit = Enemy::enemyList.erase(eit);
+				std::cerr << "4" << std::endl;
+
+				std::cerr << "5" << std::endl;
+				delete enemy_del;
+				std::cerr << "6" << std::endl; */
+				}
+				else if ((*eit)->hasCollided(p->surfaceRectangle)) {
+					std::list<Entity*>::iterator it2 = Entity::EntityList.begin();
+					for (; it2 != Entity::EntityList.end(); it2++) {
+						if (*it2 == *eit) 
+						{
+							Entity *del2 = *it2;
+							eit = Enemy::enemyList.erase(eit);
+							it2 = Entity::EntityList.erase(it2);
+							delete del2;
+							it = Entity::EntityList.begin();
+							p->set_lives(-1);
+							std::cout << p->get_lives() << std::endl;
+						}
+					}
+				} // Ends If
+
+			}
+		}
 	}
 
 	// Give all stalker-enemies the position of the player
@@ -105,6 +183,7 @@ int GameWindow::runGame()
 	for (enemy_iterator = Enemy::enemyList.begin(); 
 			enemy_iterator != Enemy::enemyList.end(); enemy_iterator++) {
 		(*enemy_iterator)->set_chase(p->surfaceRectangle);
+		//std::cout << (*enemy_iterator)->surfaceRectangle.x << " | y: " << (*enemy_iterator)->surfaceRectangle.y << std::endl;
 	}
 
 	// Move everything
@@ -123,16 +202,23 @@ int GameWindow::runGame()
 			}
 		}
 	}
+
 	
+	// Draw background
+    SDL_FillRect(displaySurface, NULL, 0x000000);
+
+	// Draw the hearts
+	for (int i = 0; i < p->get_lives(); i++)
+		drawSurface(displaySurface, heartSurface, 60*i, 10);
+
 	// Draw everything
-    GameWindow::drawSurface(displaySurface, testSurface, 0, 0);
 	it = Entity::EntityList.begin();
 	for (; it != Entity::EntityList.end(); it++) {
 		(*it)->draw(displaySurface);
 	}
 
     SDL_Flip(displaySurface);
-	SDL_Delay(10);
+	SDL_Delay(1000/100);
   }
 
   GameWindow::cleanupSDL();

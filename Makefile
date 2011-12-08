@@ -20,4 +20,4 @@ Entity.o : Entity.cpp
 	g++ -c Entity.cpp
 
 clean :
-	rm GameWindow *.o
+	rm Super *.o

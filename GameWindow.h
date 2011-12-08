@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <cstdlib>
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_ttf.h"
@@ -13,6 +14,7 @@ class GameWindow
 private:
   int gameHighscore;
   int gameCurrentscore;
+  int numberOfEnemies;
 
   SDL_Event SDLEvent;
 
@@ -25,9 +27,11 @@ private:
 
   bool running;*/
 
+  void spawnEnemy(int, int);
+
   bool running;
   SDL_Surface* displaySurface;
-  SDL_Surface* testSurface;
+  SDL_Surface* heartSurface;
 public:
   GameWindow(SDL_Surface*, SDL_Event&);
   ~GameWindow();
@@ -42,8 +46,6 @@ public:
   static bool drawSurface(SDL_Surface* dest, SDL_Surface* src, int x, int y);
 
   void cleanupSDL();
-
-  void renderSurface();
 
   int runGame();
 
