@@ -1,5 +1,8 @@
-GameWindow : GameWindow.cpp GameWindow_score.o Player.o Enemy.o
-	g++ -o GameWindow -lSDL_ttf -lSDL_image GameWindow.cpp *.o
+Super : MainMenu.cpp GameWindow.o
+	g++ -o Super -lSDL_ttf -lSDL_image MainMenu.cpp *.o
+
+GameWindow.o : GameWindow.cpp GameWindow_score.o Player.o Enemy.o
+	g++ -c -lSDL_ttf -lSDL_image GameWindow.cpp *.o
 
 GameWindow_score.o : GameWindow_score.cpp
 	g++ -c GameWindow_score.cpp

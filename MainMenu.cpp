@@ -57,6 +57,26 @@ void MainMenu::HandleEvents(SDL_Event &event)
               setMenuMovementY(280);
             setMenuMovementY(getMenuMovementY() + 30);
             break;
+		  case SDLK_SPACE:
+			// If you wanna start the game
+			if (getMenuMovementY() == 310) {
+				std::cout << "Starting game" << std::endl;
+				GameWindow r(screen, event);
+				r.runGame();
+			}
+			// If you wanna check the highscore
+			else if (getMenuMovementY() == 340) {
+				std::cout << "Yet to be implemented." << std::endl;
+			}
+			// If you wanna quit the game
+			else if (getMenuMovementY() == 370) {
+				run = false;
+				
+ 				SDL_FreeSurface(screen);
+				SDL_Quit();
+				std::cout << "Game successfully exited." << std::endl;
+			}
+			break;
         }
     }
   }
@@ -114,11 +134,6 @@ void MainMenu::RunMenu()
 {
   while(run)
   {
-    SDL_Event MenuEvent;
-
-    SDL_Delay(10);
-    SDL_Flip(screen);
-
     // Set the background to black
     SDL_FillRect(screen, NULL, 0x000000);
 
@@ -145,14 +160,16 @@ void MainMenu::RunMenu()
     // Draw the "choose arrow" in the menu
     DrawMenuArrow(screen, getMenuMovementY());
 
+    SDL_Delay(10);
+    SDL_Flip(screen);
+
     HandleEvents(MenuEvent);
+
   }
 }
 
-/*
 int main()
 {
   MainMenu asd;
   return 0;
 }
-*/

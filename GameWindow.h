@@ -14,6 +14,8 @@ private:
   int gameHighscore;
   int gameCurrentscore;
 
+  SDL_Event SDLEvent;
+
 /*  SDL_Surface* mainWindow;
   SDL_Surface* tempSurface;
   SDL_Surface* returnSurface;
@@ -27,7 +29,7 @@ private:
   SDL_Surface* displaySurface;
   SDL_Surface* testSurface;
 public:
-  GameWindow();
+  GameWindow(SDL_Surface*, SDL_Event&);
   ~GameWindow();
 
   int getHighscore();

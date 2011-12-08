@@ -9,6 +9,7 @@ class MainMenu
 private:  
   SDL_Surface* screen;
   bool run;
+  SDL_Event MenuEvent;
   int menuMovementY;
 public:
   MainMenu();

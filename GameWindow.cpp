@@ -2,9 +2,10 @@
 #include "Player.h"
 #include "Enemy.h"
 
-GameWindow::GameWindow()
+GameWindow::GameWindow(SDL_Surface* screen, SDL_Event& events)
 {
-  displaySurface = NULL;
+  displaySurface = screen;
+  SDLEvent = events;
   testSurface = NULL;
 
   running = true;
@@ -64,7 +65,6 @@ void GameWindow::onEvent(SDL_Event* eventInput)
 
 int GameWindow::runGame()
 {
-  SDL_Event SDLEvent;
 
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     return false;
@@ -137,10 +137,10 @@ int GameWindow::runGame()
   return 0;
 }
 
-int main()
+/*int main()
 {
   GameWindow windoz;
   windoz.runGame();
   windoz.cleanupSDL();
   return 0;
-}
+}*/
