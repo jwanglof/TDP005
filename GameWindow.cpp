@@ -47,7 +47,6 @@ void GameWindow::cleanupSDL()
 {
   SDL_FreeSurface(displaySurface);
   SDL_FreeSurface(testSurface);
-  SDL_Quit();
 }
 
 void GameWindow::renderSurface()
@@ -58,9 +57,13 @@ void GameWindow::renderSurface()
 
 void GameWindow::onEvent(SDL_Event* eventInput)
 {
-	// Check if the player has paused the game
-  if (eventInput->type == SDL_QUIT)
-    running = false;
+	// Check for keyboard events
+	if (eventInput->type == SDL_KEYDOWN) {
+		// If escape, exit gameloop
+		if (eventInput->key.keysym.sym == SDLK_ESCAPE) {
+			running = false;
+		}
+	}
 }
 
 int GameWindow::runGame()
