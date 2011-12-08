@@ -1,14 +1,14 @@
 #include "GameWindow.h"
 #include "Player.h"
-#include "Enemy.h"
+#include "Stalker.h"
+#include "Dodger.h"
 
 GameWindow::GameWindow(SDL_Surface* screen, SDL_Event& events)
 {
   displaySurface = screen;
   SDLEvent = events;
-  numberOfEnemies = 4;
   heartSurface = loadImage("./gfx/heart.png");
-  
+  numberOfEnemies = 14;
 
   running = true;
 }
@@ -87,7 +87,10 @@ void GameWindow::spawnEnemy(int x, int y)
 	//std::cout << "x: " << x << std::endl;
 	//std::cout << "y: " << y << std::endl;
 
-	new Enemy(x, y);
+	if (rand() % 2 == 0)
+		new Stalker(x, y);
+	else
+		new Dodger(x, y);
 }
 
 int GameWindow::runGame()
@@ -110,19 +113,13 @@ int GameWindow::runGame()
 		p->check_events(SDLEvent);
 	}
 
-	//std::cout << Entity::EntityList.size() << std::endl;
-
 	// Set max enemys on the playfield
 	if (Enemy::enemyList.size() <= numberOfEnemies)
 		spawnEnemy(p->surfaceRectangle.x, p->surfaceRectangle.y);
 
 	// Check for collisions
-	for (it = Entity::EntityList.begin(); it != Entity::EntityList.end(); it++) {
-		/* if ((*it)->hasCollided((*it)->surfaceRectangle, e->surfaceRectangle) && (*it)->get_type() != e->get_type()) {
-			Entity *del = *it;
-			it = Entity::EntityList.erase(it);
-			delete del;
-		} */
+	for (it = Entity::EntityList.begin(); it != Entity::EntityList.end(); it++) 
+	{
 		if (Enemy::enemyList.size() != 0)
 		{
 			std::list<Enemy *>::iterator eit = Enemy::enemyList.begin();
@@ -149,15 +146,8 @@ int GameWindow::runGame()
 						}
 					}
 
-				/*Enemy *enemy_del = *eit;
-				std::cerr << "3" << std::endl;
-				eit = Enemy::enemyList.erase(eit);
-				std::cerr << "4" << std::endl;
-
-				std::cerr << "5" << std::endl;
-				delete enemy_del;
-				std::cerr << "6" << std::endl; */
 				}
+				// If the enemy collided with the player
 				else if ((*eit)->hasCollided(p->surfaceRectangle)) {
 					std::list<Entity*>::iterator it2 = Entity::EntityList.begin();
 					for (; it2 != Entity::EntityList.end(); it2++) {
@@ -182,8 +172,33 @@ int GameWindow::runGame()
 	std::list<Enemy *>::iterator enemy_iterator;
 	for (enemy_iterator = Enemy::enemyList.begin(); 
 			enemy_iterator != Enemy::enemyList.end(); enemy_iterator++) {
-		(*enemy_iterator)->set_chase(p->surfaceRectangle);
-		//std::cout << (*enemy_iterator)->surfaceRectangle.x << " | y: " << (*enemy_iterator)->surfaceRectangle.y << std::endl;
+		if ((*enemy_iterator)->get_type() == "Stalker") {
+			(*enemy_iterator)->set_chase(p->surfaceRectangle);
+		}
+		else if ((*enemy_iterator)->get_type() == "Dodger") {
+			it = Entity::EntityList.begin();
+
+			SDL_Rect dodge;
+			// Check if there's an projectile on the screen
+			for (it = Entity::EntityList.begin(); it != Entity::EntityList.end(); it++) {
+				if ((*it)->get_type() == "Projectile") {
+					dodge = (*it)->surfaceRectangle;
+				}
+			}
+
+			// If there's prjectiles on the screen, else chase player
+			Dodger *d = dynamic_cast<Dodger*>(*enemy_iterator);
+			if (dodge.x != 0 && abs(dodge.x - (*enemy_iterator)->surfaceRectangle.x) < 50 || 
+				dodge.y != 0 && abs(dodge.y - (*enemy_iterator)->surfaceRectangle.y) < 50)  {
+					d->set_dodge(true);
+					(*enemy_iterator)->set_chase(dodge);
+			}
+			else {
+				d->set_dodge(false);
+				(*enemy_iterator)->set_chase(p->surfaceRectangle);
+			}
+
+		}
 	}
 
 	// Move everything
@@ -203,7 +218,6 @@ int GameWindow::runGame()
 		}
 	}
 
-	
 	// Draw background
     SDL_FillRect(displaySurface, NULL, 0x000000);
 
@@ -218,7 +232,7 @@ int GameWindow::runGame()
 	}
 
     SDL_Flip(displaySurface);
-	SDL_Delay(1000/100);
+	SDL_Delay(1000/60);
   }
 
   GameWindow::cleanupSDL();

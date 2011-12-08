@@ -1,3 +1,6 @@
+#ifndef ENEMY_H_
+#define ENEMY_H_
+
 #include "Entity.h"
 #include <cmath>
 
@@ -7,12 +10,14 @@ class Enemy : public Entity
 		int velocity;
 		SDL_Rect chase;
 	public:
-		Enemy(double, double);
+		Enemy(std::string);
 		~Enemy();
 
 		//bool hasCollided(SDL_Rect);
 		static std::list<Enemy *> enemyList;
-		void move();
-		void set_chase(SDL_Rect);
-		std::string get_type();
+		virtual void move() = 0;
+		virtual void set_chase(SDL_Rect) = 0;
+		virtual std::string get_type() = 0;
 };
+
+#endif
