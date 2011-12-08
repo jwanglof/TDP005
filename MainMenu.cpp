@@ -71,10 +71,6 @@ void MainMenu::HandleEvents(SDL_Event &event)
 			// If you wanna quit the game
 			else if (getMenuMovementY() == 370) {
 				run = false;
-				
- 				SDL_FreeSurface(screen);
-				SDL_Quit();
-				std::cout << "Game successfully exited." << std::endl;
 			}
 			break;
         }
@@ -166,6 +162,10 @@ void MainMenu::RunMenu()
     HandleEvents(MenuEvent);
 
   }
+
+	SDL_FreeSurface(screen);
+	SDL_Quit();
+	std::cout << "Game successfully exited." << std::endl;
 }
 
 int main()
