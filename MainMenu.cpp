@@ -3,7 +3,8 @@
 MainMenu::MainMenu()
 {
   screen = Init("SUPER", 800, 600, 32);
-  RunMenu();
+	RunNickname();
+//  RunMenu();
 }
 
 MainMenu::~MainMenu()
@@ -52,28 +53,67 @@ void MainMenu::HandleEvents(SDL_Event &event)
               setMenuMovementY(400);
             setMenuMovementY(getMenuMovementY() - 30);
             break;
+
           case SDLK_s:
             if (getMenuMovementY() >= 370)
               setMenuMovementY(280);
             setMenuMovementY(getMenuMovementY() + 30);
             break;
-		  case SDLK_SPACE:
-			// If you wanna start the game
-			if (getMenuMovementY() == 310) {
-				std::cout << "Starting game" << std::endl;
-				GameWindow *r = new GameWindow(screen, event);
-				r->runGame();
-				delete r;
-			}
-			// If you wanna check the highscore
-			else if (getMenuMovementY() == 340) {
-				std::cout << "Yet to be implemented." << std::endl;
-			}
-			// If you wanna quit the game
-			else if (getMenuMovementY() == 370) {
-				run = false;
-			}
-			break;
+
+          case SDLK_UP:
+            if (getMenuMovementY() <= 310)
+              setMenuMovementY(400);
+            setMenuMovementY(getMenuMovementY() - 30);
+            break;
+
+          case SDLK_DOWN:
+            if (getMenuMovementY() >= 370)
+              setMenuMovementY(280);
+            setMenuMovementY(getMenuMovementY() + 30);
+            break;
+
+					case SDLK_SPACE:
+						// If you wanna start the game
+						if (getMenuMovementY() == 310) {
+							std::cout << "Starting game" << std::endl;
+							GameWindow *r = new GameWindow(screen, event);
+							r->runGame(getNickname());
+							delete r;
+						}
+						// If you wanna check the highscore
+						else if (getMenuMovementY() == 340) {
+							std::cout << "Yet to be implemented." << std::endl;
+						}
+						// If you wanna quit the game
+						else if (getMenuMovementY() == 370) {
+							run = false;
+						}
+						break;
+
+					case SDLK_RETURN:
+						// If you wanna start the game
+						if (getMenuMovementY() == 310) {
+							std::cout << "Starting game" << std::endl;
+							GameWindow *r = new GameWindow(screen, event);
+							r->runGame(getNickname());
+							delete r;
+						}
+						// If you wanna check the highscore
+						else if (getMenuMovementY() == 340) {
+							Highscore *s = new Highscore(screen);
+							s->runHighscore();
+							delete s;
+//							std::cout << "Yet to be implemented." << std::endl;
+						}
+						// If you wanna quit the game
+						else if (getMenuMovementY() == 370) {
+							run = false;
+						}
+						break;
+
+					case SDLK_ESCAPE:
+						run = false;
+						break;
         }
     }
   }
@@ -103,7 +143,7 @@ void MainMenu::DrawMenuArrow(SDL_Surface* src, const int y)
   SDL_FillRect(src, &rect9, 0xFFFFFF);
 }
 
-void MainMenu::DrawText(SDL_Surface* src, const char* funcText, int size, int y, Uint8 R, Uint8 G, Uint8 B)
+void MainMenu::DrawText(SDL_Surface* src, const std::string funcText, int size, int y, Uint8 R, Uint8 G, Uint8 B)
 {
 /*
  * Blue for the menu: 51, 108, 184
@@ -113,11 +153,11 @@ void MainMenu::DrawText(SDL_Surface* src, const char* funcText, int size, int y,
   SDL_Color color = {R, G, B};
 
   TTF_Font* font = TTF_OpenFont("fonts/m06.TTF", size);
-  SDL_Surface* text = TTF_RenderText_Blended(font, funcText, color);
+  SDL_Surface* text = TTF_RenderText_Blended(font, funcText.c_str(), color);
 
   // To get the width in pixels of the text
   int width, height;
-  TTF_SizeText(font, funcText, &width, &height);
+  TTF_SizeText(font, funcText.c_str(), &width, &height);
 
   SDL_Rect rect;
   rect.x = (src->w - width) / 2;
@@ -160,13 +200,80 @@ void MainMenu::RunMenu()
     SDL_Delay(10);
     SDL_Flip(screen);
 
-    HandleEvents(MenuEvent);
+    HandleEvents(Events);
 
   }
 
 	SDL_FreeSurface(screen);
 	SDL_Quit();
 	std::cout << "Game successfully exited." << std::endl;
+}
+
+
+void MainMenu::RunNickname()
+{
+	while(run)
+	{
+    // Set the background to black
+    SDL_FillRect(screen, NULL, 0x000000);
+
+		DrawText(screen, "Initials    plz", 50, 100, 51, 108, 184);
+
+		// Events to write the nick and what will happen afterwards
+		while (SDL_PollEvent(&Events))
+		{
+			if (Events.type == SDL_KEYDOWN)
+			{
+				if (nickname.size() < 3)
+				{
+					if ((Uint16)Events.key.keysym.sym >= 97 && (Uint16)Events.key.keysym.sym <= 122)
+					{
+						nickname += toupper((Uint16)Events.key.keysym.sym);
+					}
+				}
+				else
+				{
+					if (Events.key.keysym.sym == SDLK_y)
+					{
+						RunMenu();
+					}
+				}
+
+				if (Events.key.keysym.sym == SDLK_ESCAPE)
+				{
+					run = false;
+				}
+				if (Events.key.keysym.sym == SDLK_BACKSPACE)
+				{
+					nickname.erase(nickname.size()-1);
+				}
+			}
+		}
+
+		DrawText(screen, nickname, 30, 200, 255, 255, 0);
+
+		if (nickname.length() == 3)
+		{
+			DrawText(screen, "Proceed    with    '"+ nickname +"'?", 20, 450, 255, 0, 0);
+			DrawText(screen, "Y    /    Backspace", 20, 500, 255, 0, 255);
+		}
+
+		SDL_Delay(10);
+		SDL_Flip(screen);
+	}
+
+	SDL_FreeSurface(screen);
+	SDL_Quit();
+}
+
+void MainMenu::setNickname(std::string nick)
+{
+	nickname = nick;
+}
+
+std::string MainMenu::getNickname()
+{
+	return nickname;
 }
 
 int main()

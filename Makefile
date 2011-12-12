@@ -1,7 +1,7 @@
-Super : MainMenu.cpp GameWindow.o
+Super : MainMenu.cpp GameWindow.o Highscore.o
 	g++ -o Super -lSDL_ttf -lSDL_image MainMenu.cpp *.o
 
-GameWindow.o : GameWindow.cpp GameWindow_score.o Player.o Stalker.o Dodger.o
+GameWindow.o : GameWindow.cpp GameWindow_score.o Player.o Stalker.o Dodger.o Highscore.o
 	g++ -c -lSDL_ttf -lSDL_image GameWindow.cpp *.o
 
 GameWindow_score.o : GameWindow_score.cpp
@@ -24,6 +24,9 @@ Projectile.o : Projectile.cpp Entity.o
 
 Entity.o : Entity.cpp
 	g++ -c Entity.cpp
+
+Highscore.o : Highscore.cpp
+	g++ -c Highscore.cpp
 
 clean :
 	rm Super *.o

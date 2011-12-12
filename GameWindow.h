@@ -5,6 +5,10 @@
 #include <string>
 #include <cstdlib>
 
+#include <sstream>
+
+#include <time.h>
+
 #include "SDL/SDL.h"
 #include "SDL/SDL_ttf.h"
 #include "SDL/SDL_image.h"
@@ -42,12 +46,14 @@ public:
   void setHighscore(const int highscore);
   void setCurrentscore(const int currentscore);
 
+	int currentLevel;
+
   static SDL_Surface* loadImage(std::string imagePath);
   static bool drawSurface(SDL_Surface* dest, SDL_Surface* src, int x, int y);
 
   void cleanupSDL();
 
-  int runGame();
+  int runGame(std::string nickname);
 
   void onEvent(SDL_Event* eventInput);
 

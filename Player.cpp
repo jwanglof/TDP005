@@ -18,6 +18,8 @@ Player::Player() : Entity("./gfx/ghostie.bmp")
 	isPressed["SDLK_a"] = false;
 	isPressed["SDLK_s"] = false;
 	isPressed["SDLK_d"] = false;
+
+	shieldUp = false;
 }
 
 Player::~Player()
@@ -93,4 +95,17 @@ int Player::get_lives() const
 void Player::set_lives(int i)
 {
 	lives += i;
+}
+
+bool Player::getShieldUp()
+{
+	return shieldUp;
+}
+
+void Player::setShieldUp(bool value)
+{
+	if (value)
+		shieldUp = true;
+	else
+		shieldUp = false;
 }
