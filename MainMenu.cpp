@@ -82,7 +82,9 @@ void MainMenu::HandleEvents(SDL_Event &event)
 						}
 						// If you wanna check the highscore
 						else if (getMenuMovementY() == 340) {
-							std::cout << "Yet to be implemented." << std::endl;
+							Highscore *s = new Highscore(screen);
+							s->runHighscore();
+							delete s;
 						}
 						// If you wanna quit the game
 						else if (getMenuMovementY() == 370) {
@@ -103,7 +105,6 @@ void MainMenu::HandleEvents(SDL_Event &event)
 							Highscore *s = new Highscore(screen);
 							s->runHighscore();
 							delete s;
-//							std::cout << "Yet to be implemented." << std::endl;
 						}
 						// If you wanna quit the game
 						else if (getMenuMovementY() == 370) {

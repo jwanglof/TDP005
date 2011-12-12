@@ -1,7 +1,7 @@
 Super : MainMenu.cpp GameWindow.o Highscore.o
 	g++ -o Super -lSDL_ttf -lSDL_image MainMenu.cpp *.o
 
-GameWindow.o : GameWindow.cpp GameWindow_score.o Player.o Stalker.o Dodger.o Highscore.o
+GameWindow.o : GameWindow.cpp GameWindow_score.o Player.o Stalker.o Dodger.o Highscore.o Projectile.o
 	g++ -c -lSDL_ttf -lSDL_image GameWindow.cpp *.o
 
 GameWindow_score.o : GameWindow_score.cpp

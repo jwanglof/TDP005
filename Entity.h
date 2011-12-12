@@ -20,9 +20,9 @@ class Entity
 		// Check collision between two objects  (takes SDL_Rect from other class)
 		virtual bool hasCollided(SDL_Rect);
 		virtual void move() = 0;
+		virtual std::string get_type() = 0;
 		void draw(SDL_Surface*);
 		static std::list<Entity *> EntityList;
-		virtual std::string get_type() = 0;
 		SDL_Surface* loadSurface(std::string File);
 
 		SDL_Rect surfaceRectangle;

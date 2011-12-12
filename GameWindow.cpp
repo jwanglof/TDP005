@@ -3,6 +3,7 @@
 #include "Stalker.h"
 #include "Dodger.h"
 #include "Highscore.h"
+#include "Projectile.h"
 
 GameWindow::GameWindow(SDL_Surface* screen, SDL_Event& events)
 {
@@ -125,12 +126,10 @@ int GameWindow::runGame(std::string nickname)
 		}
 		
 		// Levels
-		// SOMETHING IS FISHY HERE!!
 		currentLevel = (1 + floor(score->getCurrentscore() / 1000));
+
 		if (numberOfEnemies != (currentLevel*2) && score->getCurrentscore() != 0)
-		{
 			numberOfEnemies += 1;
-		}
 
 		// Set the shield off when it has reached it has reached timeWhenShieldOff
 		if (seconds >= timeWhenShieldOff)
@@ -192,9 +191,9 @@ int GameWindow::runGame(std::string nickname)
 									it = Entity::EntityList.begin();
 									p->set_lives(-1);
 
-									std::cout << p->get_lives() << " " << p->getShieldUp() << std::endl;
+									//std::cout << p->get_lives() << " " << p->getShieldUp() << std::endl;
 
-									// Change the number to decide the life-span of the shield, in seconds
+									// Change the number to decide how long the shield is activated, in seconds
 									timeWhenHit = seconds;
 									timeWhenShieldOff = seconds + 5;
 
@@ -207,7 +206,7 @@ int GameWindow::runGame(std::string nickname)
 				}
 			}
 		}
-//		std::cout << 42 << std::endl;
+
 		// Give all stalker-enemies the position of the player
 		std::list<Enemy *>::iterator enemy_iterator;
 		for (enemy_iterator = Enemy::enemyList.begin(); 

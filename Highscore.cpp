@@ -1,12 +1,16 @@
 #include "Highscore.h"
 
 Highscore::Highscore()
-{ }
+{
+	run = true;
+	gameCurrentscore = 0;
+}
 
 Highscore::Highscore(SDL_Surface* screen)
 {
 	displaySurface = screen;
 	run = true;
+	gameCurrentscore = 0;
 }
 
 Highscore::~Highscore()
