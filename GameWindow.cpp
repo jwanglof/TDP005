@@ -3,7 +3,6 @@
 #include "Stalker.h"
 #include "Dodger.h"
 #include "Highscore.h"
-#include "Projectile.h"
 
 GameWindow::GameWindow(SDL_Surface* screen, SDL_Event& events)
 {

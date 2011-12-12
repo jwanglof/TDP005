@@ -1,5 +1,3 @@
-#ifndef ENTITY_H_
-#define ENTITY_H_
 
 #include "Entity.h"
 #include <cmath>
@@ -8,7 +6,7 @@ class Projectile : public Entity
 {
 	private:
 		int velocity;
-		double move_x;
+	double move_x;
 	double move_y;
 		double angle;
 	public:
@@ -18,5 +16,3 @@ class Projectile : public Entity
 
 		void move();
 };
-
-#endif
