@@ -4,6 +4,7 @@ MainMenu::MainMenu()
 {
   screen = Init("SUPER", 800, 600, 32);
 	RunNickname();
+	setHardcore(false);
 //  RunMenu();
 }
 
@@ -39,8 +40,20 @@ SDL_Surface* MainMenu::Init(const char* title, int width, int height, int bpp)
   return screen;
 }
 
+void MainMenu::setHardcore(bool hardcore)
+{
+	std::cout << 1 << std::endl;
+	hardcoreMode = hardcore;
+}
+
+bool MainMenu::getHardcore()
+{
+	return hardcoreMode;
+}
+
 void MainMenu::HandleEvents(SDL_Event &event)
 {
+	std::cout << getHardcore() << std::endl;
   while (SDL_PollEvent(&event))
   {
     switch (event.type)
@@ -72,12 +85,25 @@ void MainMenu::HandleEvents(SDL_Event &event)
             setMenuMovementY(getMenuMovementY() + 30);
             break;
 
+					case SDLK_u:
+						if (getHardcore())
+						{
+							setHardcore(false);
+							std::cout << "Hardcore mode disabled!" << std::endl;
+						}
+						else
+						{
+							setHardcore(true);
+							std::cout << "Hardcore mode!" << std::endl;
+						}
+						break;
+
 					case SDLK_SPACE:
 						// If you wanna start the game
 						if (getMenuMovementY() == 310) {
 							std::cout << "Starting game" << std::endl;
 							GameWindow *r = new GameWindow(screen, event);
-							r->runGame(getNickname());
+							r->runGame(getNickname(), getHardcore());
 							delete r;
 						}
 						// If you wanna check the highscore
@@ -97,7 +123,7 @@ void MainMenu::HandleEvents(SDL_Event &event)
 						if (getMenuMovementY() == 310) {
 							std::cout << "Starting game" << std::endl;
 							GameWindow *r = new GameWindow(screen, event);
-							r->runGame(getNickname());
+							r->runGame(getNickname(), getHardcore());
 							delete r;
 						}
 						// If you wanna check the highscore

@@ -36,6 +36,7 @@ private:
   bool running;
   SDL_Surface* displaySurface;
   SDL_Surface* heartSurface;
+	int hardcoreMode;
 public:
   GameWindow(SDL_Surface*, SDL_Event&);
   ~GameWindow();
@@ -43,6 +44,8 @@ public:
   int getHighscore();
   int getCurrentscore();
   
+	void setHardcore(bool);
+
   void setHighscore(const int highscore);
   void setCurrentscore(const int currentscore);
 
@@ -53,7 +56,7 @@ public:
 
   void cleanupSDL();
 
-  int runGame(std::string nickname);
+  int runGame(std::string nickname, bool hardcoreMode);
 
   void onEvent(SDL_Event* eventInput);
 

@@ -13,9 +13,14 @@ private:
   SDL_Event Events;
   int menuMovementY;
 	std::string nickname;
+
+	bool hardcoreMode;
 public:
   MainMenu();
   ~MainMenu();
+
+	void setHardcore(bool);
+	bool getHardcore();
 
   void setMenuMovementY(const int value);
   int getMenuMovementY();

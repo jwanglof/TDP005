@@ -95,7 +95,7 @@ void GameWindow::spawnEnemy(int x, int y)
 		new Dodger(x, y);
 }
 
-int GameWindow::runGame(std::string nickname)
+int GameWindow::runGame(std::string nickname, bool hardcoreMode)
 {
 
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -299,7 +299,11 @@ int GameWindow::runGame(std::string nickname)
 		}
 
     SDL_Flip(displaySurface);
-		SDL_Delay(1000/60);
+
+		if (hardcoreMode)
+			SDL_Delay(1);
+		else
+			SDL_Delay(1000/60);
   }
 
 	// If a player exits the game it wont register any highscore
