@@ -53,6 +53,8 @@ void GameWindow::cleanupSDL()
 {
   Entity::EntityList.clear();
   Enemy::enemyList.clear();
+	SDL_FreeSurface(displaySurface);
+	SDL_FreeSurface(heartSurface);
 }
 
 void GameWindow::onEvent(SDL_Event* eventInput)

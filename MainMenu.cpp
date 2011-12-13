@@ -194,8 +194,10 @@ void MainMenu::DrawText(SDL_Surface* src, const std::string funcText, int size, 
   SDL_Rect rect;
   rect.x = (src->w - width) / 2;
   rect.y = y;
+
   SDL_BlitSurface(text, NULL, src, &rect);
   SDL_FreeSurface(text);
+
   TTF_CloseFont(font);
 }
 
@@ -245,6 +247,7 @@ void MainMenu::RunMenu()
 	std::cout << "Game successfully exited." << std::endl;
 }
 
+// Something gives Segmentation Fault !!!!!!!!!!!!!!!!!!!
 void MainMenu::RunNickname()
 {
 	while(run)
@@ -299,6 +302,7 @@ void MainMenu::RunNickname()
 
 	SDL_FreeSurface(screen);
 	SDL_Quit();
+	std::cout << "1Game successfully exited." << std::endl;
 }
 
 void MainMenu::setNickname(std::string nick)
@@ -313,6 +317,10 @@ std::string MainMenu::getNickname()
 
 int main()
 {
-  MainMenu asd;
+	std::cout << 1 << std::endl;
+  MainMenu* asd = new MainMenu;
+	std::cout << 2 << std::endl;
+	delete asd;
+	std::cout << 3 << std::endl;
   return 0;
 }

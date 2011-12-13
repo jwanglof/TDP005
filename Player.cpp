@@ -106,7 +106,7 @@ void Player::check_events(SDL_Event &event)
 				}
 			}*/
 			// DrawText(BOOOOOOM)
-		}a
+		}
 
 
 	}

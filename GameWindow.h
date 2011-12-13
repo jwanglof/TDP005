@@ -30,7 +30,6 @@ public:
 
 	int currentLevel;
 
-	// Remove this! Use only .bmp files instead!
   static SDL_Surface* LoadImage(std::string File);
 
   static bool drawSurface(SDL_Surface* dest, SDL_Surface* src, int x, int y);
