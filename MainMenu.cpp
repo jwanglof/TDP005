@@ -1,10 +1,9 @@
 #include "MainMenu.h"
 
-MainMenu::MainMenu()
+MainMenu::MainMenu() : hardcoreMode(false)
 {
   screen = Init("SUPER", 800, 600, 32);
 	RunNickname();
-	setHardcore(false);
 //  RunMenu();
 }
 
@@ -42,7 +41,6 @@ SDL_Surface* MainMenu::Init(const char* title, int width, int height, int bpp)
 
 void MainMenu::setHardcore(bool hardcore)
 {
-	std::cout << 1 << std::endl;
 	hardcoreMode = hardcore;
 }
 
@@ -53,7 +51,6 @@ bool MainMenu::getHardcore()
 
 void MainMenu::HandleEvents(SDL_Event &event)
 {
-	std::cout << getHardcore() << std::endl;
   while (SDL_PollEvent(&event))
   {
     switch (event.type)
@@ -75,12 +72,12 @@ void MainMenu::HandleEvents(SDL_Event &event)
 
           case SDLK_UP:
             if (getMenuMovementY() <= 310)
-              setMenuMovementY(400);
+              setMenuMovementY(430);
             setMenuMovementY(getMenuMovementY() - 30);
             break;
 
           case SDLK_DOWN:
-            if (getMenuMovementY() >= 370)
+            if (getMenuMovementY() >= 400)
               setMenuMovementY(280);
             setMenuMovementY(getMenuMovementY() + 30);
             break;
@@ -88,13 +85,13 @@ void MainMenu::HandleEvents(SDL_Event &event)
 					case SDLK_u:
 						if (getHardcore())
 						{
-							setHardcore(false);
 							std::cout << "Hardcore mode disabled!" << std::endl;
+							setHardcore(false);
 						}
 						else
 						{
-							setHardcore(true);
 							std::cout << "Hardcore mode!" << std::endl;
+							setHardcore(true);
 						}
 						break;
 
@@ -116,6 +113,10 @@ void MainMenu::HandleEvents(SDL_Event &event)
 						else if (getMenuMovementY() == 370) {
 							run = false;
 						}
+						else if (getMenuMovementY() == 400)
+						{
+							RunNickname();
+						}
 						break;
 
 					case SDLK_RETURN:
@@ -136,6 +137,10 @@ void MainMenu::HandleEvents(SDL_Event &event)
 						else if (getMenuMovementY() == 370) {
 							run = false;
 						}
+						else if (getMenuMovementY() == 400)
+						{
+							RunNickname();
+						}
 						break;
 
 					case SDLK_ESCAPE:
@@ -146,18 +151,18 @@ void MainMenu::HandleEvents(SDL_Event &event)
   }
 }
 
-void MainMenu::DrawMenuArrow(SDL_Surface* src, const int y)
+void MainMenu::DrawMenuArrow(SDL_Surface* src, const int y, const int x)
 {
-  SDL_Rect rect = {300, y, 10, 2};
+  SDL_Rect rect = {x, y, 10, 2};
 
-  SDL_Rect rect2 = {310, y-7, 2, 16};
-  SDL_Rect rect3 = {312, y-6, 2, 14};
-  SDL_Rect rect4 = {314, y-5, 2, 12};
-  SDL_Rect rect5 = {316, y-4, 2, 10};
-  SDL_Rect rect6 = {318, y-3, 2, 8};
-  SDL_Rect rect7 = {320, y-2, 2, 6};
-  SDL_Rect rect8 = {322, y-1, 2, 4};
-  SDL_Rect rect9 = {324, y, 2, 2};
+  SDL_Rect rect2 = {x+10, y-7, 2, 16};
+  SDL_Rect rect3 = {x+12, y-6, 2, 14};
+  SDL_Rect rect4 = {x+14, y-5, 2, 12};
+  SDL_Rect rect5 = {x+16, y-4, 2, 10};
+  SDL_Rect rect6 = {x+18, y-3, 2, 8};
+  SDL_Rect rect7 = {x+20, y-2, 2, 6};
+  SDL_Rect rect8 = {x+22, y-1, 2, 4};
+  SDL_Rect rect9 = {x+24, y, 2, 2};
 
   SDL_FillRect(src, &rect, 0xFFFFFF);
   SDL_FillRect(src, &rect2, 0xFFFFFF);
@@ -221,21 +226,24 @@ void MainMenu::RunMenu()
     else
       DrawText(screen, "quit", 18, 360, 255, 255, 255);
 
+    if (getMenuMovementY() == 400)
+      DrawText(screen, "change    initials", 18, 390, 255, 0, 255);
+    else
+      DrawText(screen, "change    initials", 18, 390, 255, 255, 255);
+
     // Draw the "choose arrow" in the menu
-    DrawMenuArrow(screen, getMenuMovementY());
+    DrawMenuArrow(screen, getMenuMovementY(), 250);
 
     SDL_Delay(10);
     SDL_Flip(screen);
 
     HandleEvents(Events);
-
   }
 
 	SDL_FreeSurface(screen);
 	SDL_Quit();
 	std::cout << "Game successfully exited." << std::endl;
 }
-
 
 void MainMenu::RunNickname()
 {

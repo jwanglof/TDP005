@@ -8,9 +8,9 @@ GameWindow::GameWindow(SDL_Surface* screen, SDL_Event& events)
 {
   displaySurface = screen;
   SDLEvent = events;
-  heartSurface = loadImage("./gfx/heart.png");
+  heartSurface = LoadImage("./gfx/heart.bmp");
   numberOfEnemies = 2;
-	currentLevel = 1;
+  currentLevel = 1;
 
   running = true;
 }
@@ -18,18 +18,20 @@ GameWindow::GameWindow(SDL_Surface* screen, SDL_Event& events)
 GameWindow::~GameWindow()
 { }
 
-SDL_Surface* GameWindow::loadImage(std::string imagePath)
+SDL_Surface* GameWindow::LoadImage(std::string File)
 {
-  SDL_Surface* originImage = NULL;
-  SDL_Surface* returnImage = NULL;
+	SDL_Surface* Surf_Temp = NULL;
+	SDL_Surface* surface = NULL;
+ 
+	Surf_Temp = SDL_LoadBMP(File.c_str());
+ 
+	surface = SDL_DisplayFormat(Surf_Temp);
+	SDL_SetColorKey(surface, SDL_SRCCOLORKEY | SDL_RLEACCEL, 
+									SDL_MapRGB(surface->format, 255, 0, 0));
 
-  if ((originImage = IMG_Load(imagePath.c_str())) == NULL)
-    return false;
+	SDL_FreeSurface(Surf_Temp);
 
-  returnImage = SDL_DisplayFormat(originImage);
-  SDL_FreeSurface(originImage);
-
-  return returnImage;
+	return surface;
 }
 
 bool GameWindow::drawSurface(SDL_Surface* dest, SDL_Surface* src, int x, int y)
@@ -68,42 +70,28 @@ void GameWindow::onEvent(SDL_Event* eventInput)
 // Spawn an enemy
 void GameWindow::spawnEnemy(int x, int y)
 {
-	if (x > 750)
-		x = 600;
-	if (y > 550)
-		y = 400;
+	int spawnX;
+	int spawnY;
 
-	int spawnDistance = 200;
+	spawnX = rand() % 800;
+	spawnY = rand() % 600;
 
-	// Randomize some coordinates that's < 100px from the edge
-	if (rand() % 2 == 0 && (x - spawnDistance > 0))
-		x -= spawnDistance;
-	else 
-		x += spawnDistance;
+	int spawnDistance = 50;
 
-	if (rand() % 2 == 0 && (y - spawnDistance > 0))
-		y -= spawnDistance;
-	else 
-		y += spawnDistance;
+	while (spawnX < (x + spawnDistance) && spawnX > (x - spawnDistance))
+		spawnX = rand() % 800;
 
-	//std::cout << "x: " << x << std::endl;
-	//std::cout << "y: " << y << std::endl;
+	while (spawnY < (y + spawnDistance) && spawnY > (y - spawnDistance))
+		spawnY = rand() % 600;
 
 	if (rand() % 2 == 0)
-		new Stalker(x, y);
+		new Stalker(spawnX, spawnY);
 	else
-		new Dodger(x, y);
+		new Dodger(spawnX, spawnY);
 }
 
 int GameWindow::runGame(std::string nickname, bool hardcoreMode)
 {
-
-  if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-    return false;
-
-  if ((displaySurface = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL)
-    return false;
-
 	Player *p = new Player();
 	std::list<Entity *>::iterator it;
 
@@ -268,7 +256,7 @@ int GameWindow::runGame(std::string nickname, bool hardcoreMode)
 		heartRect.w = 200;
 
 		for (int i = 0; i < p->get_lives(); i++)
-			drawSurface(displaySurface, heartSurface, 20*i, 10);
+			drawSurface(displaySurface, heartSurface, 25*i, 10);
 
 		// MOVE THE SCORE TO THE FAR LEFT WHEN THE HEARTS HAVE BEEN MOVED TO THE CENTER!
 		// Draw the current score

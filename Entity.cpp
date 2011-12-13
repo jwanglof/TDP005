@@ -19,18 +19,17 @@ std::list<Entity *> Entity::EntityList;
 
 SDL_Surface* Entity::loadSurface(std::string File)
 {
-    SDL_Surface* Surf_Temp = NULL;
+	SDL_Surface* Surf_Temp = NULL;
 	SDL_Surface* surface = NULL;
  
-    if((Surf_Temp = SDL_LoadBMP(File.c_str())) == NULL) {
-    }
+	Surf_Temp = SDL_LoadBMP(File.c_str());
  
-    surface = SDL_DisplayFormat(Surf_Temp);
-    SDL_SetColorKey(surface, SDL_SRCCOLORKEY | SDL_RLEACCEL, 
-		SDL_MapRGB(surface->format, 255, 0, 0));
+	surface = SDL_DisplayFormat(Surf_Temp);
+	SDL_SetColorKey(surface, SDL_SRCCOLORKEY | SDL_RLEACCEL, 
+									SDL_MapRGB(surface->format, 255, 0, 0));
 
 
-    SDL_FreeSurface(Surf_Temp);
+	SDL_FreeSurface(Surf_Temp);
 
 	return surface;
 }

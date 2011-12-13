@@ -26,7 +26,7 @@ public:
   int getMenuMovementY();
 
   void DrawText(SDL_Surface* src, const std::string text, int size, int y, Uint8 R, Uint8 G, Uint8 B);
-  void DrawMenuArrow(SDL_Surface* src, const int y);
+  void DrawMenuArrow(SDL_Surface* src, const int y, const int x);
   void RunMenu();
   SDL_Surface* Init(const char* title, int width, int height, int bpp);
 

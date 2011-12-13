@@ -6,7 +6,9 @@ Enemy::Enemy(std::string File) : Entity(File)
 }
 
 Enemy::~Enemy()
-{ }
+{
+	  Enemy::enemyList.clear();
+}
 
 std::list<Enemy *> Enemy::enemyList;
 

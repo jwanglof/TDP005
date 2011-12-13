@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Projectile.h"
+#include "Enemy.h"
 
 #include <map>
 #include <vector>

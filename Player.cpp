@@ -18,6 +18,7 @@ Player::Player() : Entity("./gfx/ghostie.bmp")
 	isPressed["SDLK_a"] = false;
 	isPressed["SDLK_s"] = false;
 	isPressed["SDLK_d"] = false;
+	isPressed["mouse1"] = false;
 
 	shieldUp = false;
 }
@@ -37,6 +38,11 @@ void Player::move() {
 		surfaceRectangle.x -= velocity;
 	else if (isPressed["SDLK_d"] && surfaceRectangle.x < (800 - surfaceRectangle.w))
 		surfaceRectangle.x += velocity;
+
+	if (isPressed["mouse1"]) {
+
+	}
+
 }
 
 void Player::check_events(SDL_Event &event)
@@ -74,11 +80,51 @@ void Player::check_events(SDL_Event &event)
 	if (event.type == SDL_MOUSEBUTTONUP) {
 	// If the player clicks mouse1, shoot
 		if (event.button.button == SDL_BUTTON_LEFT) {
+			isPressed["mouse1"] = false;			
 			new Projectile(surfaceRectangle.x + (surfaceRectangle.w / 2),
-				surfaceRectangle.y + (surfaceRectangle.h / 2), 
-				event.button.x, event.button.y);
+										 surfaceRectangle.y + (surfaceRectangle.h / 2), 
+										 event.button.x, event.button.y);
+
 		}
+		if (event.button.button == SDL_BUTTON_RIGHT)
+		{
+
+			// Find and delete the enemy from the Entity- and Enemylist
+/*			std::list<Enemy*>::iterator eit = Enemy::enemyList.begin();
+			std::list<Entity*>::iterator it2 = Entity::EntityList.begin();
+			for (; eit != Enemy::enemyList.end(); eit++)
+			{
+				for (; it2 != Entity::EntityList.end(); it2++) {
+					if (*it2 == *eit) 
+					{
+						Entity *del2 = *it2;
+						eit = Enemy::enemyList.erase(eit);
+						Entity::EntityList.erase(it2);
+						delete del2;
+						it2 = Entity::EntityList.begin();
+					}
+				}
+			}*/
+			// DrawText(BOOOOOOM)
+		}a
+
+
 	}
+
+		if (event.type == SDL_MOUSEBUTTONDOWN) {
+
+			if (event.button.button == SDL_BUTTON_LEFT)
+				isPressed["mouse1"] = true;
+		}
+
+		if (isPressed["mouse1"]) {
+
+		}
+
+/*	new Projectile(surfaceRectangle.x + (surfaceRectangle.w / 2),
+								 surfaceRectangle.y + (surfaceRectangle.h / 2), 
+								 event.button.x, event.button.y);
+*/
 	// If player clicks mouse2, check if he has bombs left, and remove all entites except player
 }
 
