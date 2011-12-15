@@ -36,7 +36,7 @@ public:
 
   void cleanupSDL();
 
-  int runGame(std::string nickname, bool hardcoreMode);
+  int runGame(bool hardcoreMode);
 
   void onEvent(SDL_Event* eventInput);
 };

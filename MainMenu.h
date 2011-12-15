@@ -3,12 +3,12 @@
 
 #include "GameWindow.h"
 #include "Highscore.h"
-//class GameWindow;
+#include "Nickname.h"
 
 class MainMenu
 {
 private:  
-  SDL_Surface* screen;
+  SDL_Surface* displaySurface;
   bool run;
   SDL_Event Events;
   int menuMovementY;
@@ -28,15 +28,8 @@ public:
   void DrawText(SDL_Surface* src, const std::string text, int size, int y, Uint8 R, Uint8 G, Uint8 B);
   void DrawMenuArrow(SDL_Surface* src, const int y, const int x);
   void RunMenu();
-  SDL_Surface* Init(const char* title, int width, int height, int bpp);
 
   void HandleEvents(SDL_Event &event);
-
-	// These should be moved to it's own class!
-	// They are located above main()
-	void setNickname(std::string nick);
-	std::string getNickname();
-	void RunNickname();
 };
 
 #endif

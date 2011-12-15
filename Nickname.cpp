@@ -1,70 +1,96 @@
 #include "Nickname.h"
 
-Nickname::Nickname(SDL_Surface* screen, SDL_Event& Events)
+Nickname::Nickname()
 {
-	displaySurface = screen;
-	Events = Events;
-
 	run = true;
+	displaySurface = Init("SUPER", 800, 600, 32);
 }
 
 Nickname::~Nickname()
 {
-	SDL_FreeSurface(screen);
 	SDL_FreeSurface(displaySurface);
 	SDL_Quit();
 }
 
-void Nickname::RunNickname()
+SDL_Surface* Nickname::Init(const std::string title, int width, int height, int bpp)
 {
-	while(run)
-	{
-    // Set the background to black
-    SDL_FillRect(screen, NULL, 0x000000);
+  run = true;
 
-		DrawText(screen, "Initials    plz", 50, 100, 51, 108, 184);
+  TTF_Init();
 
-		// Events to write the nick and what will happen afterwards
-		while (SDL_PollEvent(&Events))
+  SDL_Init(SDL_INIT_EVERYTHING);
+
+  SDL_WM_SetCaption(title.c_str(), NULL);
+
+  displaySurface = SDL_SetVideoMode(width, height, bpp, SDL_HWSURFACE | SDL_DOUBLEBUF);
+	SDL_FillRect(displaySurface, NULL, 0x000000);
+  std::cout << "Game initialized successfully" << std::endl;
+
+  return displaySurface;
+}
+
+void Nickname::HandleEvents(SDL_Event *Event)
+{
+	while (SDL_PollEvent(Event))
+  {
+		if (Event->type == SDL_KEYDOWN)
 		{
-			if (Events.type == SDL_KEYDOWN)
+			if (Event->key.keysym.sym == SDLK_ESCAPE)
 			{
-				if (nickname.size() < 3)
-				{
-					if ((Uint16)Events.key.keysym.sym >= 97 && (Uint16)Events.key.keysym.sym <= 122)
-					{
-						nickname += toupper((Uint16)Events.key.keysym.sym);
-					}
-				}
-				else
-				{
-					if (Events.key.keysym.sym == SDLK_y)
-					{
-						RunMenu();
-					}
-				}
+				run = false;
+			}
 
-				if (Events.key.keysym.sym == SDLK_ESCAPE)
-				{
-					run = false;
-				}
-				if (Events.key.keysym.sym == SDLK_BACKSPACE)
-				{
+			if (Event->key.keysym.sym == SDLK_BACKSPACE)
+			{
+				if (nickname.size() > 0)
 					nickname.erase(nickname.size()-1);
+			}
+
+			if (nickname.size() < 3)
+			{
+				if ((Uint16)Event->key.keysym.sym >= 97 && (Uint16)Event->key.keysym.sym <= 122)
+				{
+					nickname += toupper((Uint16)Event->key.keysym.sym);
 				}
 			}
-		}
+			else
+			{
+				if (Event->key.keysym.sym == SDLK_y)
+				{
+					MainMenu* m = new MainMenu();
+					m->RunMenu();
+					delete m;
+					m = 0;
+				}
+			}
 
-		DrawText(screen, nickname, 30, 200, 255, 255, 0);
+		}
+	}
+}
+
+void Nickname::RunNickname()
+{
+	Draw* d = new Draw();
+
+	SDL_Event* Events;
+	
+	while(run)
+	{
+		SDL_FillRect(displaySurface, NULL, 0x000000);
+		d->DrawText(displaySurface, "Initials    plz", 50, 100, -1, 51, 108, 184);
+
+		d->DrawText(displaySurface, nickname, 30, 200, -1, 255, 255, 0);
 
 		if (nickname.length() == 3)
 		{
-			DrawText(screen, "Proceed    with    '"+ nickname +"'?", 20, 450, 255, 0, 0);
-			DrawText(screen, "Y    /    Backspace", 20, 500, 255, 0, 255);
+			d->DrawText(displaySurface, "Proceed    with    '"+ nickname +"'?", 20, 450, -1, 255, 0, 0);
+			d->DrawText(displaySurface, "Y    /    Backspace", 20, 500, -1, 255, 0, 255);
 		}
 
 		SDL_Delay(10);
-		SDL_Flip(screen);
+		SDL_Flip(displaySurface);
+
+		HandleEvents(Events);
 	}
 }
 
@@ -77,4 +103,3 @@ std::string Nickname::getNickname()
 {
 	return nickname;
 }
-

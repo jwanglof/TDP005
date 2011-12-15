@@ -1,80 +1,82 @@
 #include "Draw.h"
 
-Draw::Draw(SDL_Surface* screen, SDL_Event& Events)
+Draw::Draw()
 {
-	displaySurface = screen;
-	Events = Events;
+	displaySurface = SDL_GetVideoSurface();
 }
 
 Draw::~Draw()
 { }
 
-void Draw::DrawText(SDL_Surface* Src, const std::string funcText, int Size, int y, int x, Uint8 R, Uint8 G, Uint8 B)
+void Draw::DrawText(SDL_Surface* src, const std::string funcText, int size, int y, int x, Uint8 R, Uint8 G, Uint8 B)
 {
 /*
  * Blue for the menu: 51, 108, 184
  * Red for the menu: 176, 54, 56
  */
 
-  SDL_Color Color = {R, G, B};
+  SDL_Color color = {R, G, B};
 
-  TTF_Font* Font = TTF_OpenFont("fonts/m06.TTF", Size);
-  SDL_Surface* Text = TTF_RenderText_Blended(Font, funcText.c_str(), Color);
+  TTF_Font* font = TTF_OpenFont("fonts/m06.TTF", size);
+  SDL_Surface* text = TTF_RenderText_Blended(font, funcText.c_str(), color);
 
   // To get the width in pixels of the text
-  int Width, Height;
-  TTF_SizeText(Font, funcText.c_str(), &Width, &Height);
+  int width, height;
+  TTF_SizeText(font, funcText.c_str(), &width, &height);
 
-  SDL_Rect Rect;
+  SDL_Rect rect;
 	// If the text should be in the center of the screen or not
 	if (x == -1)
-		Rect.x = ((src->w - width) / 2);
+	{
+//		std::cout << width << " " << height << std::endl;
+		rect.x = ((src->w - width) / 2);
+	}
 	else
-		Rect.x = x;
+		rect.x = x;
 
-  Rect.y = y;
+  rect.y = y;
 
-  SDL_BlitSurface(Text, NULL, Src, &Rect);
-  SDL_FreeSurface(Text);
-  TTF_CloseFont(Font);
+  SDL_BlitSurface(text, NULL, src, &rect);
+  SDL_FreeSurface(text);
+  TTF_CloseFont(font);
 
 	return;
 }
 
-bool Draw::DrawSurface(SDL_Surface* Src, SDL_Surface* Dest, int x, int y)
+void Draw::DrawSurface(SDL_Surface* src, SDL_Surface* dest, int x, int y)
 {
-  SDL_Rect Rect;
+  SDL_Rect rect;
 
-  Rect.x = x;
-  Rect.y = y;
+  rect.x = x;
+  rect.y = y;
 
-  SDL_BlitSurface(Src, NULL, Dest, &Rect);
+  SDL_BlitSurface(src, NULL, dest, &rect);
 
   return;
 }
 
-bool Draw::DrawMenuArrow(SDL_Surface* Src, const int y)
+void Draw::DrawMenuArrow(SDL_Surface* src, const int y, const int x)
 {
-  SDL_Rect Rect = {300, y, 10, 2};
+  SDL_Rect rect = {x, y, 10, 2};
 
-  SDL_Rect Rect2 = {310, y-7, 2, 16};
-  SDL_Rect Rect3 = {312, y-6, 2, 14};
-  SDL_Rect Rect4 = {314, y-5, 2, 12};
-  SDL_Rect Rect5 = {316, y-4, 2, 10};
-  SDL_Rect Rect6 = {318, y-3, 2, 8};
-  SDL_Rect Rect7 = {320, y-2, 2, 6};
-  SDL_Rect Rect8 = {322, y-1, 2, 4};
-  SDL_Rect Rect9 = {324, y, 2, 2};
+  SDL_Rect rect2 = {x+10, y-7, 2, 16};
+  SDL_Rect rect3 = {x+12, y-6, 2, 14};
+  SDL_Rect rect4 = {x+14, y-5, 2, 12};
+  SDL_Rect rect5 = {x+16, y-4, 2, 10};
+  SDL_Rect rect6 = {x+18, y-3, 2, 8};
+  SDL_Rect rect7 = {x+20, y-2, 2, 6};
+  SDL_Rect rect8 = {x+22, y-1, 2, 4};
+  SDL_Rect rect9 = {x+24, y, 2, 2};
 
-  SDL_FillRect(Src, &Rect, 0xFFFFFF);
-  SDL_FillRect(Src, &Rect2, 0xFFFFFF);
-  SDL_FillRect(Src, &Rect3, 0xFFFFFF);
-  SDL_FillRect(Src, &Rect4, 0xFFFFFF);
-  SDL_FillRect(Src, &Rect5, 0xFFFFFF);
-  SDL_FillRect(Src, &Rect6, 0xFFFFFF);
-  SDL_FillRect(Src, &Rect7, 0xFFFFFF);
-  SDL_FillRect(Src, &Rect8, 0xFFFFFF);
-  SDL_FillRect(Src, &Rect9, 0xFFFFFF);
+  SDL_FillRect(src, &rect, 0xFFFFFF);
+  SDL_FillRect(src, &rect2, 0xFFFFFF);
+  SDL_FillRect(src, &rect3, 0xFFFFFF);
+  SDL_FillRect(src, &rect4, 0xFFFFFF);
+  SDL_FillRect(src, &rect5, 0xFFFFFF);
+  SDL_FillRect(src, &rect6, 0xFFFFFF);
+  SDL_FillRect(src, &rect7, 0xFFFFFF);
+  SDL_FillRect(src, &rect8, 0xFFFFFF);
+  SDL_FillRect(src, &rect9, 0xFFFFFF);
 
 	return;
 }

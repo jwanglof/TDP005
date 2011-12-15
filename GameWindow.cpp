@@ -92,7 +92,7 @@ void GameWindow::spawnEnemy(int x, int y)
 		new Dodger(spawnX, spawnY);
 }
 
-int GameWindow::runGame(std::string nickname, bool hardcoreMode)
+int GameWindow::runGame(bool hardcoreMode)
 {
 	Player *p = new Player();
 	std::list<Entity *>::iterator it;
@@ -298,7 +298,7 @@ int GameWindow::runGame(std::string nickname, bool hardcoreMode)
 
 	// If a player exits the game it wont register any highscore
 	if (p->get_lives() == 0)
-		score->setHighscore(score->getCurrentscore(), nickname);
+		score->setHighscore(score->getCurrentscore(), "asd");
 
   GameWindow::cleanupSDL();
 
