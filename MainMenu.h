@@ -16,7 +16,7 @@ private:
 
 	bool hardcoreMode;
 public:
-  MainMenu();
+  MainMenu(std::string);
   ~MainMenu();
 
 	void setHardcore(bool);

@@ -1,6 +1,6 @@
 #include "Nickname.h"
 
-Nickname::Nickname()
+Nickname::Nickname(std::string nickname) : nickname(nickname)
 {
 	run = true;
 	displaySurface = Init("SUPER", 800, 600, 32);
@@ -57,7 +57,7 @@ void Nickname::HandleEvents(SDL_Event *Event)
 			{
 				if (Event->key.keysym.sym == SDLK_y)
 				{
-					MainMenu* m = new MainMenu();
+					MainMenu* m = new MainMenu(nickname);
 					m->RunMenu();
 					delete m;
 					m = 0;
@@ -73,7 +73,7 @@ void Nickname::RunNickname()
 	Draw* d = new Draw();
 
 	SDL_Event* Events;
-	
+	std::cout << nickname << std::endl;
 	while(run)
 	{
 		SDL_FillRect(displaySurface, NULL, 0x000000);

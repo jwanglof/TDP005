@@ -14,7 +14,7 @@ private:
 	std::string nickname;
 	bool run;
 public:
-	Nickname();
+	Nickname(std::string);
 	~Nickname();
 
 	void setNickname(std::string);

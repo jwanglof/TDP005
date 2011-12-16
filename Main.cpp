@@ -2,7 +2,7 @@
 
 int main()
 {
-	Nickname* n = new Nickname;
+	Nickname* n = new Nickname("");
 	n->RunNickname();
 
 	delete n;

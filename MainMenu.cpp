@@ -1,6 +1,6 @@
 #include "MainMenu.h"
 
-MainMenu::MainMenu() : hardcoreMode(false), menuMovementY(310)
+MainMenu::MainMenu(std::string nickname) : hardcoreMode(false), menuMovementY(310), nickname(nickname)
 {
 	displaySurface = SDL_GetVideoSurface();
 	run = true;
@@ -100,7 +100,7 @@ void MainMenu::HandleEvents(SDL_Event &event)
 						}
 						else if (getMenuMovementY() == 400)
 						{
-							Nickname *n = new Nickname;
+							Nickname *n = new Nickname(nickname);
 							n->RunNickname();
 							delete n;
 							n = 0;
@@ -127,7 +127,7 @@ void MainMenu::HandleEvents(SDL_Event &event)
 						}
 						else if (getMenuMovementY() == 400)
 						{
-							Nickname *n = new Nickname;
+							Nickname *n = new Nickname(nickname);
 							n->RunNickname();
 							delete n;
 							n = 0;
@@ -195,7 +195,7 @@ void MainMenu::DrawText(SDL_Surface* src, const std::string funcText, int size, 
 void MainMenu::RunMenu()
 {
 	Draw* d = new Draw();
-
+	std::cout << nickname << std::endl;
   while(run)
   {
     // Set the background to black
