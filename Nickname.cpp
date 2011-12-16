@@ -3,13 +3,13 @@
 Nickname::Nickname(std::string nickname) : nickname(nickname)
 {
 	run = true;
-	displaySurface = Init("SUPER", 800, 600, 32);
+	displaySurface = SDL_GetVideoSurface();
+	std::cout << displaySurface << std::endl;
+	//displaySurface = Init("SUPER", 800, 600, 32);
 }
 
 Nickname::~Nickname()
 {
-	SDL_FreeSurface(displaySurface);
-	SDL_Quit();
 }
 
 SDL_Surface* Nickname::Init(const std::string title, int width, int height, int bpp)
@@ -62,8 +62,6 @@ void Nickname::HandleEvents(SDL_Event &Event)
 				if (Event.key.keysym.sym == SDLK_y)
 				{
 					run = false;
-					MainMenu m(nickname);
-					m.RunMenu();
 				}
 			}
 

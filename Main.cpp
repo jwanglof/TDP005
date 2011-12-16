@@ -1,4 +1,4 @@
-#include "Nickname.h"
+#include "MainMenu.h"
 
 #include <list>
 
@@ -11,8 +11,8 @@ public:
 
 int main()
 {
-	Nickname n("");
-	n.RunNickname();
+	MainMenu n("");
+	n.RunMenu();
 
 	return 0;
 }

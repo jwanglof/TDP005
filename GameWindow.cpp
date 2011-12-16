@@ -4,10 +4,9 @@
 #include "Dodger.h"
 #include "Highscore.h"
 
-GameWindow::GameWindow(SDL_Surface* screen, SDL_Event& events)
+GameWindow::GameWindow()
 {
-  displaySurface = screen;
-  SDLEvent = events;
+  displaySurface = SDL_GetVideoSurface();
   heartSurface = LoadImage("./gfx/heart.bmp");
   numberOfEnemies = 2;
   currentLevel = 1;
@@ -53,7 +52,7 @@ void GameWindow::cleanupSDL()
 {
   Entity::EntityList.clear();
   Enemy::enemyList.clear();
-	SDL_FreeSurface(displaySurface);
+	//SDL_FreeSurface(displaySurface);
 	SDL_FreeSurface(heartSurface);
 }
 
@@ -62,8 +61,10 @@ void GameWindow::onEvent(SDL_Event* eventInput)
 	// Check for keyboard events
 	if (eventInput->type == SDL_KEYDOWN) {
 		// If escape, exit gameloop
-		if (eventInput->key.keysym.sym == SDLK_ESCAPE)
+		if (eventInput->key.keysym.sym == SDLK_ESCAPE) {
 			running = false;
+			std::cerr << "yo dawg" << std::endl;
+		}
 		/*else if (eventInput->key.keysym.sym == SDLK_j)
 			spawnEnemy();*/
 	}
@@ -92,7 +93,7 @@ void GameWindow::spawnEnemy(int x, int y)
 		new Dodger(spawnX, spawnY);
 }
 
-int GameWindow::runGame(bool hardcoreMode)
+void GameWindow::runGame(bool hardcoreMode)
 {
 	Player *p = new Player();
 	std::list<Entity *>::iterator it;
@@ -171,13 +172,13 @@ int GameWindow::runGame(bool hardcoreMode)
 							if (*it2 == *eit)
 							{
 								// If the shield is up the player wont loose lifes when getting hit
-								if (!p->getShieldUp())
-								{
 									Entity *del2 = *it2;
 									eit = Enemy::enemyList.erase(eit);
 									it2 = Entity::EntityList.erase(it2);
 									delete del2;
 									it = Entity::EntityList.begin();
+								if (!p->getShieldUp())
+								{
 									p->set_lives(-1);
 
 									//std::cout << p->get_lives() << " " << p->getShieldUp() << std::endl;
@@ -301,8 +302,6 @@ int GameWindow::runGame(bool hardcoreMode)
 		score->setHighscore(score->getCurrentscore(), "asd");
 
   GameWindow::cleanupSDL();
-
-  return 0;
 }
 
 /*int main()

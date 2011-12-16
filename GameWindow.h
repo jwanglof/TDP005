@@ -25,7 +25,7 @@ private:
 
   void spawnEnemy(int, int);
 public:
-  GameWindow(SDL_Surface*, SDL_Event&);
+  GameWindow();
   ~GameWindow();
 
 	int currentLevel;
@@ -36,7 +36,7 @@ public:
 
   void cleanupSDL();
 
-  int runGame(bool hardcoreMode);
+  void runGame(bool hardcoreMode);
 
   void onEvent(SDL_Event* eventInput);
 };

@@ -10,6 +10,8 @@ class MainMenu
 private:  
   SDL_Surface* displaySurface;
   bool run;
+  bool enterNickname;
+  SDL_Surface* Init(const std::string title, int width, int height, int bpp);
   SDL_Event Events;
   int menuMovementY;
 	std::string nickname;

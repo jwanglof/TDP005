@@ -2,12 +2,30 @@
 
 MainMenu::MainMenu(std::string nickname) : hardcoreMode(false), menuMovementY(310), nickname(nickname)
 {
-	displaySurface = SDL_GetVideoSurface();
+	//displaySurface = SDL_GetVideoSurface();
+	displaySurface = Init("SUPER", 800, 600, 32);
+	enterNickname = true;
 	run = true;
 }
 
 MainMenu::~MainMenu()
 { }
+
+SDL_Surface* MainMenu::Init(const std::string title, int width, int height, int bpp)
+{
+  TTF_Init();
+
+  SDL_Init(SDL_INIT_EVERYTHING);
+
+  SDL_WM_SetCaption(title.c_str(), NULL);
+
+  displaySurface = SDL_SetVideoMode(width, height, bpp, SDL_HWSURFACE | SDL_DOUBLEBUF);
+	SDL_FillRect(displaySurface, NULL, 0x000000);
+
+  std::cout << "Game initialized successfully" << std::endl;
+
+  return displaySurface;
+}
 
 void MainMenu::setMenuMovementY(const int value)
 {
@@ -39,23 +57,13 @@ void MainMenu::HandleEvents(SDL_Event &event)
         switch (event.key.keysym.sym)
         {
           case SDLK_w:
-            if (getMenuMovementY() <= 310)
-              setMenuMovementY(400);
-            setMenuMovementY(getMenuMovementY() - 30);
-            break;
-
-          case SDLK_s:
-            if (getMenuMovementY() >= 370)
-              setMenuMovementY(280);
-            setMenuMovementY(getMenuMovementY() + 30);
-            break;
-
           case SDLK_UP:
             if (getMenuMovementY() <= 310)
               setMenuMovementY(430);
             setMenuMovementY(getMenuMovementY() - 30);
             break;
 
+          case SDLK_s:
           case SDLK_DOWN:
             if (getMenuMovementY() >= 400)
               setMenuMovementY(280);
@@ -76,41 +84,26 @@ void MainMenu::HandleEvents(SDL_Event &event)
 						break;
 
 					case SDLK_SPACE:
-						run = false;
-						// If you wanna start the game
-						if (getMenuMovementY() == 310) {
-							GameWindow r(displaySurface, Events);
-							r.runGame(getHardcore());
-						}
-						// If you wanna check the highscore
-						else if (getMenuMovementY() == 340) {
-							Highscore s(displaySurface);
-							s.runHighscore();
-						}
-						else if (getMenuMovementY() == 400)
-						{
-							Nickname n(nickname);
-							n.RunNickname();
-						}
-						break;
-
 					case SDLK_RETURN:
-						run = false;
 						// If you wanna start the game
 						if (getMenuMovementY() == 310) {
-							GameWindow r(displaySurface, Events);
-							r.runGame(getHardcore());
+							GameWindow *r = new GameWindow();
+							r->runGame(getHardcore());
+							delete r;
 						}
 						// If you wanna check the highscore
 						else if (getMenuMovementY() == 340) {
 							Highscore s(displaySurface);
 							s.runHighscore();
 						}
+						else if (getMenuMovementY() == 370) {
+							run = false;
+						}
 						else if (getMenuMovementY() == 400)
 						{
-							Nickname n(nickname);
-							n.RunNickname();
-							n.~Nickname();
+							Nickname *n = new Nickname(nickname);
+							n->RunNickname();
+							delete n;
 						}
 						break;
 
@@ -176,8 +169,19 @@ void MainMenu::RunMenu()
 {
 	Draw d;
 	std::cout << "MainMenu start" << std::endl;
+
+	/*Nickname n(nickname);
+	n.RunNickname(); */
   while(run)
   {
+	if (enterNickname) {
+		Nickname *n = new Nickname(nickname);
+		n->RunNickname();
+		nickname = n->getNickname();
+		delete n;
+		enterNickname = false;
+	}
+
     // Set the background to black
     SDL_FillRect(displaySurface, NULL, 0x000000);
 
@@ -208,7 +212,7 @@ void MainMenu::RunMenu()
 
     // Draw the "choose arrow" in the menu
     d.DrawMenuArrow(displaySurface, getMenuMovementY(), 250);
-
+	
     SDL_Delay(10);
     SDL_Flip(displaySurface);
 
