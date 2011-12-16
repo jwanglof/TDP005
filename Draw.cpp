@@ -2,7 +2,7 @@
 
 Draw::Draw()
 {
-	displaySurface = SDL_GetVideoSurface();
+//	displaySurface = SDL_GetVideoSurface();
 }
 
 Draw::~Draw()
@@ -14,12 +14,12 @@ void Draw::DrawText(SDL_Surface* src, const std::string funcText, int size, int 
  * Blue for the menu: 51, 108, 184
  * Red for the menu: 176, 54, 56
  */
-
+//	std::cerr << 1 << std::endl;
   SDL_Color color = {R, G, B};
 
   TTF_Font* font = TTF_OpenFont("fonts/m06.TTF", size);
   SDL_Surface* text = TTF_RenderText_Blended(font, funcText.c_str(), color);
-
+//	std::cerr << 2 << std::endl;
   // To get the width in pixels of the text
   int width, height;
   TTF_SizeText(font, funcText.c_str(), &width, &height);
@@ -33,13 +33,15 @@ void Draw::DrawText(SDL_Surface* src, const std::string funcText, int size, int 
 	}
 	else
 		rect.x = x;
-
+//	std::cerr << 3 << std::endl;
   rect.y = y;
 
   SDL_BlitSurface(text, NULL, src, &rect);
+
   SDL_FreeSurface(text);
   TTF_CloseFont(font);
 
+//	std::cerr << 4 << std::endl;
 	return;
 }
 

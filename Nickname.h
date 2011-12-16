@@ -11,6 +11,7 @@ class Nickname
 private:
 	SDL_Surface* displaySurface;
 
+	SDL_Event Events;
 	std::string nickname;
 	bool run;
 public:
@@ -24,7 +25,7 @@ public:
 
   SDL_Surface* Init(const std::string, int, int, int);
 
-	void HandleEvents(SDL_Event*);
+	void HandleEvents(SDL_Event&);
 };
 
 #endif

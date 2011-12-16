@@ -4,11 +4,6 @@ MainMenu::MainMenu(std::string nickname) : hardcoreMode(false), menuMovementY(31
 {
 	displaySurface = SDL_GetVideoSurface();
 	run = true;
-//	Events = Events;
-
-//  screen = Init("SUPER", 800, 600, 32);
-//	RunNickname();
-//  RunMenu();
 }
 
 MainMenu::~MainMenu()
@@ -81,56 +76,41 @@ void MainMenu::HandleEvents(SDL_Event &event)
 						break;
 
 					case SDLK_SPACE:
+						run = false;
 						// If you wanna start the game
 						if (getMenuMovementY() == 310) {
-							std::cout << "Starting game" << std::endl;
-							GameWindow *r = new GameWindow(displaySurface, Events);
-							r->runGame(getHardcore());
-							delete r;
+							GameWindow r(displaySurface, Events);
+							r.runGame(getHardcore());
 						}
 						// If you wanna check the highscore
 						else if (getMenuMovementY() == 340) {
-							Highscore *s = new Highscore(displaySurface);
-							s->runHighscore();
-							delete s;
-						}
-						// If you wanna quit the game
-						else if (getMenuMovementY() == 370) {
-							run = false;
+							Highscore s(displaySurface);
+							s.runHighscore();
 						}
 						else if (getMenuMovementY() == 400)
 						{
-							Nickname *n = new Nickname(nickname);
-							n->RunNickname();
-							delete n;
-							n = 0;
+							Nickname n(nickname);
+							n.RunNickname();
 						}
 						break;
 
 					case SDLK_RETURN:
+						run = false;
 						// If you wanna start the game
 						if (getMenuMovementY() == 310) {
-							std::cout << "Starting game" << std::endl;
-							GameWindow *r = new GameWindow(displaySurface, Events);
-							r->runGame(getHardcore());
-							delete r;
+							GameWindow r(displaySurface, Events);
+							r.runGame(getHardcore());
 						}
 						// If you wanna check the highscore
 						else if (getMenuMovementY() == 340) {
-							Highscore *s = new Highscore(displaySurface);
-							s->runHighscore();
-							delete s;
-						}
-						// If you wanna quit the game
-						else if (getMenuMovementY() == 370) {
-							run = false;
+							Highscore s(displaySurface);
+							s.runHighscore();
 						}
 						else if (getMenuMovementY() == 400)
 						{
-							Nickname *n = new Nickname(nickname);
-							n->RunNickname();
-							delete n;
-							n = 0;
+							Nickname n(nickname);
+							n.RunNickname();
+							n.~Nickname();
 						}
 						break;
 
@@ -194,48 +174,45 @@ void MainMenu::DrawText(SDL_Surface* src, const std::string funcText, int size, 
 
 void MainMenu::RunMenu()
 {
-	Draw* d = new Draw();
-	std::cout << nickname << std::endl;
+	Draw d;
+	std::cout << "MainMenu start" << std::endl;
   while(run)
   {
     // Set the background to black
     SDL_FillRect(displaySurface, NULL, 0x000000);
 
     // The title and subtitle
-    d->DrawText(displaySurface, "SUPER", 137, 120, -1, 51, 108, 184);
-    d->DrawText(displaySurface, "Super    Unique    Death    Efficient    Rally", 25, 260, -1, 176, 54, 56);
+    d.DrawText(displaySurface, "SUPER", 137, 120, -1, 51, 108, 184);
+    d.DrawText(displaySurface, "Super    Unique    Death    Efficient    Rally", 25, 260, -1, 176, 54, 56);
     
     // The menu entries
     if (getMenuMovementY() == 310)
-      d->DrawText(displaySurface, "new    game", 18, 300, -1, 255, 0, 0);
+      d.DrawText(displaySurface, "new    game", 18, 300, -1, 255, 0, 0);
     else
-      d->DrawText(displaySurface, "new    game", 18, 300, -1, 255, 255, 255);
+      d.DrawText(displaySurface, "new    game", 18, 300, -1, 255, 255, 255);
 
     if (getMenuMovementY() == 340)
-      d->DrawText(displaySurface, "highscore", 18, 330, -1, 255, 255, 0);
+      d.DrawText(displaySurface, "highscore", 18, 330, -1, 255, 255, 0);
     else
-      d->DrawText(displaySurface, "highscore", 18, 330, -1, 255, 255, 255);
+      d.DrawText(displaySurface, "highscore", 18, 330, -1, 255, 255, 255);
 
     if (getMenuMovementY() == 370)
-      d->DrawText(displaySurface, "quit", 18, 360, -1, 0, 255, 0);
+      d.DrawText(displaySurface, "quit", 18, 360, -1, 0, 255, 0);
     else
-      d->DrawText(displaySurface, "quit", 18, 360, -1, 255, 255, 255);
+      d.DrawText(displaySurface, "quit", 18, 360, -1, 255, 255, 255);
 
     if (getMenuMovementY() == 400)
-      d->DrawText(displaySurface, "change    initials", 18, 390, -1, 255, 0, 255);
+      d.DrawText(displaySurface, "change    initials", 18, 390, -1, 255, 0, 255);
     else
-      d->DrawText(displaySurface, "change    initials", 18, 390, -1, 255, 255, 255);
+      d.DrawText(displaySurface, "change    initials", 18, 390, -1, 255, 255, 255);
 
     // Draw the "choose arrow" in the menu
-    d->DrawMenuArrow(displaySurface, getMenuMovementY(), 250);
+    d.DrawMenuArrow(displaySurface, getMenuMovementY(), 250);
 
     SDL_Delay(10);
     SDL_Flip(displaySurface);
 
     HandleEvents(Events);
   }
-
-	SDL_FreeSurface(displaySurface);
-	SDL_Quit();
-	std::cout << "Game successfully exited." << std::endl;
+	std::cerr << "Game successfully exited." << std::endl;
 }
