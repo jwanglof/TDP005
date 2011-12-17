@@ -1,14 +1,14 @@
 Super : Main.cpp Nickname.o
-	g++ -o Super -lSDL -lSDL_ttf -lSDL_image Main.cpp *.o
+	g++ -o Super -lSDL -lSDL_ttf Main.cpp *.o
 
 Nickname.o : Nickname.cpp MainMenu.o Draw.o
-	g++ -c -lSDL -lSDL_ttf -lSDL_image Nickname.cpp GameWindow.o
+	g++ -c -lSDL -lSDL_ttf Nickname.cpp GameWindow.o
 
 Draw.o : Draw.cpp
 	g++ -c Draw.cpp
 
 GameWindow.o : GameWindow.cpp Player.o Stalker.o Dodger.o Highscore.o
-	g++ -c -lSDL -lSDL_ttf -lSDL_image GameWindow.cpp
+	g++ -c -lSDL -lSDL_ttf GameWindow.cpp
 
 MainMenu.o : MainMenu.cpp GameWindow.o
 	g++ -c MainMenu.cpp GameWindow.o
