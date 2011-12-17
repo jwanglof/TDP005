@@ -56,12 +56,6 @@ public:
 	 */
   static SDL_Surface* LoadImage(std::string File);
 
-  /**
-	 * drawSurface blabla
-	 * DENNA BORDE TAS BORT OCH ANVANDA DEN SOM FINNS I DRAW.H IST!
-	 */
-  static bool drawSurface(SDL_Surface* dest, SDL_Surface* src, int x, int y);
-
 	/**
 	 * cleanupSDL empties EntityList and enemyList and free heartSurface
 	 */

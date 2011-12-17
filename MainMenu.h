@@ -5,32 +5,65 @@
 #include "Highscore.h"
 #include "Nickname.h"
 
+/**
+ * MainMenu class
+ * Handles the main menu in the game
+ */
+
 class MainMenu
 {
-private:  
+private:
+	/// Where everything gets drawn onto
   SDL_Surface* displaySurface;
+
+	/// If this is true the menu-loop will run
   bool run;
+
+	/// If this is true the nickname-loop will run
   bool enterNickname;
-  SDL_Surface* Init(const std::string title, int width, int height, int bpp);
+
+	/// Captures events
   SDL_Event Events;
+
+	/// Is to get the coordinates where the menu arrow is
   int menuMovementY;
+
+	/// Contains the nickname the player has chosen
 	std::string nickname;
 
+	/// If this is true the enemies will move very fast
 	bool hardcoreMode;
+
+	/**
+	 * Inits SDL with a window that have title as caption, width and height as size and bpp as resolution
+	 */
+  SDL_Surface* Init(const std::string title, int width, int height, int bpp);
 public:
   MainMenu(std::string);
   ~MainMenu();
 
+	/**
+	 * setHardcore sets hardcoreMode to true or false depending on the player's choice
+	 * getHardcore returns hardcoreMode
+	 */
 	void setHardcore(bool);
 	bool getHardcore();
 
+	/**
+	 * setMenuMovementY set the new movement of the menu-arrow
+	 * getMenuMovementY get the coordinates of the menu-arrow
+	 */
   void setMenuMovementY(const int value);
   int getMenuMovementY();
 
-  void DrawText(SDL_Surface* src, const std::string text, int size, int y, Uint8 R, Uint8 G, Uint8 B);
-  void DrawMenuArrow(SDL_Surface* src, const int y, const int x);
+	/**
+	 * When this is called the menu-loop will run
+	 */
   void RunMenu();
 
+	/**
+	 * Handle the events of the main menu
+	 */
   void HandleEvents(SDL_Event &event);
 };
 
