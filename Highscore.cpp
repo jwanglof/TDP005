@@ -27,27 +27,60 @@ void Highscore::runHighscore()
 	Draw *d = new Draw();
 
 	std::ifstream highscoreFile;
-	std::string line;
-	std::list<std::string> highscoreList;
+
+	std::list<std::string> highscoreNickname;
+	std::list<int> highscoreScore;
+
+	std::map<int, std::string> highscoreMap;
+
+	std::string nickname;
+	int highscore;
 
 	highscoreFile.open("score/HIGHSCORE", std::ios::in | std::ios::binary);
+	if (highscoreFile.is_open())
+	{
+		while (highscoreFile.good())
+		{
+			highscoreFile >> nickname >> highscore;
+			highscoreNickname.push_back(nickname);
+			highscoreScore.push_back(highscore);
+
+			highscoreMap[highscore] = nickname;
+		}
+		highscoreFile.close();
+	}
+
+/*
+	highscoreNickname.sort();
+
+	std::list<std::string>::iterator it = highscoreNickname.begin();
+	for (; it != highscoreNickname.end(); ++it)
+	{
+		std::cerr << *it << std::endl;
+	}
+*/
+
+	std::cerr << "Highscore start" << std::endl;
+
+	int i = 1;
 
 	while (run)
 	{
     // Set the background to black
     SDL_FillRect(displaySurface, NULL, 0x000000);
 
-		d->DrawText(displaySurface, "asd", 10, 100, 100, 255, 255, 255);
-		
-		if (highscoreFile.is_open())
+		std::map<int, std::string>::iterator it2 = highscoreMap.begin();
+		for (; it2 != highscoreMap.end(); ++it2)
 		{
-			while (!highscoreFile.eof())
-			{
-				highscoreFile >> line;
-				highscoreList.push_back(line);
-			}
+//			std::cerr << it2->first << std::endl;
+			d->DrawText(displaySurface, it2->second, 10, (100*i), 100, 255, 255, 255);
+			i += 50;
+			std::cerr << i << std::endl;
 		}
-		highscoreFile.close();
+
+//		d->DrawText(displaySurface, "asd", 10, 100, 100, 255, 255, 255);
+	 
+//		d->DrawText(displaySurface, nickname, 10, 100, 100, 255, 255, 255);
 
 		while (SDL_PollEvent(&Events))
 		{
@@ -55,28 +88,22 @@ void Highscore::runHighscore()
 			{
 				if (Events.key.keysym.sym == SDLK_ESCAPE)
 				{
-					// Need to change this so it return to the mainmenu
 					run = false;
 				}
 			}
 		}
-		SDL_Delay(1);
+
 		SDL_Flip(displaySurface);
+
+		SDL_Delay(1000/60);
 	}
 
-	highscoreList.sort();
+	std::cerr << "Highscore end" << std::endl;
 
-	std::list<std::string>::iterator it = highscoreList.begin();
-	for (; it != highscoreList.end(); ++it)
-	{
-		std::cout << *it << std::endl;
-	}
-
-	highscoreFile.close();
 	return;
 }
 
-void Highscore::setHighscore(const int highscore, const std::string nickname)
+void Highscore::setHighscore(const std::string nickname, const int highscore)
 {
   std::ofstream highscoreFile;
 
@@ -85,7 +112,7 @@ void Highscore::setHighscore(const int highscore, const std::string nickname)
   if (highscoreFile.is_open())
   {
 		highscoreFile << nickname;
-		highscoreFile << ":";
+		highscoreFile << " ";
 		highscoreFile << highscore;
 		highscoreFile << "\n";
   }

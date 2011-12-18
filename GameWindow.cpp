@@ -284,9 +284,9 @@ void GameWindow::runGame(bool hardcoreMode)
 			SDL_Delay(1000/60);
   }
 
-	// If a player exits the game it wont register any highscore
+	// If a player exits the game with lives left it wont register any highscore
 	if (p->get_lives() == 0)
-		score->setHighscore(score->getCurrentscore(), "asd");
+		score->setHighscore("asd", score->getCurrentscore());
 
   GameWindow::cleanupSDL();
 }

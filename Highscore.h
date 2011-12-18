@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <list>
+#include <map>
 
 // To get SDL library
 #include "GameWindow.h"
@@ -44,12 +45,12 @@ public:
 	 * setCurrentscore sets the current score to gameCurrentscore
 	 * addToCurrentscore adds point in the current game
 	 */
-  void setHighscore(const int highscore, const std::string nickname);
+  void setHighscore(const std::string nickname, const int highscore);
   void setCurrentscore(const int currentscore);
   void addToCurrentscore(const int currentscore);
 
 	/**
-	 * When this is called the highscore list is shown
+	 * When this is called the highscore list is shownd
 	 */
 	void runHighscore();
 };
