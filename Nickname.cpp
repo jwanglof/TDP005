@@ -9,26 +9,7 @@ Nickname::Nickname(std::string nickname) : nickname(nickname)
 }
 
 Nickname::~Nickname()
-{
-}
-
-SDL_Surface* Nickname::Init(const std::string title, int width, int height, int bpp)
-{
-  run = true;
-
-  TTF_Init();
-
-  SDL_Init(SDL_INIT_EVERYTHING);
-
-  SDL_WM_SetCaption(title.c_str(), NULL);
-
-  displaySurface = SDL_SetVideoMode(width, height, bpp, SDL_HWSURFACE | SDL_DOUBLEBUF);
-	SDL_FillRect(displaySurface, NULL, 0x000000);
-
-  std::cout << "Game initialized successfully" << std::endl;
-
-  return displaySurface;
-}
+{ }
 
 void Nickname::HandleEvents(SDL_Event &Event)
 {

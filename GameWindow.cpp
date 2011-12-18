@@ -33,21 +33,6 @@ SDL_Surface* GameWindow::LoadImage(std::string File)
 	return surface;
 }
 
-bool GameWindow::drawSurface(SDL_Surface* dest, SDL_Surface* src, int x, int y)
-{
-  if (dest == NULL || src == NULL)
-    return false;
-
-  SDL_Rect destRect;
-
-  destRect.x = x;
-  destRect.y = y;
-
-  SDL_BlitSurface(src, NULL, dest, &destRect);
-
-  return true;
-}
-
 void GameWindow::cleanupSDL()
 {
   Entity::EntityList.clear();
@@ -97,6 +82,8 @@ void GameWindow::runGame(bool hardcoreMode)
 {
 	Player *p = new Player();
 	std::list<Entity *>::iterator it;
+
+	Draw *d = new Draw();
 
 	Highscore *score = new Highscore();
 
@@ -259,29 +246,29 @@ void GameWindow::runGame(bool hardcoreMode)
 		heartRect.w = 200;
 
 		for (int i = 0; i < p->get_lives(); i++)
-			drawSurface(displaySurface, heartSurface, 25*i, 10);
+			d->DrawSurface(heartSurface, displaySurface, 25*i, 10);
 
 		// MOVE THE SCORE TO THE FAR LEFT WHEN THE HEARTS HAVE BEEN MOVED TO THE CENTER!
 		// Draw the current score
-		score->DrawText(displaySurface, "Score: ", 18, 10, 470);
+		d->DrawText(displaySurface, "Score: ", 18, 10, 470, 255, 255, 255);
 		int currentScore = score->getCurrentscore();
 		std::string scoreString;
 		std::stringstream ss;
 		ss << currentScore;
 		scoreString = ss.str();
-		score->DrawText(displaySurface, scoreString, 18, 10, 550);
+		d->DrawText(displaySurface, scoreString, 18, 10, 550, 255, 255, 255);
 
 		// Draw the current level
-		score->DrawText(displaySurface, "Lvl: ", 18, 30, 470);
+		d->DrawText(displaySurface, "Lvl: ", 18, 30, 470, 255, 255, 255);
 		std::string levelString;
 		std::stringstream ss2;
 		ss2 << currentLevel;
 		levelString = ss2.str();
-		score->DrawText(displaySurface, levelString, 18, 30, 550);
+		d->DrawText(displaySurface, levelString, 18, 30, 550, 255, 255, 255);
 
 		// See if the shield is up or not
 		if (p->getShieldUp())
-			score->DrawText(displaySurface, "SHIELD    IS    UP!", 18, 30, 10);
+			d->DrawText(displaySurface, "SHIELD    IS    UP!", 18, 30, 10, 255, 255, 255);
 
 		// Draw everything
 		it = Entity::EntityList.begin();
