@@ -24,19 +24,16 @@ public:
 	/**
 	 * hasCollided check for a collision between two objects.
 	 * It takes SDL_Rect from another class
-	 * VARFOR AR DENNA VIRTUELL?
 	 */
 	virtual bool hasCollided(SDL_Rect);
 
 	/**
 	 * move is a virtual function for enemy
-	 * KAN MAN TA BORT DENNA?
 	 */
 	virtual void move() = 0;
 
 	/**
 	 * get_type is a virtual function for enemy
-	 * KAN MAN TA BORT DENNA?
 	 */
 	virtual std::string get_type() = 0;
 
