@@ -20,7 +20,6 @@ Player::Player() : Entity("./gfx/ghostie.bmp")
 	isPressed["SDLK_s"] = false;
 	isPressed["SDLK_d"] = false;
 	isPressed["mouse1"] = false;
-	shootingRate = 0;
 
 	ShieldUp = false;
 }
