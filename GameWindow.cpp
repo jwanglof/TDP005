@@ -265,8 +265,12 @@ void GameWindow::runGame(bool hardcoreMode)
 		ss2 << currentLevel;
 		levelString = ss2.str();
 		d->DrawText(displaySurface, levelString, 18, 30, 550, 255, 255, 255);
+		
+		// Draw the players initiales
+		d->DrawText(displaySurface, "Initiales", 18, 555, 10, 9, 9, 9);
+		d->DrawText(displaySurface, nickname, 18, 575, 10, 9, 9, 9);
 
-		// See if the shield is up or not
+		// If the shield is up it will print it on the screen
 		if (p->getShieldUp())
 			d->DrawText(displaySurface, "SHIELD    IS    UP!", 18, 30, 10, 255, 255, 255);
 
