@@ -37,6 +37,9 @@ private:
 	/// running decides if the game-loop is active or not
   bool running;
 
+	/// Contains the nickname, required to set the highscore
+	std::string nickname;
+
 	/**
 	 * spawnEnemy takes the player's x and y value
 	 * Then it will pick out a random number between 0-800 or 0-600 for x and y, respectively
@@ -44,7 +47,7 @@ private:
 	 */
   void spawnEnemy(int, int);
 public:
-  GameWindow();
+  GameWindow(std::string);
   ~GameWindow();
 
 	void setLevel(int);

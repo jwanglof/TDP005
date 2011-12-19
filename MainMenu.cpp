@@ -2,7 +2,6 @@
 
 MainMenu::MainMenu(std::string nickname) : hardcoreMode(false), menuMovementY(310), nickname(nickname)
 {
-	//displaySurface = SDL_GetVideoSurface();
 	displaySurface = Init("SUPER", 800, 600, 32);
 	enterNickname = true;
 	run = true;
@@ -87,7 +86,7 @@ void MainMenu::HandleEvents(SDL_Event &event)
 					case SDLK_RETURN:
 						// If you wanna start the game
 						if (getMenuMovementY() == 310) {
-							GameWindow *r = new GameWindow();
+							GameWindow *r = new GameWindow(nickname);
 							r->runGame(getHardcore());
 							delete r;
 							r = 0;
@@ -104,10 +103,12 @@ void MainMenu::HandleEvents(SDL_Event &event)
 						}
 						else if (getMenuMovementY() == 400)
 						{
-							Nickname *n = new Nickname(nickname);
+							/*Nickname *n = new Nickname(nickname);
 							n->RunNickname();
+							nickname = n->getNickname();
 							delete n;
-							n = 0;
+							n = 0;*/
+							enterNickname = true;
 						}
 						break;
 

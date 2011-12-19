@@ -4,7 +4,7 @@
 #include "Dodger.h"
 #include "Highscore.h"
 
-GameWindow::GameWindow()
+GameWindow::GameWindow(std::string nickname) : nickname(nickname)
 {
   displaySurface = SDL_GetVideoSurface();
   heartSurface = LoadImage("./gfx/heart.bmp");
@@ -286,7 +286,7 @@ void GameWindow::runGame(bool hardcoreMode)
 
 	// If a player exits the game with lives left it wont register any highscore
 	if (p->get_lives() == 0)
-		score->setHighscore("asd", score->getCurrentscore());
+		score->setHighscore(nickname, score->getCurrentscore());
 
   GameWindow::cleanupSDL();
 }

@@ -37,14 +37,14 @@ public:
 	std::string getNickname();
 
 	/**
-	 * If this is called it will run the nickname-loop
-	 */
-	void RunNickname();
-
-	/**
 	 * Handle all the events for the nickname window
 	 */
 	void HandleEvents(SDL_Event&);
+
+	/**
+	 * If this is called it will run the nickname-loop
+	 */
+	void RunNickname();
 };
 
 #endif
