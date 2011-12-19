@@ -25,3 +25,15 @@ COPYING/LICENSE
 
 BUGS
 	If you find any you can always leave a message at facebook for Johan Wänglöf och André Ligné, or just fix 'em yourself.
+
+HOW-TO PLAY
+	To play this game you have to compile it using the installation notes.
+	When the compilation is done you have an executable file called 'Super' in the folder. To run this you only need to type ./Super in the same folder.
+
+	When started you are asked to write your 3 character initiales. When you've done this you need to press 'Y'.
+
+	Now you're in the main menu and I think the menu-entries are self-explained.
+	To move around in the menu you can either use the arrows, W or S.
+	To select a menu-entry you can either press Space or Return.
+
+	To move the player in the game you use the 'WASD'-keyboard keys. To shoot you press your left mouse-button, and you aim by pointing your mouse-pointer at the enemy you want to shoot.
