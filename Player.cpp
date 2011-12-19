@@ -21,7 +21,7 @@ Player::Player() : Entity("./gfx/ghostie.bmp")
 	isPressed["SDLK_d"] = false;
 	isPressed["mouse1"] = false;
 
-	shieldUp = false;
+	ShieldUp = false;
 }
 
 Player::~Player()
@@ -135,17 +135,17 @@ void Player::set_lives(int change)
 	lives += change;
 }
 
-bool Player::getShieldUp()
+bool Player::get_shield_up()
 {
-	return shieldUp;
+	return ShieldUp;
 }
 
-void Player::setShieldUp(bool value)
+void Player::set_shield_up(bool value)
 {
 	if (value)
-		shieldUp = true;
+		ShieldUp = true;
 	else
-		shieldUp = false;
+		ShieldUp = false;
 }
 
 void Player::add_bombs()

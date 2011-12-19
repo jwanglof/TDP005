@@ -34,7 +34,7 @@ private:
 	/*
 	 * Check if the players' shield is up
 	 */
-	bool shieldUp;
+	bool ShieldUp;
 public:
 	/*
 	 * Virtual from Entity
@@ -60,8 +60,8 @@ public:
 	int get_bombs() const;
 	void add_bombs();
 
-	bool getShieldUp();
-	void setShieldUp(bool);
+	bool get_shield_up();
+	void set_shield_up(bool);
 };
 
 #endif

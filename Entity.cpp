@@ -37,7 +37,7 @@ void Entity::move()
 std::string Entity::get_type()
 { }
 
-bool Entity::hasCollided(SDL_Rect second)
+bool Entity::has_collided(SDL_Rect second)
 {
 	// The sides of the recangle
 	int leftA, leftB;
