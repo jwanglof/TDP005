@@ -14,16 +14,14 @@
 class Enemy : public Entity
 {
 private:
-	/// Velocity does something
+	/// Velocity set's the speed the enemy will move with
 	int velocity;
 
-	/// chase does something
+	/// chase set's the player's position so it can chase it
 	SDL_Rect chase;
 public:
 	Enemy(std::string);
 	~Enemy();
-
-	//bool hasCollided(SDL_Rect);
 
 	/**
 	 * enemyList contains every enemy spawned on the screen
@@ -32,7 +30,7 @@ public:
 	static std::list<Enemy *> enemyList;
 
 	/**
-	 * move is a virtual function for Dodger and Stalker
+	 * Virtual in Entity
 	 */
 	virtual void move() = 0;
 

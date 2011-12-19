@@ -11,21 +11,52 @@
 class Player : public Entity
 {
 private:
+	/*
+	 * A map that check if a key is currently pressed down
+	 */
 	std::map<std::string, bool> isPressed;
-	int velocity;
-	int lives;
-	int bombs;
-	int shootingRate;
 
+	/*
+	 * Set's the speed the player moves with
+	 */
+	int velocity;
+
+	/*
+	 * The number of lives left for the player
+	 */
+	int lives;
+
+	/*
+	 * The number of bombs left for the player to use
+	 */
+	int bombs;
+
+	/*
+	 * Check if the players' shield is up
+	 */
 	bool shieldUp;
 public:
+	/*
+	 * Virtual from Entity
+	 */
 	void move();
+
+	/*
+	 * Check events for moving the player
+	 */
 	void check_events(SDL_Event&);
+
+	/*
+	 * Returns "Player" in this class
+	 */
 	std::string get_type();
+
 	Player();
 	~Player();
+
 	int get_lives() const;
 	void set_lives(int);
+
 	int get_bombs() const;
 	void add_bombs();
 

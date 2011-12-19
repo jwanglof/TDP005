@@ -30,27 +30,29 @@ public:
 	//bool hasCollided(SDL_Rect);
 
 	/**
-	 * move does something
+	 * move moves the object accordingly
 	 */
 	void move();
 
 	/**
-	 * chase_move does something
+	 * chase_move chases the player's coordinates
 	 */
 	void chase_move();
 
 	/**
-	 * set_dodge does something
+	 * set_dodge get's the coordinates of the closest projectile so it can
+	 * avoid it.
 	 */
 	void set_dodge(bool);
 
 	/**
-	 * dodge_move does something
+	 * dodge_move looks for the set projectile and if it's close enough
+	 * dodge it
 	 */
 	void dodge_move();
 
 	/**
-	 * set_chase does something
+	 * set_chase get's the coordinates of the player so it can chase him
 	 */
 	void set_chase(SDL_Rect);
 

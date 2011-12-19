@@ -61,7 +61,6 @@ public:
 
 	/**
 	 * LoadImage loads a bmp-picture
-	 * EXAKT SAMMA FINNS I ENTITY. FLYTTA TILL ETT GEMENSAMT STALLE?
 	 */
   static SDL_Surface* LoadImage(std::string File);
 
@@ -72,7 +71,7 @@ public:
 
 	/**
 	 * runGame draws everything shown in the game
-	 * The hearts, the score, the current level, the player, the enemies, the power-ups and the "bullets"
+	 * The hearts, the score, the current level, the player, the enemies, the power-ups and the "bullets". It also handles all movement
 	 */
   void runGame(bool hardcoreMode);
 

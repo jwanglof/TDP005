@@ -8,15 +8,29 @@
 class Stalker : public Enemy
 {
 	private:
+		/*
+		 * The speed at which the Enemy will move
+		 */
 		int velocity;
+
+		/*
+		 * The coordinates of the player
+		 */
 		SDL_Rect chase;
 	public:
 		Stalker(double, double);
 		~Stalker();
 
-		//bool hasCollided(SDL_Rect);
+		/*
+		 * Virtual in Entity
+		 */
 		void move();
+
+		/*
+		 * Sets the chase-variable
+		 */
 		void set_chase(SDL_Rect);
+
 		std::string get_type();
 };
 

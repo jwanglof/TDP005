@@ -14,9 +14,10 @@
 class Entity
 {
 private:
-	/// surface is a surface of a surface in a window! <-------
+	/**
+	 * The surface of the current subclass
+	 */
 	SDL_Surface* surface;
-	// SDL_Rect to contain coordinates and size of entity
 public:
 	Entity(std::string);
 	~Entity();
@@ -28,24 +29,22 @@ public:
 	virtual bool hasCollided(SDL_Rect);
 
 	/**
-	 * move is a virtual function for enemy
+	 * Updates all the x- and y-coordinates all entities
 	 */
 	virtual void move() = 0;
 
 	/**
-	 * get_type is a virtual function for enemy
+	 * Return the type of a subclass
 	 */
 	virtual std::string get_type() = 0;
 
 	/**
-	 * draw draws. 
-	 * FLYTTA DENNA TILL DRAW.H?
+	 * draw draws it's surface to the surface it takes as a paramater 
 	 */
 	void draw(SDL_Surface*);
 
 	/**
-	 * EntityList contains almost everything shown on the screen
-	 * "Bullets", enemies, power-ups <----??? and the player
+	 * EntityList contains everything that moves on the screen
 	 */
 	static std::list<Entity *> EntityList;
 
