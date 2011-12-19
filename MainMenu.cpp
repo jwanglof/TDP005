@@ -1,6 +1,6 @@
 #include "MainMenu.h"
 
-MainMenu::MainMenu(std::string Nickname) : HardcoreMode(false), MenuMovementy(310), Nickname(Nickname)
+MainMenu::MainMenu(std::string Nickname) : HardcoreMode(false), MenuMovementY(310), CurrentNickname(Nickname)
 {
 	DisplaySurface = init("SUPER", 800, 600, 32);
 	EnterNickname = true;
@@ -81,15 +81,17 @@ void MainMenu::handle_events(SDL_Event &Event)
 					case SDLK_SPACE:
 					case SDLK_RETURN:
 						// If you wanna start the game
-						if (get_menu_movement_y() == 310) {
-							GameWindow *r = new GameWindow(Nickname);
+						if (get_menu_movement_y() == 310)
+						{
+							GameWindow *r = new GameWindow(CurrentNickname);
 							r->run_game(get_hardcore());
 							delete r;
 							r = 0;
 						}
 
 						// If you wanna check the highscore
-						else if (get_menu_movement_y() == 340) {
+						else if (get_menu_movement_y() == 340)
+						{
 							Highscore *s = new Highscore();
 							s->run_highscore();
 							delete s;
@@ -97,8 +99,9 @@ void MainMenu::handle_events(SDL_Event &Event)
 						}
 						
 						// If you wanna quit
-						else if (get_menu_movement_y() == 370) {
-							run = false;
+						else if (get_menu_movement_y() == 370)
+						{
+							Running = false;
 						}
 
 						// If you wanna change your initiales
@@ -122,18 +125,18 @@ void MainMenu::run_menu()
 
   while(Running)
   {
-	if (EnterNickname) {
-		Nickname *n = new Nickname(Nickname);
-		n->run_nickname();
-		Nickname = n->get_nickname();
-		delete n;
-		n = 0;
-		EnterNickname = false;
+		if (EnterNickname) {
+			Nickname *n = new Nickname(CurrentNickname);
+			n->run_nickname();
+			CurrentNickname = n->get_nickname();
+			delete n;
+			n = 0;
+			EnterNickname = false;
 
-		// If the user hits ESCAPE before entering 3 characters it will end this loop
-		if (Nickname.size() < 3)
-			Running = false;
-	}
+			// If the user hits ESCAPE before entering 3 characters it will end this loop
+			if (CurrentNickname.size() < 3)
+				Running = false;
+		}
 
     // Set the background to black
     SDL_FillRect(DisplaySurface, NULL, 0x000000);

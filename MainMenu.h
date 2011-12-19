@@ -33,7 +33,7 @@ private:
   int MenuMovementY;
 
 	/// Contains the nickname the player has chosen
-	std::string Nickname;
+	std::string CurrentNickname;
 
 	/// If this is true the enemies will move very fast
 	bool HardcoreMode;

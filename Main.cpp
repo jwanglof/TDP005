@@ -3,7 +3,7 @@
 int main()
 {
 	MainMenu *n = new MainMenu("");
-	n->RunMenu();
+	n->run_menu();
 	delete n;
 	n = 0;
 

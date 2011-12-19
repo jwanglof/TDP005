@@ -32,7 +32,7 @@ void Draw::draw_text(SDL_Surface* Src, const std::string FuncText, int Size, int
 	else
 		Rect.x = X;
 
-  rect.y = Y;
+  Rect.y = Y;
 
   SDL_BlitSurface(Text, NULL, Src, &Rect);
 

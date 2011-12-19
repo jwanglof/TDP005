@@ -22,7 +22,7 @@ private:
 	SDL_Event Events;
 
 	/// Contains the nickname
-	std::string Nickname;
+	std::string CurrentNickname;
 
 	/// If true the nickname-loop will run
 	bool Running;
