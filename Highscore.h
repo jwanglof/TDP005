@@ -2,7 +2,7 @@
 #define HIGHSCORE_H_
 
 #include <fstream>
-#include <list>
+#include <sstream>
 #include <map>
 
 // To get SDL library

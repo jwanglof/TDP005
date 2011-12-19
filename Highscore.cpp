@@ -28,59 +28,67 @@ void Highscore::runHighscore()
 
 	std::ifstream highscoreFile;
 
-	std::list<std::string> highscoreNickname;
-	std::list<int> highscoreScore;
-
 	std::map<int, std::string> highscoreMap;
 
 	std::string nickname;
-	int highscore;
+	int highscore = 0;
 
 	highscoreFile.open("score/HIGHSCORE", std::ios::in | std::ios::binary);
+
 	if (highscoreFile.is_open())
 	{
 		while (highscoreFile.good())
 		{
 			highscoreFile >> nickname >> highscore;
-			highscoreNickname.push_back(nickname);
-			highscoreScore.push_back(highscore);
-
+			std::cerr << highscore << std::endl;
 			highscoreMap[highscore] = nickname;
 		}
 		highscoreFile.close();
 	}
 
-/*
-	highscoreNickname.sort();
-
-	std::list<std::string>::iterator it = highscoreNickname.begin();
-	for (; it != highscoreNickname.end(); ++it)
-	{
-		std::cerr << *it << std::endl;
-	}
-*/
-
 	std::cerr << "Highscore start" << std::endl;
 
-	int i = 1;
-
+	int i = 100;
+	int j = 0;
+	int score = 0;
+	std::string testString;
+	std::map<int, std::string>::reverse_iterator it2 = highscoreMap.rbegin();
+	
 	while (run)
 	{
-    // Set the background to black
-    SDL_FillRect(displaySurface, NULL, 0x000000);
+		// Set the background to black
+		SDL_FillRect(displaySurface, NULL, 0x000000);
 
-		std::map<int, std::string>::iterator it2 = highscoreMap.begin();
-		for (; it2 != highscoreMap.end(); ++it2)
+		d->DrawText(displaySurface, "Top 15", 55, 20, -1, 51, 108, 184);
+		d->DrawText(displaySurface, "Initials", 30, 80, 50, 176, 54, 56);
+		d->DrawText(displaySurface, "Score", 30, 80, 640, 176, 54, 56);
+
+		while (it2 != highscoreMap.rend() && j < 15)
 		{
-//			std::cerr << it2->first << std::endl;
-			d->DrawText(displaySurface, it2->second, 10, (100*i), 100, 255, 255, 255);
-			i += 50;
-			std::cerr << i << std::endl;
-		}
+			if (it2->first == 0)
+			{
+				d->DrawText(displaySurface, "No score", 15, 140, 50, 255, 255, 255);
+			}
+			else
+			{
+				score = it2->first;
+				std::stringstream ss;
+				ss << score;
+				testString = ss.str();
+				
+				d->DrawText(displaySurface, it2->second, 15, i+40, 50, 255, 255, 255);
+				d->DrawText(displaySurface, testString, 15, i+40, 640, 255, 255, 255);
+				
+				i += 30;				
 
-//		d->DrawText(displaySurface, "asd", 10, 100, 100, 255, 255, 255);
-	 
-//		d->DrawText(displaySurface, nickname, 10, 100, 100, 255, 255, 255);
+			}
+
+			++j;
+			++it2;
+
+			SDL_Flip(displaySurface);
+			SDL_Delay(1000/60);
+		}
 
 		while (SDL_PollEvent(&Events))
 		{
@@ -92,11 +100,8 @@ void Highscore::runHighscore()
 				}
 			}
 		}
-
-		SDL_Flip(displaySurface);
-
-		SDL_Delay(1000/60);
 	}
+	
 
 	std::cerr << "Highscore end" << std::endl;
 
