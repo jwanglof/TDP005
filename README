@@ -1,1 +1,27 @@
-deeeeev
+README
+	This is a game created as a project in the course TDP005 at Linköping University
+
+AUTHORS
+	This game is created by:
+		Johan Wänglöf
+	and
+		André Ligné
+
+INSTALL
+	Requirements for this game to run:
+		SDL
+		SDL_ttf
+		g++
+	Optional (but serioulsy, you should get this to make your life easier)
+		make
+
+	How to install:
+		Just type 'make'. And if you don't have make you should really install it!
+		We do not support anyone that doesn't have make ;)
+
+COPYING/LICENSE
+	None what so ever. Do what you want!
+	Github URL: https://github.com/jwanglof/TDP005
+
+BUGS
+	If you find any you can always leave a message at facebook for Johan Wänglöf och André Ligné, or just fix 'em yourself.
