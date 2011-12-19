@@ -3,10 +3,10 @@
 Powerups::Powerups(int x, int y, int live_time, std::string type) 
 					: Entity("./gfx/random.bmp"), type(type), counter(live_time)
 {
-	surfaceRectangle.x = x;
-	surfaceRectangle.y = y;
-	surfaceRectangle.w = 40;
-	surfaceRectangle.h = 40;
+	SurfaceRectangle.x = x;
+	SurfaceRectangle.y = y;
+	SurfaceRectangle.w = 40;
+	SurfaceRectangle.h = 40;
 }
 
 Powerups::~Powerups()

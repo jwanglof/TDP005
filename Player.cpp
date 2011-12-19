@@ -5,15 +5,14 @@ Player::Player() : Entity("./gfx/ghostie.bmp")
 	velocity = 4;
 	lives = 3;
 	bombs = 3;
-	shootingRate = 100;
 
 	// Init the player at this position
-	surfaceRectangle.x = 400;
-	surfaceRectangle.y = 300;
+	SurfaceRectangle.x = 400;
+	SurfaceRectangle.y = 300;
 
 	// Set collision rectangle
-	surfaceRectangle.h = 40;
-	surfaceRectangle.w = 40;
+	SurfaceRectangle.h = 40;
+	SurfaceRectangle.w = 40;
 
 	// A map for checking if key is pressed down, and move if it is
 	isPressed["SDLK_w"] = false;
@@ -31,15 +30,15 @@ Player::~Player()
 
 void Player::move() {
 	// Move the player accordingly	
-	if (isPressed["SDLK_w"] && surfaceRectangle.y > 0)
-		surfaceRectangle.y -= velocity;
-	else if (isPressed["SDLK_s"] && surfaceRectangle.y < (600 - surfaceRectangle.h))
-		surfaceRectangle.y += velocity;
+	if (isPressed["SDLK_w"] && SurfaceRectangle.y > 0)
+		SurfaceRectangle.y -= velocity;
+	else if (isPressed["SDLK_s"] && SurfaceRectangle.y < (600 - SurfaceRectangle.h))
+		SurfaceRectangle.y += velocity;
 
-	if (isPressed["SDLK_a"] && surfaceRectangle.x > 0)
-		surfaceRectangle.x -= velocity;
-	else if (isPressed["SDLK_d"] && surfaceRectangle.x < (800 - surfaceRectangle.w))
-		surfaceRectangle.x += velocity;
+	if (isPressed["SDLK_a"] && SurfaceRectangle.x > 0)
+		SurfaceRectangle.x -= velocity;
+	else if (isPressed["SDLK_d"] && SurfaceRectangle.x < (800 - SurfaceRectangle.w))
+		SurfaceRectangle.x += velocity;
 
 	if (isPressed["mouse1"]) {
 
@@ -83,8 +82,8 @@ void Player::check_events(SDL_Event &event)
 	// If the player clicks mouse1, shoot
 		if (event.button.button == SDL_BUTTON_LEFT) {
 			isPressed["mouse1"] = false;			
-			new Projectile(surfaceRectangle.x + (surfaceRectangle.w / 2),
-										 surfaceRectangle.y + (surfaceRectangle.h / 2), 
+			new Projectile(SurfaceRectangle.x + (SurfaceRectangle.w / 2),
+										 SurfaceRectangle.y + (SurfaceRectangle.h / 2), 
 										 event.button.x, event.button.y);
 
 		}
@@ -92,15 +91,15 @@ void Player::check_events(SDL_Event &event)
 		{
 
 			// Find and delete the enemy from the Entity- and Enemylist
-			std::list<Enemy*>::iterator eit = Enemy::enemyList.begin();
+			std::list<Enemy*>::iterator eit = Enemy::EnemyList.begin();
 			std::list<Entity*>::iterator it2 = Entity::EntityList.begin();
-			for (; eit != Enemy::enemyList.end(); eit++)
+			for (; eit != Enemy::EnemyList.end(); eit++)
 			{
 				for (; it2 != Entity::EntityList.end(); it2++) {
 					if (*it2 == *eit) 
 					{
 						Entity *del2 = *it2;
-						eit = Enemy::enemyList.erase(eit);
+						eit = Enemy::EnemyList.erase(eit);
 						Entity::EntityList.erase(it2);
 						delete del2;
 						it2 = Entity::EntityList.begin();
@@ -114,8 +113,8 @@ void Player::check_events(SDL_Event &event)
 
 	}
 
-/*	new Projectile(surfaceRectangle.x + (surfaceRectangle.w / 2),
-								 surfaceRectangle.y + (surfaceRectangle.h / 2), 
+/*	new Projectile(SurfaceRectangle.x + (SurfaceRectangle.w / 2),
+								 SurfaceRectangle.y + (SurfaceRectangle.h / 2), 
 								 event.button.x, event.button.y);
 */
 	// If player clicks mouse2, check if he has bombs left, and remove all entites except player

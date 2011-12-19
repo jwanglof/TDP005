@@ -5,15 +5,15 @@
 #include "Dodger.h"
 #include "Highscore.h"
 
-GameWindow::GameWindow(std::string nickname) : nickname(nickname)
+GameWindow::GameWindow(std::string Nickname) : Nickname(Nickname)
 {
-  displaySurface = SDL_GetVideoSurface();
-  heartSurface = LoadImage("./gfx/heart.bmp");
-  bombSurface = LoadImage("./gfx/bomb.bmp");
-  numberOfEnemies = 2;
-  currentLevel = 1;
+  DisplaySurface = SDL_GetVideoSurface();
+  HeartSurface = LoadImage("./gfx/heart.bmp");
+  BombSurface = LoadImage("./gfx/bomb.bmp");
+  NumberOfEnemies = 2;
+  CurrentLevel = 1;
 
-  running = true;
+  Running = true;
 }
 
 GameWindow::~GameWindow()
@@ -35,12 +35,12 @@ SDL_Surface* GameWindow::LoadImage(std::string File)
 	return surface;
 }
 
-void GameWindow::cleanupSDL()
+void GameWindow::CleanupSDL()
 {
   Entity::EntityList.clear();
-  Enemy::enemyList.clear();
-	//SDL_FreeSurface(displaySurface);
-	SDL_FreeSurface(heartSurface);
+  Enemy::EnemyList.clear();
+	//SDL_FreeSurface(DisplaySurface);
+	SDL_FreeSurface(HeartSurface);
 }
 
 void GameWindow::onEvent(SDL_Event* eventInput)
@@ -49,10 +49,10 @@ void GameWindow::onEvent(SDL_Event* eventInput)
 	if (eventInput->type == SDL_KEYDOWN) {
 		// If escape, exit gameloop
 		if (eventInput->key.keysym.sym == SDLK_ESCAPE) {
-			running = false;
+			Running = false;
 		}
 		/*else if (eventInput->key.keysym.sym == SDLK_j)
-			spawnEnemy();*/
+			spawn_enemy();*/
 	}
 }
 
@@ -84,7 +84,7 @@ void GameWindow::spawnPowerup()
 }
 
 // Spawn an enemy
-void GameWindow::spawnEnemy(int x, int y)
+void GameWindow::spawn_enemy(int x, int y)
 {
 	int spawnX;
 	int spawnY;
@@ -106,7 +106,7 @@ void GameWindow::spawnEnemy(int x, int y)
 		new Dodger(spawnX, spawnY);
 }
 
-void GameWindow::runGame(bool hardcoreMode)
+void GameWindow::runGame(bool HardcoreMode)
 {
 	Player *p = new Player();
 	std::list<Entity *>::iterator it;
@@ -120,7 +120,7 @@ void GameWindow::runGame(bool hardcoreMode)
 
 	time_t seconds;
 
-  while (running && p->get_lives() > 0)
+  while (Running && p->get_lives() > 0)
 	{
 		seconds = time(NULL);
 
@@ -136,29 +136,29 @@ void GameWindow::runGame(bool hardcoreMode)
 			spawnPowerup();
 
 		// Levels
-		currentLevel = (1 + floor(score->getCurrentscore() / 1000));
+		CurrentLevel = (1 + floor(score->getCurrentscore() / 1000));
 
-		if (numberOfEnemies != (currentLevel*2) && score->getCurrentscore() != 0)
-			numberOfEnemies += 1;
+		if (NumberOfEnemies != (CurrentLevel*2) && score->getCurrentscore() != 0)
+			NumberOfEnemies += 1;
 
 		// Set the shield off when it has reached it has reached timeWhenShieldOff
 		if (seconds >= timeWhenShieldOff)
 			p->setShieldUp(false);
 
 		// Set max enemys on the playfield
-		if (Enemy::enemyList.size() < numberOfEnemies)
-			spawnEnemy(p->surfaceRectangle.x, p->surfaceRectangle.y);
+		if (Enemy::EnemyList.size() < NumberOfEnemies)
+			spawn_enemy(p->SurfaceRectangle.x, p->SurfaceRectangle.y);
 
 		// Check for collisions
 		for (it = Entity::EntityList.begin(); it != Entity::EntityList.end(); it++) 
 		{
-			if (Enemy::enemyList.size() != 0)
+			if (Enemy::EnemyList.size() != 0)
 			{
-				std::list<Enemy *>::iterator eit = Enemy::enemyList.begin();
-				for (; eit != Enemy::enemyList.end(); eit++) 
+				std::list<Enemy *>::iterator eit = Enemy::EnemyList.begin();
+				for (; eit != Enemy::EnemyList.end(); eit++) 
 				{
 					// If a projectile collides with an enemy
-					if ((*it)->get_type() == "Projectile" && (*eit)->hasCollided((*it)->surfaceRectangle)) 
+					if ((*it)->get_type() == "Projectile" && (*eit)->hasCollided((*it)->SurfaceRectangle)) 
 					{
 						// Set the p's currentscore depending on which enemy type that's killed
 						if ((*eit)->get_type() == "Stalker")
@@ -177,7 +177,7 @@ void GameWindow::runGame(bool hardcoreMode)
 							if (*it2 == *eit) 
 							{
 								Entity *del2 = *it2;
-								eit = Enemy::enemyList.erase(eit);
+								eit = Enemy::EnemyList.erase(eit);
 								it2 = Entity::EntityList.erase(it2);
 								delete del2;
 								it = Entity::EntityList.begin();
@@ -186,14 +186,14 @@ void GameWindow::runGame(bool hardcoreMode)
 
 					}
 					// If the enemy collided with the p
-					else if ((*eit)->hasCollided(p->surfaceRectangle)) {
+					else if ((*eit)->hasCollided(p->SurfaceRectangle)) {
 						std::list<Entity*>::iterator it2 = Entity::EntityList.begin();
 						for (; it2 != Entity::EntityList.end(); it2++) {
 							if (*it2 == *eit)
 							{
 								// If the shield is up the p wont loose lifes when getting hit
 									Entity *del2 = *it2;
-									eit = Enemy::enemyList.erase(eit);
+									eit = Enemy::EnemyList.erase(eit);
 									it2 = Entity::EntityList.erase(it2);
 									delete del2;
 									it = Entity::EntityList.begin();
@@ -222,7 +222,7 @@ void GameWindow::runGame(bool hardcoreMode)
 				Powerups *pu = dynamic_cast<Powerups *>(*it);
 	
 				// If the collided
-				if ((*it)->hasCollided(p->surfaceRectangle)) {
+				if ((*it)->hasCollided(p->SurfaceRectangle)) {
 					pu->set_counter(-1);
 					p->add_bombs();
 				}
@@ -237,7 +237,7 @@ void GameWindow::runGame(bool hardcoreMode)
 				Powerups *pu = dynamic_cast<Powerups *>(*it);
 
 				// If they collided
-				if (pu->hasCollided(p->surfaceRectangle)) {
+				if (pu->hasCollided(p->SurfaceRectangle)) {
 					pu->set_counter(-1);
 					p->set_lives(1);
 				}
@@ -252,10 +252,10 @@ void GameWindow::runGame(bool hardcoreMode)
 
 		// Give all stalker-enemies the position of the p
 		std::list<Enemy *>::iterator enemy_iterator;
-		for (enemy_iterator = Enemy::enemyList.begin(); 
-				 enemy_iterator != Enemy::enemyList.end(); enemy_iterator++) {
+		for (enemy_iterator = Enemy::EnemyList.begin(); 
+				 enemy_iterator != Enemy::EnemyList.end(); enemy_iterator++) {
 			if ((*enemy_iterator)->get_type() == "Stalker") {
-				(*enemy_iterator)->set_chase(p->surfaceRectangle);
+				(*enemy_iterator)->set_chase(p->SurfaceRectangle);
 			}
 			else if ((*enemy_iterator)->get_type() == "Dodger") {
 				it = Entity::EntityList.begin();
@@ -264,20 +264,20 @@ void GameWindow::runGame(bool hardcoreMode)
 				// Check if there's an projectile on the screen
 				for (it = Entity::EntityList.begin(); it != Entity::EntityList.end(); it++) {
 					if ((*it)->get_type() == "Projectile") {
-						dodge = (*it)->surfaceRectangle;
+						dodge = (*it)->SurfaceRectangle;
 					}
 				}
 
 				// If there's prjectiles on the screen, else chase p
 				Dodger *d = dynamic_cast<Dodger*>(*enemy_iterator);
-				if (dodge.x != 0 && abs(dodge.x - (*enemy_iterator)->surfaceRectangle.x) < 50 || 
-						dodge.y != 0 && abs(dodge.y - (*enemy_iterator)->surfaceRectangle.y) < 50)  {
+				if (dodge.x != 0 && abs(dodge.x - (*enemy_iterator)->SurfaceRectangle.x) < 50 || 
+						dodge.y != 0 && abs(dodge.y - (*enemy_iterator)->SurfaceRectangle.y) < 50)  {
 					d->set_dodge(true);
 					(*enemy_iterator)->set_chase(dodge);
 				}
 				else {
 					d->set_dodge(false);
-					(*enemy_iterator)->set_chase(p->surfaceRectangle);
+					(*enemy_iterator)->set_chase(p->SurfaceRectangle);
 				}
 
 			}
@@ -291,8 +291,8 @@ void GameWindow::runGame(bool hardcoreMode)
 
 			// Check if remove any Projectiles
 			if ((*it)->get_type() == "Projectile") {
-				if (((*it)->surfaceRectangle.x < 0 || (*it)->surfaceRectangle.x > 800) ||
-						((*it)->surfaceRectangle.y < 0 || (*it)->surfaceRectangle.y > 600)) {
+				if (((*it)->SurfaceRectangle.x < 0 || (*it)->SurfaceRectangle.x > 800) ||
+						((*it)->SurfaceRectangle.y < 0 || (*it)->SurfaceRectangle.y > 600)) {
 					Entity *del = *it;
 					it = Entity::EntityList.erase(it);
 					delete del;
@@ -301,7 +301,7 @@ void GameWindow::runGame(bool hardcoreMode)
 		}
 
 		// Draw background
-		SDL_FillRect(displaySurface, NULL, 0x000000);
+		SDL_FillRect(DisplaySurface, NULL, 0x000000);
 	
 		// Draw the hearts
 		// Thought that the hearts would be in a pre-defined rect and then move that rect to the center
@@ -312,46 +312,46 @@ void GameWindow::runGame(bool hardcoreMode)
 		heartRect.w = 200;
 
 		for (int i = 0; i < p->get_lives(); i++)
-			d->DrawSurface(heartSurface, displaySurface, 25*i, 10);
+			d->DrawSurface(HeartSurface, DisplaySurface, 25*i, 10);
 
 		for (int i = 0; i < p->get_bombs(); i++)
-			d->DrawSurface(bombSurface, displaySurface, 25*i, 50);
+			d->DrawSurface(BombSurface, DisplaySurface, 25*i, 50);
 
 		// MOVE THE SCORE TO THE FAR LEFT WHEN THE HEARTS HAVE BEEN MOVED TO THE CENTER!
 		// Draw the current score
-		d->DrawText(displaySurface, "Score: ", 18, 10, 470, 255, 255, 255);
+		d->DrawText(DisplaySurface, "Score: ", 18, 10, 470, 255, 255, 255);
 		int currentScore = score->getCurrentscore();
 		std::string scoreString;
 		std::stringstream ss;
 		ss << currentScore;
 		scoreString = ss.str();
-		d->DrawText(displaySurface, scoreString, 18, 10, 550, 255, 255, 255);
+		d->DrawText(DisplaySurface, scoreString, 18, 10, 550, 255, 255, 255);
 
 		// Draw the current level
-		d->DrawText(displaySurface, "Lvl: ", 18, 30, 470, 255, 255, 255);
+		d->DrawText(DisplaySurface, "Lvl: ", 18, 30, 470, 255, 255, 255);
 		std::string levelString;
 		std::stringstream ss2;
-		ss2 << currentLevel;
+		ss2 << CurrentLevel;
 		levelString = ss2.str();
-		d->DrawText(displaySurface, levelString, 18, 30, 550, 255, 255, 255);
+		d->DrawText(DisplaySurface, levelString, 18, 30, 550, 255, 255, 255);
 		
 		// Draw the players initiales
-		d->DrawText(displaySurface, "Initiales", 18, 555, 10, 9, 9, 9);
-		d->DrawText(displaySurface, nickname, 18, 575, 10, 9, 9, 9);
+		d->DrawText(DisplaySurface, "Initiales", 18, 555, 10, 9, 9, 9);
+		d->DrawText(DisplaySurface, Nickname, 18, 575, 10, 9, 9, 9);
 
 		// If the shield is up it will print it on the screen
 		if (p->getShieldUp())
-			d->DrawText(displaySurface, "SHIELD    IS    UP!", 18, 30, 10, 255, 255, 255);
+			d->DrawText(DisplaySurface, "SHIELD    IS    UP!", 18, 30, 10, 255, 255, 255);
 
 		// Draw everything
 		it = Entity::EntityList.begin();
 		for (; it != Entity::EntityList.end(); it++) {
-			(*it)->draw(displaySurface);
+			(*it)->draw(DisplaySurface);
 		}
 
-    SDL_Flip(displaySurface);
+    SDL_Flip(DisplaySurface);
 
-		if (hardcoreMode)
+		if (HardcoreMode)
 			SDL_Delay(1);
 		else
 			SDL_Delay(1000/60);
@@ -359,15 +359,15 @@ void GameWindow::runGame(bool hardcoreMode)
 
 	// If a player exits the game with lives left it wont register any highscore
 	if (p->get_lives() == 0)
-		score->setHighscore(nickname, score->getCurrentscore());
+		score->setHighscore(Nickname, score->getCurrentscore());
 
-  GameWindow::cleanupSDL();
+  GameWindow::CleanupSDL();
 }
 
 /*int main()
 {
   GameWindow windoz;
   windoz.runGame();
-  windoz.cleanupSDL();
+  windoz.CleanupSDL();
   return 0;
 }*/

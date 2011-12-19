@@ -4,10 +4,10 @@ Stalker::Stalker(double start_x, double start_y) : Enemy("./gfx/space.bmp")
 {
 	velocity = 2;
 
-	surfaceRectangle.x = start_x;
-	surfaceRectangle.y = start_y;
-	surfaceRectangle.w = 40;
-	surfaceRectangle.h = 40;
+	SurfaceRectangle.x = start_x;
+	SurfaceRectangle.y = start_y;
+	SurfaceRectangle.w = 40;
+	SurfaceRectangle.h = 40;
 }
 
 Stalker::~Stalker()
@@ -15,8 +15,8 @@ Stalker::~Stalker()
 
 void Stalker::move()
 {
-	double delta_y = (chase.y - surfaceRectangle.y);
-	double delta_x = (chase.x - surfaceRectangle.x);
+	double delta_y = (chase.y - SurfaceRectangle.y);
+	double delta_x = (chase.x - SurfaceRectangle.x);
 	double angle = 0;
 
 	const double PI = 3.141592;
@@ -32,10 +32,10 @@ void Stalker::move()
 		angle = -((atan(delta_y / delta_x)) - PI/2) + (PI * 1.5);
 
 	// Move the enemy
-	if (surfaceRectangle.x < 800)
-		surfaceRectangle.x += (cos(angle) * velocity);
-	if (!surfaceRectangle.y < 600)
-		surfaceRectangle.y -= (sin(angle) * velocity);
+	if (SurfaceRectangle.x < 800)
+		SurfaceRectangle.x += (cos(angle) * velocity);
+	if (!SurfaceRectangle.y < 600)
+		SurfaceRectangle.y -= (sin(angle) * velocity);
 
 }
 
@@ -58,10 +58,10 @@ std::string Stalker::get_type()
     int bottomA, bottomB;
 
     //Calculate the sides of rect A
-    leftA = surfaceRectangle.x;
-    rightA = surfaceRectangle.x + surfaceRectangle.w;
-    topA = surfaceRectangle.y;
-    bottomA = surfaceRectangle.y + surfaceRectangle.h;
+    leftA = SurfaceRectangle.x;
+    rightA = SurfaceRectangle.x + SurfaceRectangle.w;
+    topA = SurfaceRectangle.y;
+    bottomA = SurfaceRectangle.y + SurfaceRectangle.h;
         
     //Calculate the sides of rect B
     leftB = second.x;

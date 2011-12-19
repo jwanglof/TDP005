@@ -23,41 +23,41 @@ class GameWindow
 {
 private:
 	/// displaySurface is where the game gets drawn
-  SDL_Surface* displaySurface;
+  SDL_Surface* DisplaySurface;
 
 	/// heartSurface loads the heart-images that represent the player's life
-  SDL_Surface* heartSurface;
+  SDL_Surface* HeartSurface;
 
 	/// heartSurface loads the heart-images that represent the player's life
-  SDL_Surface* bombSurface;
+  SDL_Surface* BombSurface;
 
 	/// SDLEvent handle all the events in the game
   SDL_Event SDLEvent;
 
 	/// numberOfEnemies contain how many enemies that will be drawn on the screen
-  int numberOfEnemies;
+  int NumberOfEnemies;
 
 	/// currentLevel keeps track of which level the player is on
-	int currentLevel;
+	int CurrentLevel;
 
 	/// running decides if the game-loop is active or not
-  bool running;
+  bool Running;
 
 	/// Contains the nickname, required to set the highscore
-	std::string nickname;
+	std::string Nickname;
 
 	/**
 	 * spawnEnemy takes the player's x and y value
 	 * Then it will pick out a random number between 0-800 or 0-600 for x and y, respectively
 	 * If this number is closer then spawnDistance to the player it will randomize another x and y value
 	 */
-  void spawnEnemy(int, int);
+  void spawn_enemy(int, int);
 public:
   GameWindow(std::string);
   ~GameWindow();
 
-	void setLevel(int);
-	int getLevel();
+	void set_level(int);
+	int get_level();
 
 	/**
 	 * LoadImage loads a bmp-picture
@@ -67,7 +67,7 @@ public:
 	/**
 	 * cleanupSDL empties EntityList and enemyList and free heartSurface
 	 */
-  void cleanupSDL();
+  void CleanupSDL();
 
 	/**
 	 * runGame draws everything shown in the game

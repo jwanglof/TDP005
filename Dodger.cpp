@@ -2,14 +2,14 @@
 
 Dodger::Dodger(double start_x, double start_y) : Enemy("./gfx/skull.bmp")
 {
-	velocity = 2;
+	Velocity = 2;
 
-	surfaceRectangle.x = start_x;
-	surfaceRectangle.y = start_y;
-	surfaceRectangle.w = 40;
-	surfaceRectangle.h = 40;
+	SurfaceRectangle.x = start_x;
+	SurfaceRectangle.y = start_y;
+	SurfaceRectangle.w = 40;
+	SurfaceRectangle.h = 40;
 
-	dodge_projectile = false;
+	DodgeProjectile = false;
 }
 
 Dodger::~Dodger()
@@ -17,12 +17,12 @@ Dodger::~Dodger()
 
 void Dodger::set_dodge(bool dodge)
 {
-	dodge_projectile = dodge;
+	DodgeProjectile = dodge;
 }
 
 void Dodger::move()
 {
-	if (dodge_projectile)
+	if (DodgeProjectile)
 		dodge_move();
 	else
 		chase_move();
@@ -30,8 +30,8 @@ void Dodger::move()
 
 void Dodger::chase_move()
 {
-	double delta_y = (chase.y - surfaceRectangle.y);
-	double delta_x = (chase.x - surfaceRectangle.x);
+	double delta_y = (Chase.y - SurfaceRectangle.y);
+	double delta_x = (Chase.x - SurfaceRectangle.x);
 	double angle = 0;
 
 	const double PI = 3.141592;
@@ -47,23 +47,23 @@ void Dodger::chase_move()
 		angle = -((atan(delta_y / delta_x)) - PI/2) + (PI * 1.5);
 
 	// Move the enemy
-	if (surfaceRectangle.x < 800)
-		surfaceRectangle.x += (cos(angle) * velocity);
-	if (!surfaceRectangle.y < 600)
-		surfaceRectangle.y -= (sin(angle) * velocity);
+	if (SurfaceRectangle.x < 800)
+		SurfaceRectangle.x += (cos(angle) * Velocity);
+	if (!SurfaceRectangle.y < 600)
+		SurfaceRectangle.y -= (sin(angle) * Velocity);
 
 	// Don't make it able to leave the screen
-	if (surfaceRectangle.x > 800 - surfaceRectangle.w)
-		surfaceRectangle.x = 800 - surfaceRectangle.w;
-	if (surfaceRectangle.y > 600 - surfaceRectangle.h)
-		surfaceRectangle.y = 600 - surfaceRectangle.h;
+	if (SurfaceRectangle.x > 800 - SurfaceRectangle.w)
+		SurfaceRectangle.x = 800 - SurfaceRectangle.w;
+	if (SurfaceRectangle.y > 600 - SurfaceRectangle.h)
+		SurfaceRectangle.y = 600 - SurfaceRectangle.h;
 
 }
 
 void Dodger::dodge_move()
 {
-	double delta_y = (chase.y - surfaceRectangle.y);
-	double delta_x = (chase.x - surfaceRectangle.x);
+	double delta_y = (Chase.y - SurfaceRectangle.y);
+	double delta_x = (Chase.x - SurfaceRectangle.x);
 	double angle = 0;
 
 	const double PI = 3.141592;
@@ -79,67 +79,25 @@ void Dodger::dodge_move()
 		angle = -((atan(delta_y / delta_x)) - PI/2) + (PI * 1.5);
 
 	// Move the enemy
-	if (surfaceRectangle.x < 800)
-		surfaceRectangle.x -= (cos(angle) * velocity);
-	if (!surfaceRectangle.y < 600)
-		surfaceRectangle.y += (sin(angle) * velocity);
+	if (SurfaceRectangle.x < 800)
+		SurfaceRectangle.x -= (cos(angle) * Velocity);
+	if (!SurfaceRectangle.y < 600)
+		SurfaceRectangle.y += (sin(angle) * Velocity);
 
 	// Don't make it able to leave the screen
-	if (surfaceRectangle.x > 800 - surfaceRectangle.w)
-		surfaceRectangle.x = 800 - surfaceRectangle.w;
-	if (surfaceRectangle.y > 600 - surfaceRectangle.h)
-		surfaceRectangle.y = 600 - surfaceRectangle.h;
+	if (SurfaceRectangle.x > 800 - SurfaceRectangle.w)
+		SurfaceRectangle.x = 800 - SurfaceRectangle.w;
+	if (SurfaceRectangle.y > 600 - SurfaceRectangle.h)
+		SurfaceRectangle.y = 600 - SurfaceRectangle.h;
 }
 
 
 void Dodger::set_chase(SDL_Rect player)
 {
-	chase = player;
+	Chase = player;
 }
 
 std::string Dodger::get_type()
 {
 	return "Dodger";
 }
-
-/*bool Dodger::hasCollided(SDL_Rect second)
-{
-	// The sides of the recangle
-	int leftA, leftB;
-    int rightA, rightB;
-    int topA, topB;
-    int bottomA, bottomB;
-
-    //Calculate the sides of rect A
-    leftA = surfaceRectangle.x;
-    rightA = surfaceRectangle.x + surfaceRectangle.w;
-    topA = surfaceRectangle.y;
-    bottomA = surfaceRectangle.y + surfaceRectangle.h;
-        
-    //Calculate the sides of rect B
-    leftB = second.x;
-    rightB = second.x + second.w;
-    topB = second.y;
-    bottomB = second.y + second.h;
-
-	//If any of the sides from A are outside of B
-    if(bottomA <= topB) {
-        return false;
-    }
-    
-    if(topA >= bottomB) {
-        return false;
-    }
-    
-    if(rightA <= leftB) {
-        return false;
-    }
-    
-    if(leftA >= rightB) {
-        return false;
-    }
-
-	delete this;
-
-	return true;
-} */

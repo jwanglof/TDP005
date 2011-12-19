@@ -15,10 +15,10 @@ class Enemy : public Entity
 {
 private:
 	/// Velocity set's the speed the enemy will move with
-	int velocity;
+	int Velocity;
 
 	/// chase set's the player's position so it can chase it
-	SDL_Rect chase;
+	SDL_Rect Chase;
 public:
 	Enemy(std::string);
 	~Enemy();
@@ -27,7 +27,7 @@ public:
 	 * enemyList contains every enemy spawned on the screen
 	 * Since it's static the game will only contain one of these lists
 	 */
-	static std::list<Enemy *> enemyList;
+	static std::list<Enemy *> EnemyList;
 
 	/**
 	 * Virtual in Entity

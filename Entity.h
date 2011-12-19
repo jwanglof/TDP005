@@ -17,7 +17,7 @@ private:
 	/**
 	 * The surface of the current subclass
 	 */
-	SDL_Surface* surface;
+	SDL_Surface* Surface;
 public:
 	Entity(std::string);
 	~Entity();
@@ -56,7 +56,7 @@ public:
 	/**
 	 * surfaceRectangle contains the collision-rectangle x and y value
 	 */
-	SDL_Rect surfaceRectangle;
+	SDL_Rect SurfaceRectangle;
 };
 
 #endif
