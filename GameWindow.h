@@ -32,7 +32,7 @@ private:
   SDL_Surface* BombSurface;
 
 	/// SDLEvent handle all the events in the game
-  SDL_Event SDLEvent;
+  SDL_Event Events;
 
 	/// numberOfEnemies contain how many enemies that will be drawn on the screen
   int NumberOfEnemies;
@@ -62,28 +62,27 @@ public:
 	/**
 	 * LoadImage loads a bmp-picture
 	 */
-  static SDL_Surface* LoadImage(std::string File);
+  static SDL_Surface* load_image(std::string);
 
 	/**
 	 * cleanupSDL empties EntityList and enemyList and free heartSurface
 	 */
   void CleanupSDL();
-
 	/**
 	 * runGame draws everything shown in the game
 	 * The hearts, the score, the current level, the player, the enemies, the power-ups and the "bullets". It also handles all movement
 	 */
-  void runGame(bool hardcoreMode);
+  void run_game(bool);
 
 	/**
 	 *	 onEvent handles all the events in the game
 	 */
-  void onEvent(SDL_Event* eventInput);
+  void on_event(SDL_Event*);
 
 	/**
 	 * Spawn an powerup for the player to grab
 	 */
-  void spawnPowerup();	
+  void spawn_powerup();
 };
 
 #endif

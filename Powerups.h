@@ -1,3 +1,6 @@
+#ifndef POWERUPS_H_
+#define POWERUPS_H_
+
 #include "Entity.h"
 
 class Powerups : public Entity
@@ -29,3 +32,5 @@ class Powerups : public Entity
 		 */
 		bool has_expired();
 };
+
+#endif

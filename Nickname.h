@@ -16,16 +16,16 @@ class Nickname
 {
 private:
 	/// Where everything gets drawn onto
-	SDL_Surface* displaySurface;
+	SDL_Surface* DisplaySurface;
 
 	/// Captures the events
 	SDL_Event Events;
 
 	/// Contains the nickname
-	std::string nickname;
+	std::string Nickname;
 
 	/// If true the nickname-loop will run
-	bool run;
+	bool Running;
 public:
 	Nickname(std::string);
 	~Nickname();
@@ -34,18 +34,18 @@ public:
 	 * setNickname sets the nickname
 	 * getNickname returns nickname
 	 */
-	void setNickname(std::string);
-	std::string getNickname();
+	void set_nickname(std::string);
+	std::string get_nickname();
 
 	/**
 	 * Handle all the events for the nickname window
 	 */
-	void HandleEvents(SDL_Event&);
+	void handle_events(SDL_Event&);
 
 	/**
 	 * If this is called it will run the nickname-loop
 	 */
-	void RunNickname();
+	void run_nickname();
 };
 
 #endif

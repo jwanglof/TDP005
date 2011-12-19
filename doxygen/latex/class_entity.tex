@@ -1,0 +1,103 @@
+\hypertarget{class_entity}{\section{\-Entity \-Class \-Reference}
+\label{class_entity}\index{\-Entity@{\-Entity}}
+}
+
+
+{\ttfamily \#include $<$\-Entity.\-h$>$}
+
+\-Inheritance diagram for \-Entity\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_entity}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_entity_a0b902cfd7aafd6e04d109cb114165df6}{{\bfseries \-Entity} (std\-::string)}\label{class_entity_a0b902cfd7aafd6e04d109cb114165df6}
+
+\item 
+virtual bool \hyperlink{class_entity_a61d3e4674a5181d05ee02c2da761cf4f}{has\-Collided} (\-S\-D\-L\-\_\-\-Rect)
+\item 
+virtual void \hyperlink{class_entity_a473d9e253b279ecdf2ecc2f64882832e}{move} ()=0
+\item 
+virtual std\-::string \hyperlink{class_entity_a877e55ac2746451c89a07e35c318e544}{get\-\_\-type} ()=0
+\item 
+void \hyperlink{class_entity_a9cba0d0d4c25bd64d389ad432988b17b}{draw} (\-S\-D\-L\-\_\-\-Surface $\ast$)
+\item 
+\-S\-D\-L\-\_\-\-Surface $\ast$ \hyperlink{class_entity_a999e23a1ae72583fc9fc215393dcb631}{load\-Surface} (std\-::string \-File)
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\-S\-D\-L\-\_\-\-Rect \hyperlink{class_entity_ae1866f99a31f291b023356d8ababfa12}{surface\-Rectangle}
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\-::list$<$ \hyperlink{class_entity}{\-Entity} $\ast$ $>$ \hyperlink{class_entity_a465ab51717b7f85469608f5213dfe13c}{\-Entity\-List}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\hyperlink{class_entity}{\-Entity} class \-M\-O\-R\-E \-I\-N\-F\-O 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{class_entity_a9cba0d0d4c25bd64d389ad432988b17b}{\index{\-Entity@{\-Entity}!draw@{draw}}
+\index{draw@{draw}!Entity@{\-Entity}}
+\subsubsection[{draw}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Entity\-::draw} (
+\begin{DoxyParamCaption}
+\item[{\-S\-D\-L\-\_\-\-Surface $\ast$}]{destination}
+\end{DoxyParamCaption}
+)}}\label{class_entity_a9cba0d0d4c25bd64d389ad432988b17b}
+draw draws it's surface to the surface it takes as a paramater \hypertarget{class_entity_a877e55ac2746451c89a07e35c318e544}{\index{\-Entity@{\-Entity}!get\-\_\-type@{get\-\_\-type}}
+\index{get\-\_\-type@{get\-\_\-type}!Entity@{\-Entity}}
+\subsubsection[{get\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string {\bf \-Entity\-::get\-\_\-type} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{class_entity_a877e55ac2746451c89a07e35c318e544}
+\-Return the type of a subclass 
+
+\-Implemented in \hyperlink{class_dodger_a23da0ffb950d8547c40b2cca2013a6d3}{\-Dodger}, \hyperlink{class_player_a8b3807ccac35ff048ae61d067e26651c}{\-Player}, \hyperlink{class_enemy_a95a344c53db325e48c5f37bb15453f59}{\-Enemy}, \hyperlink{class_stalker_a58fdf77169b6a1795527abd6148d6c84}{\-Stalker}, \hyperlink{class_projectile_ad81bdfea9f24dfbf53ab2b8c6fbbc982}{\-Projectile}, and \hyperlink{class_powerups_a11522ace1eed2680c4343a892cc2e6c8}{\-Powerups}.
+
+\hypertarget{class_entity_a61d3e4674a5181d05ee02c2da761cf4f}{\index{\-Entity@{\-Entity}!has\-Collided@{has\-Collided}}
+\index{has\-Collided@{has\-Collided}!Entity@{\-Entity}}
+\subsubsection[{has\-Collided}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Entity\-::has\-Collided} (
+\begin{DoxyParamCaption}
+\item[{\-S\-D\-L\-\_\-\-Rect}]{second}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_entity_a61d3e4674a5181d05ee02c2da761cf4f}
+has\-Collided check for a collision between two objects. \-It takes \-S\-D\-L\-\_\-\-Rect from another class \hypertarget{class_entity_a999e23a1ae72583fc9fc215393dcb631}{\index{\-Entity@{\-Entity}!load\-Surface@{load\-Surface}}
+\index{load\-Surface@{load\-Surface}!Entity@{\-Entity}}
+\subsubsection[{load\-Surface}]{\setlength{\rightskip}{0pt plus 5cm}\-S\-D\-L\-\_\-\-Surface $\ast$ {\bf \-Entity\-::load\-Surface} (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{\-File}
+\end{DoxyParamCaption}
+)}}\label{class_entity_a999e23a1ae72583fc9fc215393dcb631}
+load\-Surface loads a bmp-\/picture \hypertarget{class_entity_a473d9e253b279ecdf2ecc2f64882832e}{\index{\-Entity@{\-Entity}!move@{move}}
+\index{move@{move}!Entity@{\-Entity}}
+\subsubsection[{move}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Entity\-::move} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{class_entity_a473d9e253b279ecdf2ecc2f64882832e}
+\-Updates all the x-\/ and y-\/coordinates all entities 
+
+\-Implemented in \hyperlink{class_player_ae02ee46d8c20dd0697b975f935b09839}{\-Player}, \hyperlink{class_dodger_ae9fa20d61b2e80b53ea0727586745349}{\-Dodger}, \hyperlink{class_enemy_a1c208ac4a80b892f9692222bcb96f6ae}{\-Enemy}, \hyperlink{class_projectile_ac5f6d2a73c1f82f2f11ae353d251acef}{\-Projectile}, \hyperlink{class_stalker_a0b9395ff4779bcad95710040866d2649}{\-Stalker}, and \hyperlink{class_powerups_ada26544ace2dfe109fea81b7792a8435}{\-Powerups}.
+
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{class_entity_a465ab51717b7f85469608f5213dfe13c}{\index{\-Entity@{\-Entity}!\-Entity\-List@{\-Entity\-List}}
+\index{\-Entity\-List@{\-Entity\-List}!Entity@{\-Entity}}
+\subsubsection[{\-Entity\-List}]{\setlength{\rightskip}{0pt plus 5cm}std\-::list$<$ {\bf \-Entity} $\ast$ $>$ {\bf \-Entity\-::\-Entity\-List}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_entity_a465ab51717b7f85469608f5213dfe13c}
+\-Entity\-List contains everything that moves on the screen \hypertarget{class_entity_ae1866f99a31f291b023356d8ababfa12}{\index{\-Entity@{\-Entity}!surface\-Rectangle@{surface\-Rectangle}}
+\index{surface\-Rectangle@{surface\-Rectangle}!Entity@{\-Entity}}
+\subsubsection[{surface\-Rectangle}]{\setlength{\rightskip}{0pt plus 5cm}\-S\-D\-L\-\_\-\-Rect {\bf \-Entity\-::surface\-Rectangle}}}\label{class_entity_ae1866f99a31f291b023356d8ababfa12}
+surface\-Rectangle contains the collision-\/rectangle x and y value 
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/johan/\-Git/\-T\-D\-P005/\-Entity.\-h\item 
+/home/johan/\-Git/\-T\-D\-P005/\-Entity.\-cpp\end{DoxyCompactItemize}
