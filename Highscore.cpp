@@ -2,13 +2,7 @@
 
 Highscore::Highscore()
 {
-	run = true;
-	gameCurrentscore = 0;
-}
-
-Highscore::Highscore(SDL_Surface* screen)
-{
-	displaySurface = screen;
+	displaySurface = SDL_GetVideoSurface();
 	run = true;
 	gameCurrentscore = 0;
 }
@@ -30,27 +24,73 @@ void Highscore::runHighscore()
 {
 	SDL_Event Events;
 
+	Draw *d = new Draw();
+
 	std::ifstream highscoreFile;
-	std::string line;
-	std::list<std::string> highscoreList;
+
+	std::map<int, std::string> highscoreMap;
+
+	// Used for the map
+	std::string nickname;
+	int highscore = 0;
+
+	// Used for the run-loop
+	std::string scoreString;
+	int yValue = 100;
+	int showNumberOfScores = 0;
+	int score = 0;
+
 	highscoreFile.open("score/HIGHSCORE", std::ios::in | std::ios::binary);
 
-	while (run)
+	if (highscoreFile.is_open())
 	{
-    // Set the background to black
-    SDL_FillRect(displaySurface, NULL, 0x000000);
-
-		DrawText(displaySurface, "asd", 100, 100, 100);
-		
-		if (highscoreFile.is_open())
+		while (highscoreFile.good())
 		{
-			while (!highscoreFile.eof())
-			{
-				highscoreFile >> line;
-				highscoreList.push_back(line);
-			}
+			highscoreFile >> nickname >> highscore;
+			highscoreMap[highscore] = nickname;
 		}
 		highscoreFile.close();
+	}
+
+//	std::cerr << "Highscore start" << std::endl;
+
+	std::map<int, std::string>::reverse_iterator rIt = highscoreMap.rbegin();
+	
+	while (run)
+	{
+		// Set the background to black
+		SDL_FillRect(displaySurface, NULL, 0x000000);
+
+		d->DrawText(displaySurface, "Top 15", 55, 20, -1, 51, 108, 184);
+		d->DrawText(displaySurface, "Initials", 30, 80, 50, 176, 54, 56);
+		d->DrawText(displaySurface, "Score", 30, 80, 640, 176, 54, 56);
+
+		while (rIt != highscoreMap.rend() && showNumberOfScores < 15)
+		{
+			if (rIt->first == 0)
+			{
+				d->DrawText(displaySurface, "No score", 15, 140, 50, 255, 255, 255);
+			}
+			else
+			{
+				score = rIt->first;
+				std::stringstream ss;
+				ss << score;
+				scoreString = ss.str();
+				
+				d->DrawText(displaySurface, rIt->second, 15, yValue+40, 50, 255, 255, 255);
+				d->DrawText(displaySurface, scoreString, 15, yValue+40, 640, 255, 255, 255);
+				
+				yValue += 30;				
+
+			}
+
+			++showNumberOfScores;
+			++rIt;
+
+			SDL_Flip(displaySurface);
+			SDL_Delay(1000/60);
+		}
 
 		while (SDL_PollEvent(&Events))
 		{
@@ -58,30 +98,19 @@ void Highscore::runHighscore()
 			{
 				if (Events.key.keysym.sym == SDLK_ESCAPE)
 				{
-					// Need to change this so it return to the mainmenu
 					run = false;
 				}
 			}
 		}
-		SDL_Delay(1);
-		SDL_Flip(displaySurface);
 	}
+	
 
-	highscoreList.sort();
+//	std::cerr << "Highscore end" << std::endl;
 
-	std::list<std::string>::iterator it = highscoreList.begin();
-	for (; it != highscoreList.end(); ++it)
-	{
-		std::cout << *it << std::endl;
-	}
-
-	SDL_FreeSurface(displaySurface);
-	SDL_Quit();
-	highscoreFile.close();
 	return;
 }
 
-void Highscore::setHighscore(const int highscore, const std::string nickname)
+void Highscore::setHighscore(const std::string nickname, const int highscore)
 {
   std::ofstream highscoreFile;
 
@@ -90,7 +119,7 @@ void Highscore::setHighscore(const int highscore, const std::string nickname)
   if (highscoreFile.is_open())
   {
 		highscoreFile << nickname;
-		highscoreFile << ":";
+		highscoreFile << " ";
 		highscoreFile << highscore;
 		highscoreFile << "\n";
   }
@@ -108,43 +137,4 @@ void Highscore::addToCurrentscore(const int currentscore)
 void Highscore::setCurrentscore(const int currentscore)
 {
 	gameCurrentscore = currentscore;
-}
-
-void Highscore::DrawText(SDL_Surface* src, const std::string funcText, int size, int y, int x)
-{
-/*
- * Blue for the menu: 51, 108, 184
- * Red for the menu: 176, 54, 56
- */
-
-  SDL_Color color = {255, 255, 255};
-
-  TTF_Font* font = TTF_OpenFont("fonts/m06.TTF", size);
-  SDL_Surface* text = TTF_RenderText_Blended(font, funcText.c_str(), color);
-
-  // To get the width in pixels of the text
-  int width, height;
-  TTF_SizeText(font, funcText.c_str(), &width, &height);
-
-  SDL_Rect rect;
-  rect.x = x;
-  rect.y = y;
-  SDL_BlitSurface(text, NULL, src, &rect);
-  SDL_FreeSurface(text);
-  TTF_CloseFont(font);
-}
-
-bool Highscore::drawSurface(SDL_Surface* dest, SDL_Surface* src, int x, int y)
-{
-  if (dest == NULL || src == NULL)
-    return false;
-
-  SDL_Rect destRect;
-
-  destRect.x = x;
-  destRect.y = y;
-
-  SDL_BlitSurface(src, NULL, dest, &destRect);
-
-  return true;
 }

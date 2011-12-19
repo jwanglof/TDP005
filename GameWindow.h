@@ -1,15 +1,18 @@
 #ifndef GAMEWINDOW_H_
 #define GAMEWINDOW_H_
 
-#include <iostream>
 #include <string>
 #include <cstdlib>
 #include <sstream>
 #include <time.h>
 
 #include "SDL/SDL.h"
-#include "SDL/SDL_ttf.h"
-#include "SDL/SDL_image.h"
+
+#include "Player.h"
+#include "Stalker.h"
+#include "Dodger.h"
+#include "Highscore.h"
+#include "Draw.h"
 
 /**
  * GameWindow class
@@ -40,6 +43,9 @@ private:
 	/// running decides if the game-loop is active or not
   bool running;
 
+	/// Contains the nickname, required to set the highscore
+	std::string nickname;
+
 	/**
 	 * spawnEnemy takes the player's x and y value
 	 * Then it will pick out a random number between 0-800 or 0-600 for x and y, respectively
@@ -47,7 +53,7 @@ private:
 	 */
   void spawnEnemy(int, int);
 public:
-  GameWindow();
+  GameWindow(std::string);
   ~GameWindow();
 
 	void setLevel(int);
@@ -58,12 +64,6 @@ public:
 	 * EXAKT SAMMA FINNS I ENTITY. FLYTTA TILL ETT GEMENSAMT STALLE?
 	 */
   static SDL_Surface* LoadImage(std::string File);
-
-  /**
-	 * drawSurface blabla
-	 * DENNA BORDE TAS BORT OCH ANVANDA DEN SOM FINNS I DRAW.H IST!
-	 */
-  static bool drawSurface(SDL_Surface* dest, SDL_Surface* src, int x, int y);
 
 	/**
 	 * cleanupSDL empties EntityList and enemyList and free heartSurface

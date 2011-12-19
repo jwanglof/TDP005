@@ -1,6 +1,9 @@
+#ifndef STALKER_H_
+#define STALKER_H_
+
+#include <cmath>
 
 #include "Enemy.h"
-#include <cmath>
 
 class Stalker : public Enemy
 {
@@ -16,3 +19,5 @@ class Stalker : public Enemy
 		void set_chase(SDL_Rect);
 		std::string get_type();
 };
+
+#endif

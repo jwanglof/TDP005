@@ -1,6 +1,9 @@
+#ifndef PROJECTILE_H_
+#define PROJECTILE_H_
+
+#include <cmath>
 
 #include "Entity.h"
-#include <cmath>
 
 class Projectile : public Entity
 {
@@ -16,3 +19,5 @@ class Projectile : public Entity
 
 		void move();
 };
+
+#endif

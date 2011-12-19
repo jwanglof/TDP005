@@ -1,11 +1,14 @@
 #include "GameWindow.h"
+<<<<<<< HEAD
 #include "Player.h"
 #include "Stalker.h"
 #include "Powerups.h"
 #include "Dodger.h"
 #include "Highscore.h"
+=======
+>>>>>>> ee561c82c0ba10556e8044014bf10375e6e77009
 
-GameWindow::GameWindow()
+GameWindow::GameWindow(std::string nickname) : nickname(nickname)
 {
   displaySurface = SDL_GetVideoSurface();
   heartSurface = LoadImage("./gfx/heart.bmp");
@@ -33,21 +36,6 @@ SDL_Surface* GameWindow::LoadImage(std::string File)
 	SDL_FreeSurface(Surf_Temp);
 
 	return surface;
-}
-
-bool GameWindow::drawSurface(SDL_Surface* dest, SDL_Surface* src, int x, int y)
-{
-  if (dest == NULL || src == NULL)
-    return false;
-
-  SDL_Rect destRect;
-
-  destRect.x = x;
-  destRect.y = y;
-
-  SDL_BlitSurface(src, NULL, dest, &destRect);
-
-  return true;
 }
 
 void GameWindow::cleanupSDL()
@@ -127,6 +115,8 @@ void GameWindow::runGame(bool hardcoreMode)
 {
 	Player *p = new Player();
 	std::list<Entity *>::iterator it;
+
+	Draw *d = new Draw();
 
 	Highscore *score = new Highscore();
 
@@ -322,32 +312,36 @@ void GameWindow::runGame(bool hardcoreMode)
 		heartRect.w = 200;
 
 		for (int i = 0; i < p->get_lives(); i++)
-			drawSurface(displaySurface, heartSurface, 25*i, 10);
+			d->DrawSurface(heartSurface, displaySurface, 25*i, 10);
 
 		for (int i = 0; i < p->get_bombs(); i++)
 			drawSurface(displaySurface, bombSurface, 25*i, 50);
 
 		// MOVE THE SCORE TO THE FAR LEFT WHEN THE HEARTS HAVE BEEN MOVED TO THE CENTER!
 		// Draw the current score
-		score->DrawText(displaySurface, "Score: ", 18, 10, 470);
+		d->DrawText(displaySurface, "Score: ", 18, 10, 470, 255, 255, 255);
 		int currentScore = score->getCurrentscore();
 		std::string scoreString;
 		std::stringstream ss;
 		ss << currentScore;
 		scoreString = ss.str();
-		score->DrawText(displaySurface, scoreString, 18, 10, 550);
+		d->DrawText(displaySurface, scoreString, 18, 10, 550, 255, 255, 255);
 
 		// Draw the current level
-		score->DrawText(displaySurface, "Lvl: ", 18, 30, 470);
+		d->DrawText(displaySurface, "Lvl: ", 18, 30, 470, 255, 255, 255);
 		std::string levelString;
 		std::stringstream ss2;
 		ss2 << currentLevel;
 		levelString = ss2.str();
-		score->DrawText(displaySurface, levelString, 18, 30, 550);
+		d->DrawText(displaySurface, levelString, 18, 30, 550, 255, 255, 255);
+		
+		// Draw the players initiales
+		d->DrawText(displaySurface, "Initiales", 18, 555, 10, 9, 9, 9);
+		d->DrawText(displaySurface, nickname, 18, 575, 10, 9, 9, 9);
 
-		// See if the shield is up or not
+		// If the shield is up it will print it on the screen
 		if (p->getShieldUp())
-			score->DrawText(displaySurface, "SHIELD    IS    UP!", 18, 30, 10);
+			d->DrawText(displaySurface, "SHIELD    IS    UP!", 18, 30, 10, 255, 255, 255);
 
 		// Draw everything
 		it = Entity::EntityList.begin();
@@ -363,9 +357,13 @@ void GameWindow::runGame(bool hardcoreMode)
 			SDL_Delay(1000/60);
   }
 
+<<<<<<< HEAD
 	// If a p exits the game it wont register any highscore
+=======
+	// If a player exits the game with lives left it wont register any highscore
+>>>>>>> ee561c82c0ba10556e8044014bf10375e6e77009
 	if (p->get_lives() == 0)
-		score->setHighscore(score->getCurrentscore(), "asd");
+		score->setHighscore(nickname, score->getCurrentscore());
 
   GameWindow::cleanupSDL();
 }

@@ -1,8 +1,9 @@
 #ifndef ENEMY_H_
 #define ENEMY_H_
 
-#include "Entity.h"
 #include <cmath>
+
+#include "Entity.h"
 
 /**
  * Enemy class

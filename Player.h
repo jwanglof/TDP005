@@ -1,12 +1,11 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
-#include "Entity.h"
-#include "Projectile.h"
-#include "Enemy.h"
-
 #include <map>
 #include <vector>
+
+#include "Entity.h"
+#include "Projectile.h"
 
 class Player : public Entity
 {

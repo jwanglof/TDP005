@@ -1,0 +1,69 @@
+AMMO:
+	.h
+		Ingen destruktor
+	.cpp
+		Mellanslag mellan typen och klassnamnet är sporadiska
+	Allmänt:
+		Include är i både .h och .cpp filerna
+		utility och Character.h inkluderas i både .h och .cpp
+	
+CHARACTER:
+	.h
+		Bra med ärvning
+		Enemy2 är helt tom
+		Bra namn
+		Character och Player saknar destruktor
+		Character saknar konstruktor
+	.cpp
+		Tycker det är svårt att läsa när man har flera implementationer i en och samma fil.
+	Allmänt:
+		Många klasser i en fil, bättre att dela upp imo då det ger bättre översikt vad klassen gör och .cpp-filen blir inte så jättesvårläst.
+		Just i detta fall funkar det rätt ok eftersom funktionerna inte är så stora men man borde ändå dela upp klasserna till enskilda filer.
+
+COLLISIONS
+	.h
+		Bra funktionsnamn!
+		Saknar konstruktor och destruktor, behövs dock inte
+	.cpp
+		Långa return-satser. Jag tycker det är bättre med if-satser men det är högst personligt imo
+	Allmänt
+
+CSURFACE
+	.h
+		Ingen destruktor
+		Bra med static
+	.cpp
+	Allmänt
+
+GAME
+	.h
+		Ingen destuktor
+		Väldigt många SDL_Surface:s. Borde kunna skapa en map, eller dylikt, ist?
+		Bra namn
+	.cpp
+		Lättläst fram till rad 65 och sen börjar en massa loopar. Har samma sak i vårat spel så det är nog svårt att komma ifrån
+	Allmänt
+		Inkluderar i både .h och .cpp filerna
+		Inkluderar samma saker, Character
+		
+GAME_CLEANUP
+GAME_LOOP
+GAME_INIT
+GAME_ONEVENT
+GAME_RENDER
+MENUEVENT
+	Tycker att man kan slänga ihop dessa implementeringsfiler till en, blir väldigt rörigt annars imo, eftersom dom tillhör en och samma klass
+
+RANDOM_ENEMY
+	.h
+		Ingen konstruktor eller destruktor
+	.cpp
+	Allmänt
+		Inkluderar i båda filerna och inkluderar samma sak, character
+
+
+ALLMÄNT
+	Menyn är en väldigt stor bild där man ska trycka på vissa tangenter för att starta spelet, visa highscore eller avsluta det. Detta kan göras på mycket smidigare sätt och skala ner storleken på spelet drastiskt.
+	Dom har ingen Makefile så det var rätt krångligt att kompilera spelet, fick köra med "g++ -c -lSDL *.cpp; g++ -lSDL *.o" i terminalen.
+	När man kompilerar slänger kompilatorn ut en massa varningar, bl a för att det inte finns någon destruktor och vissa saker är oinitierade.
+	

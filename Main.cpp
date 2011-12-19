@@ -1,18 +1,11 @@
 #include "MainMenu.h"
 
-#include <list>
-
-class ViewHandler
-{
-private:
-public:
-	
-};
-
 int main()
 {
-	MainMenu n("");
-	n.RunMenu();
+	MainMenu *n = new MainMenu("");
+	n->RunMenu();
+	delete n;
+	n = 0;
 
 	return 0;
 }

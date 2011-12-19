@@ -1,5 +1,9 @@
-#include "Enemy.h"
+#ifndef DODGER_H_
+#define DODGER_H_
+
 #include <cmath>
+
+#include "Enemy.h"
 
 /**
  * Dodger class
@@ -55,3 +59,5 @@ public:
 	 */
 	std::string get_type();
 };
+
+#endif

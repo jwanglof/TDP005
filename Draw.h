@@ -1,7 +1,10 @@
 #ifndef DRAW_H_
 #define DRAW_H_
 
-#include "GameWindow.h"
+#include <string>
+
+#include "SDL/SDL.h"
+#include "SDL/SDL_ttf.h"
 
 /**
  * Draw class
