@@ -28,11 +28,6 @@ void Nickname::HandleEvents(SDL_Event &Event)
 		if (Event.type == SDL_KEYDOWN)
 		{
 
-			if (Event.key.keysym.sym == SDLK_ESCAPE)
-			{
-				run = false;
-			}
-
 			if (Event.key.keysym.sym == SDLK_BACKSPACE)
 			{
 				if (nickname.size() > 0)
