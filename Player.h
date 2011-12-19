@@ -14,6 +14,8 @@ private:
 	std::map<std::string, bool> isPressed;
 	int velocity;
 	int lives;
+	int bombs;
+	int shootingRate;
 
 	bool shieldUp;
 public:
@@ -24,6 +26,8 @@ public:
 	~Player();
 	int get_lives() const;
 	void set_lives(int);
+	int get_bombs() const;
+	void add_bombs();
 
 	bool getShieldUp();
 	void setShieldUp(bool);

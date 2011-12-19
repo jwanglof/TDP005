@@ -4,6 +4,8 @@ Player::Player() : Entity("./gfx/ghostie.bmp")
 {
 	velocity = 4;
 	lives = 3;
+	bombs = 3;
+	shootingRate = 100;
 
 	// Init the player at this position
 	surfaceRectangle.x = 400;
@@ -86,11 +88,11 @@ void Player::check_events(SDL_Event &event)
 										 event.button.x, event.button.y);
 
 		}
-		if (event.button.button == SDL_BUTTON_RIGHT)
+		if (event.button.button == SDL_BUTTON_RIGHT && bombs > 0)
 		{
 
 			// Find and delete the enemy from the Entity- and Enemylist
-/*			std::list<Enemy*>::iterator eit = Enemy::enemyList.begin();
+			std::list<Enemy*>::iterator eit = Enemy::enemyList.begin();
 			std::list<Entity*>::iterator it2 = Entity::EntityList.begin();
 			for (; eit != Enemy::enemyList.end(); eit++)
 			{
@@ -104,22 +106,13 @@ void Player::check_events(SDL_Event &event)
 						it2 = Entity::EntityList.begin();
 					}
 				}
-			}*/
-			// DrawText(BOOOOOOM)
+			}
+
+			bombs--;
 		}
 
 
 	}
-
-		if (event.type == SDL_MOUSEBUTTONDOWN) {
-
-			if (event.button.button == SDL_BUTTON_LEFT)
-				isPressed["mouse1"] = true;
-		}
-
-		if (isPressed["mouse1"]) {
-
-		}
 
 /*	new Projectile(surfaceRectangle.x + (surfaceRectangle.w / 2),
 								 surfaceRectangle.y + (surfaceRectangle.h / 2), 
@@ -138,9 +131,9 @@ int Player::get_lives() const
 	return lives;
 }
 
-void Player::set_lives(int i)
+void Player::set_lives(int change)
 {
-	lives += i;
+	lives += change;
 }
 
 bool Player::getShieldUp()
@@ -154,4 +147,14 @@ void Player::setShieldUp(bool value)
 		shieldUp = true;
 	else
 		shieldUp = false;
+}
+
+void Player::add_bombs()
+{
+	bombs++;
+}
+
+int Player::get_bombs() const
+{
+	return bombs;
 }

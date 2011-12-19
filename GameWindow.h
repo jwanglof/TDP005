@@ -25,6 +25,9 @@ private:
 	/// heartSurface loads the heart-images that represent the player's life
   SDL_Surface* heartSurface;
 
+	/// heartSurface loads the heart-images that represent the player's life
+  SDL_Surface* bombSurface;
+
 	/// SDLEvent handle all the events in the game
   SDL_Event SDLEvent;
 
@@ -74,9 +77,14 @@ public:
   void runGame(bool hardcoreMode);
 
 	/**
-		 onEvent handles all the events in the game
+	 *	 onEvent handles all the events in the game
 	 */
   void onEvent(SDL_Event* eventInput);
+
+	/**
+	 * Spawn an powerup for the player to grab
+	 */
+  void spawnPowerup();	
 };
 
 #endif
