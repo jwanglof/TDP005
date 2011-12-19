@@ -3,9 +3,6 @@
 Entity::Entity(std::string File)
 {
 	// Set collision-rectangle
-	surfaceRectangle.x = 0;
-	surfaceRectangle.y = 0;
-
 	surface = loadSurface(File);
 	EntityList.push_back(this);
 }
