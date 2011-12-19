@@ -1,0 +1,97 @@
+\hypertarget{class_dodger}{\section{\-Dodger \-Class \-Reference}
+\label{class_dodger}\index{\-Dodger@{\-Dodger}}
+}
+
+
+{\ttfamily \#include $<$\-Dodger.\-h$>$}
+
+\-Inheritance diagram for \-Dodger\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_dodger}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_dodger_a4607347dc88cdbadbeefdfb6f8d7ac59}{{\bfseries \-Dodger} (double, double)}\label{class_dodger_a4607347dc88cdbadbeefdfb6f8d7ac59}
+
+\item 
+void \hyperlink{class_dodger_ae9fa20d61b2e80b53ea0727586745349}{move} ()
+\item 
+void \hyperlink{class_dodger_a4664c9695d4f6c45ef7e763d0365799d}{chase\-\_\-move} ()
+\item 
+void \hyperlink{class_dodger_ad9da61feabc4691fbf99f7628c20248e}{set\-\_\-dodge} (bool)
+\item 
+void \hyperlink{class_dodger_a94477f06fcca2d02fe193e2479595622}{dodge\-\_\-move} ()
+\item 
+void \hyperlink{class_dodger_a31efe1819c40cdac518d8e9c39b4912b}{set\-\_\-chase} (\-S\-D\-L\-\_\-\-Rect)
+\item 
+std\-::string \hyperlink{class_dodger_a23da0ffb950d8547c40b2cca2013a6d3}{get\-\_\-type} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\hyperlink{class_dodger}{\-Dodger} class \-Inherit from \hyperlink{class_enemy}{\-Enemy}'s virtual functions \-Gives the enemy \hyperlink{class_dodger}{\-Dodger} it's movement-\/path \hyperlink{class_dodger}{\-Dodger} will dodge the \char`\"{}bullets\char`\"{} and attack the player 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{class_dodger_a4664c9695d4f6c45ef7e763d0365799d}{\index{\-Dodger@{\-Dodger}!chase\-\_\-move@{chase\-\_\-move}}
+\index{chase\-\_\-move@{chase\-\_\-move}!Dodger@{\-Dodger}}
+\subsubsection[{chase\-\_\-move}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Dodger\-::chase\-\_\-move} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_dodger_a4664c9695d4f6c45ef7e763d0365799d}
+chase\-\_\-move chases the player's coordinates \hypertarget{class_dodger_a94477f06fcca2d02fe193e2479595622}{\index{\-Dodger@{\-Dodger}!dodge\-\_\-move@{dodge\-\_\-move}}
+\index{dodge\-\_\-move@{dodge\-\_\-move}!Dodger@{\-Dodger}}
+\subsubsection[{dodge\-\_\-move}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Dodger\-::dodge\-\_\-move} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_dodger_a94477f06fcca2d02fe193e2479595622}
+dodge\-\_\-move looks for the set projectile and if it's close enough dodge it \hypertarget{class_dodger_a23da0ffb950d8547c40b2cca2013a6d3}{\index{\-Dodger@{\-Dodger}!get\-\_\-type@{get\-\_\-type}}
+\index{get\-\_\-type@{get\-\_\-type}!Dodger@{\-Dodger}}
+\subsubsection[{get\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string {\bf \-Dodger\-::get\-\_\-type} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_dodger_a23da0ffb950d8547c40b2cca2013a6d3}
+get\-\_\-type returns \char`\"{}\-Dodger\char`\"{} in this class 
+
+\-Implements \hyperlink{class_enemy_a95a344c53db325e48c5f37bb15453f59}{\-Enemy}.
+
+\hypertarget{class_dodger_ae9fa20d61b2e80b53ea0727586745349}{\index{\-Dodger@{\-Dodger}!move@{move}}
+\index{move@{move}!Dodger@{\-Dodger}}
+\subsubsection[{move}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Dodger\-::move} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_dodger_ae9fa20d61b2e80b53ea0727586745349}
+move moves the object accordingly 
+
+\-Implements \hyperlink{class_enemy_a1c208ac4a80b892f9692222bcb96f6ae}{\-Enemy}.
+
+\hypertarget{class_dodger_a31efe1819c40cdac518d8e9c39b4912b}{\index{\-Dodger@{\-Dodger}!set\-\_\-chase@{set\-\_\-chase}}
+\index{set\-\_\-chase@{set\-\_\-chase}!Dodger@{\-Dodger}}
+\subsubsection[{set\-\_\-chase}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Dodger\-::set\-\_\-chase} (
+\begin{DoxyParamCaption}
+\item[{\-S\-D\-L\-\_\-\-Rect}]{player}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_dodger_a31efe1819c40cdac518d8e9c39b4912b}
+set\-\_\-chase get's the coordinates of the player so it can chase him 
+
+\-Implements \hyperlink{class_enemy_a15bbc41c0aab860d327e1f995c9385cc}{\-Enemy}.
+
+\hypertarget{class_dodger_ad9da61feabc4691fbf99f7628c20248e}{\index{\-Dodger@{\-Dodger}!set\-\_\-dodge@{set\-\_\-dodge}}
+\index{set\-\_\-dodge@{set\-\_\-dodge}!Dodger@{\-Dodger}}
+\subsubsection[{set\-\_\-dodge}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Dodger\-::set\-\_\-dodge} (
+\begin{DoxyParamCaption}
+\item[{bool}]{dodge}
+\end{DoxyParamCaption}
+)}}\label{class_dodger_ad9da61feabc4691fbf99f7628c20248e}
+set\-\_\-dodge get's the coordinates of the closest projectile so it can avoid it. 
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/johan/\-Git/\-T\-D\-P005/\-Dodger.\-h\item 
+/home/johan/\-Git/\-T\-D\-P005/\-Dodger.\-cpp\end{DoxyCompactItemize}

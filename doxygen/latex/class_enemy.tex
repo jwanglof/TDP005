@@ -1,0 +1,89 @@
+\hypertarget{class_enemy}{\section{\-Enemy \-Class \-Reference}
+\label{class_enemy}\index{\-Enemy@{\-Enemy}}
+}
+
+
+{\ttfamily \#include $<$\-Enemy.\-h$>$}
+
+\-Inheritance diagram for \-Enemy\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_enemy}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_enemy_a258ddb71f2f298663dc1ff988dcfd2e2}{{\bfseries \-Enemy} (std\-::string)}\label{class_enemy_a258ddb71f2f298663dc1ff988dcfd2e2}
+
+\item 
+virtual void \hyperlink{class_enemy_a1c208ac4a80b892f9692222bcb96f6ae}{move} ()=0
+\item 
+virtual void \hyperlink{class_enemy_a15bbc41c0aab860d327e1f995c9385cc}{set\-\_\-chase} (\-S\-D\-L\-\_\-\-Rect)=0
+\item 
+virtual std\-::string \hyperlink{class_enemy_a95a344c53db325e48c5f37bb15453f59}{get\-\_\-type} ()=0
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\-::list$<$ \hyperlink{class_enemy}{\-Enemy} $\ast$ $>$ \hyperlink{class_enemy_ae516249d5fea06e4c295e7e55cc8a01f}{enemy\-List}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\hyperlink{class_enemy}{\-Enemy} class \-Inherit from \hyperlink{class_entity}{\-Entity}'s virtual functions \-S\-O\-M\-E \-M\-O\-R\-E \-I\-N\-F\-O 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{class_enemy_a95a344c53db325e48c5f37bb15453f59}{\index{\-Enemy@{\-Enemy}!get\-\_\-type@{get\-\_\-type}}
+\index{get\-\_\-type@{get\-\_\-type}!Enemy@{\-Enemy}}
+\subsubsection[{get\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}virtual std\-::string {\bf \-Enemy\-::get\-\_\-type} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{class_enemy_a95a344c53db325e48c5f37bb15453f59}
+get\-\_\-type is a virtual function for \hyperlink{class_dodger}{\-Dodger} and \hyperlink{class_stalker}{\-Stalker} 
+
+\-Implements \hyperlink{class_entity_a877e55ac2746451c89a07e35c318e544}{\-Entity}.
+
+
+
+\-Implemented in \hyperlink{class_dodger_a23da0ffb950d8547c40b2cca2013a6d3}{\-Dodger}, and \hyperlink{class_stalker_a58fdf77169b6a1795527abd6148d6c84}{\-Stalker}.
+
+\hypertarget{class_enemy_a1c208ac4a80b892f9692222bcb96f6ae}{\index{\-Enemy@{\-Enemy}!move@{move}}
+\index{move@{move}!Enemy@{\-Enemy}}
+\subsubsection[{move}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-Enemy\-::move} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{class_enemy_a1c208ac4a80b892f9692222bcb96f6ae}
+\-Virtual in \hyperlink{class_entity}{\-Entity} 
+
+\-Implements \hyperlink{class_entity_a473d9e253b279ecdf2ecc2f64882832e}{\-Entity}.
+
+
+
+\-Implemented in \hyperlink{class_dodger_ae9fa20d61b2e80b53ea0727586745349}{\-Dodger}, and \hyperlink{class_stalker_a0b9395ff4779bcad95710040866d2649}{\-Stalker}.
+
+\hypertarget{class_enemy_a15bbc41c0aab860d327e1f995c9385cc}{\index{\-Enemy@{\-Enemy}!set\-\_\-chase@{set\-\_\-chase}}
+\index{set\-\_\-chase@{set\-\_\-chase}!Enemy@{\-Enemy}}
+\subsubsection[{set\-\_\-chase}]{\setlength{\rightskip}{0pt plus 5cm}virtual void {\bf \-Enemy\-::set\-\_\-chase} (
+\begin{DoxyParamCaption}
+\item[{\-S\-D\-L\-\_\-\-Rect}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}\label{class_enemy_a15bbc41c0aab860d327e1f995c9385cc}
+chase\-\_\-move is a virtual function for \hyperlink{class_dodger}{\-Dodger} and \hyperlink{class_stalker}{\-Stalker} 
+
+\-Implemented in \hyperlink{class_dodger_a31efe1819c40cdac518d8e9c39b4912b}{\-Dodger}, and \hyperlink{class_stalker_a3d2aec38785702b87542a98feb7e2984}{\-Stalker}.
+
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{class_enemy_ae516249d5fea06e4c295e7e55cc8a01f}{\index{\-Enemy@{\-Enemy}!enemy\-List@{enemy\-List}}
+\index{enemy\-List@{enemy\-List}!Enemy@{\-Enemy}}
+\subsubsection[{enemy\-List}]{\setlength{\rightskip}{0pt plus 5cm}std\-::list$<$ {\bf \-Enemy} $\ast$ $>$ {\bf \-Enemy\-::enemy\-List}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_enemy_ae516249d5fea06e4c295e7e55cc8a01f}
+enemy\-List contains every enemy spawned on the screen \-Since it's static the game will only contain one of these lists 
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/johan/\-Git/\-T\-D\-P005/\-Enemy.\-h\item 
+/home/johan/\-Git/\-T\-D\-P005/\-Enemy.\-cpp\end{DoxyCompactItemize}

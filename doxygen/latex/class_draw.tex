@@ -1,0 +1,61 @@
+\hypertarget{class_draw}{\section{\-Draw \-Class \-Reference}
+\label{class_draw}\index{\-Draw@{\-Draw}}
+}
+
+
+{\ttfamily \#include $<$\-Draw.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_draw_a58a62126f5c358bd743f0ea3c825adb4}{\-Draw\-Text} (\-S\-D\-L\-\_\-\-Surface $\ast$src, const std\-::string text, int size, int y, int x, \-Uint8 \-R, \-Uint8 \-G, \-Uint8 \-B)
+\item 
+void \hyperlink{class_draw_a2196313cba8acb5f69250438c906090c}{\-Draw\-Surface} (\-S\-D\-L\-\_\-\-Surface $\ast$src, \-S\-D\-L\-\_\-\-Surface $\ast$dest, int x, int y)
+\item 
+void \hyperlink{class_draw_a1625deff3021c6324bdd890f236eaa65}{\-Draw\-Menu\-Arrow} (\-S\-D\-L\-\_\-\-Surface $\ast$src, const int y, const int x)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\hyperlink{class_draw}{\-Draw} class \-Have all the draw-\/functions used throughout the game \-Centralize these functions makes it easier for various classes to use them 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{class_draw_a1625deff3021c6324bdd890f236eaa65}{\index{\-Draw@{\-Draw}!\-Draw\-Menu\-Arrow@{\-Draw\-Menu\-Arrow}}
+\index{\-Draw\-Menu\-Arrow@{\-Draw\-Menu\-Arrow}!Draw@{\-Draw}}
+\subsubsection[{\-Draw\-Menu\-Arrow}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Draw\-::\-Draw\-Menu\-Arrow} (
+\begin{DoxyParamCaption}
+\item[{\-S\-D\-L\-\_\-\-Surface $\ast$}]{src, }
+\item[{const int}]{y, }
+\item[{const int}]{x}
+\end{DoxyParamCaption}
+)}}\label{class_draw_a1625deff3021c6324bdd890f236eaa65}
+\-Draw\-Menu\-Arrow is only used in \hyperlink{class_main_menu}{\-Main\-Menu}. \-It draws the choose-\/arrow the is shown in the menu \hypertarget{class_draw_a2196313cba8acb5f69250438c906090c}{\index{\-Draw@{\-Draw}!\-Draw\-Surface@{\-Draw\-Surface}}
+\index{\-Draw\-Surface@{\-Draw\-Surface}!Draw@{\-Draw}}
+\subsubsection[{\-Draw\-Surface}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Draw\-::\-Draw\-Surface} (
+\begin{DoxyParamCaption}
+\item[{\-S\-D\-L\-\_\-\-Surface $\ast$}]{src, }
+\item[{\-S\-D\-L\-\_\-\-Surface $\ast$}]{dest, }
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{class_draw_a2196313cba8acb5f69250438c906090c}
+\-Draw\-Surface makes a rectangle and draws src in it at x and y \hypertarget{class_draw_a58a62126f5c358bd743f0ea3c825adb4}{\index{\-Draw@{\-Draw}!\-Draw\-Text@{\-Draw\-Text}}
+\index{\-Draw\-Text@{\-Draw\-Text}!Draw@{\-Draw}}
+\subsubsection[{\-Draw\-Text}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Draw\-::\-Draw\-Text} (
+\begin{DoxyParamCaption}
+\item[{\-S\-D\-L\-\_\-\-Surface $\ast$}]{src, }
+\item[{const std\-::string}]{text, }
+\item[{int}]{size, }
+\item[{int}]{y, }
+\item[{int}]{x, }
+\item[{\-Uint8}]{\-R, }
+\item[{\-Uint8}]{\-G, }
+\item[{\-Uint8}]{\-B}
+\end{DoxyParamCaption}
+)}}\label{class_draw_a58a62126f5c358bd743f0ea3c825adb4}
+\-Draw\-Text prints a string in the window 
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/johan/\-Git/\-T\-D\-P005/\-Draw.\-h\item 
+/home/johan/\-Git/\-T\-D\-P005/\-Draw.\-cpp\end{DoxyCompactItemize}

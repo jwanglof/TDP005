@@ -1,0 +1,79 @@
+\hypertarget{class_game_window}{\section{\-Game\-Window \-Class \-Reference}
+\label{class_game_window}\index{\-Game\-Window@{\-Game\-Window}}
+}
+
+
+{\ttfamily \#include $<$\-Game\-Window.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_game_window_a9fab47a6eec35e8d3f8c6828ae51503b}{{\bfseries \-Game\-Window} (std\-::string)}\label{class_game_window_a9fab47a6eec35e8d3f8c6828ae51503b}
+
+\item 
+\hypertarget{class_game_window_a4f7a14b6d43ec8717e34b2cd07eb4029}{void {\bfseries set\-Level} (int)}\label{class_game_window_a4f7a14b6d43ec8717e34b2cd07eb4029}
+
+\item 
+\hypertarget{class_game_window_a78a8c4c8ee659661d14a4b63a05d211d}{int {\bfseries get\-Level} ()}\label{class_game_window_a78a8c4c8ee659661d14a4b63a05d211d}
+
+\item 
+void \hyperlink{class_game_window_a86a9c0339df6f7681870efc1c0670255}{cleanup\-S\-D\-L} ()
+\item 
+void \hyperlink{class_game_window_aca444a7277eac76e10c2cc0d0511d484}{run\-Game} (bool hardcore\-Mode)
+\item 
+void \hyperlink{class_game_window_a2914cd14f89d276a37666d1941d4cb3b}{on\-Event} (\-S\-D\-L\-\_\-\-Event $\ast$event\-Input)
+\item 
+void \hyperlink{class_game_window_af36066d5cd69724680747d9c542cc53b}{spawn\-Powerup} ()
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \-S\-D\-L\-\_\-\-Surface $\ast$ \hyperlink{class_game_window_a828662b737004df4945eb7ce4d88e883}{\-Load\-Image} (std\-::string \-File)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\hyperlink{class_game_window}{\-Game\-Window} class \-This is where the game gets drawn 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{class_game_window_a86a9c0339df6f7681870efc1c0670255}{\index{\-Game\-Window@{\-Game\-Window}!cleanup\-S\-D\-L@{cleanup\-S\-D\-L}}
+\index{cleanup\-S\-D\-L@{cleanup\-S\-D\-L}!GameWindow@{\-Game\-Window}}
+\subsubsection[{cleanup\-S\-D\-L}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Game\-Window\-::cleanup\-S\-D\-L} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_game_window_a86a9c0339df6f7681870efc1c0670255}
+cleanup\-S\-D\-L empties \-Entity\-List and enemy\-List and free heart\-Surface \hypertarget{class_game_window_a828662b737004df4945eb7ce4d88e883}{\index{\-Game\-Window@{\-Game\-Window}!\-Load\-Image@{\-Load\-Image}}
+\index{\-Load\-Image@{\-Load\-Image}!GameWindow@{\-Game\-Window}}
+\subsubsection[{\-Load\-Image}]{\setlength{\rightskip}{0pt plus 5cm}\-S\-D\-L\-\_\-\-Surface $\ast$ {\bf \-Game\-Window\-::\-Load\-Image} (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{\-File}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_game_window_a828662b737004df4945eb7ce4d88e883}
+\-Load\-Image loads a bmp-\/picture \hypertarget{class_game_window_a2914cd14f89d276a37666d1941d4cb3b}{\index{\-Game\-Window@{\-Game\-Window}!on\-Event@{on\-Event}}
+\index{on\-Event@{on\-Event}!GameWindow@{\-Game\-Window}}
+\subsubsection[{on\-Event}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Game\-Window\-::on\-Event} (
+\begin{DoxyParamCaption}
+\item[{\-S\-D\-L\-\_\-\-Event $\ast$}]{event\-Input}
+\end{DoxyParamCaption}
+)}}\label{class_game_window_a2914cd14f89d276a37666d1941d4cb3b}
+on\-Event handles all the events in the game \hypertarget{class_game_window_aca444a7277eac76e10c2cc0d0511d484}{\index{\-Game\-Window@{\-Game\-Window}!run\-Game@{run\-Game}}
+\index{run\-Game@{run\-Game}!GameWindow@{\-Game\-Window}}
+\subsubsection[{run\-Game}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Game\-Window\-::run\-Game} (
+\begin{DoxyParamCaption}
+\item[{bool}]{hardcore\-Mode}
+\end{DoxyParamCaption}
+)}}\label{class_game_window_aca444a7277eac76e10c2cc0d0511d484}
+run\-Game draws everything shown in the game \-The hearts, the score, the current level, the player, the enemies, the power-\/ups and the \char`\"{}bullets\char`\"{}. \-It also handles all movement \hypertarget{class_game_window_af36066d5cd69724680747d9c542cc53b}{\index{\-Game\-Window@{\-Game\-Window}!spawn\-Powerup@{spawn\-Powerup}}
+\index{spawn\-Powerup@{spawn\-Powerup}!GameWindow@{\-Game\-Window}}
+\subsubsection[{spawn\-Powerup}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Game\-Window\-::spawn\-Powerup} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_game_window_af36066d5cd69724680747d9c542cc53b}
+\-Spawn an powerup for the player to grab 
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/johan/\-Git/\-T\-D\-P005/\-Game\-Window.\-h\item 
+/home/johan/\-Git/\-T\-D\-P005/\-Game\-Window.\-cpp\end{DoxyCompactItemize}
