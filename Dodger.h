@@ -16,13 +16,13 @@ class Dodger : public Enemy
 {
 private:
 	/// Velocity does something
-	int velocity;
+	int Velocity;
 
 	/// chase does something
-	SDL_Rect chase;
+	SDL_Rect Chase;
 	
 	/// dodge_projectile does something
-	bool dodge_projectile;
+	bool DodgeProjectile;
 public:
 	Dodger(double, double);
 	~Dodger();

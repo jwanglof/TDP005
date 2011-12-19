@@ -15,7 +15,7 @@ int Highscore::get_highscore()
   return GameHighscore;
 }
 
-int Highscore::get_currentscore()
+int Highscore::get_current_score()
 {
 	return GameCurrentscore;
 }
@@ -125,12 +125,12 @@ void Highscore::set_highscore(const std::string Nickname, const int Highscore)
   return;
 }
 
-void Highscore::add_to_currentscore(const int Currentscore)
+void Highscore::add_to_current_score(const int Currentscore)
 {
   GameCurrentscore += Currentscore;
 }
 
-void Highscore::set_currentscore(const int Currentscore)
+void Highscore::set_current_score(const int Currentscore)
 {
 	GameCurrentscore = Currentscore;
 }

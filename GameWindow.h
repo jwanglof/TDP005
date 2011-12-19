@@ -67,8 +67,7 @@ public:
 	/**
 	 * cleanupSDL empties EntityList and enemyList and free heartSurface
 	 */
-  void cleanup_sdl();
-
+  void CleanupSDL();
 	/**
 	 * runGame draws everything shown in the game
 	 * The hearts, the score, the current level, the player, the enemies, the power-ups and the "bullets". It also handles all movement

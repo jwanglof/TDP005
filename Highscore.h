@@ -39,7 +39,7 @@ public:
 	 * getCurrentscore gets the current score of the game
 	 */
   int get_highscore();
-  int get_currentscore();
+  int get_current_score();
   
   /**
 	 * setHighscore sets the highscore at the end of the game. Writes to a file
@@ -47,8 +47,8 @@ public:
 	 * addToCurrentscore adds point in the current game
 	 */
   void set_highscore(const std::string, const int);
-  void set_currentscore(const int);
-  void add_to_currentscore(const int);
+  void set_current_score(const int);
+  void add_to_current_score(const int);
 
 	/**
 	 * When this is called the highscore list is shownd

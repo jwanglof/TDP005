@@ -35,11 +35,11 @@ SDL_Surface* GameWindow::load_image(std::string File)
 	return Surface;
 }
 
-void GameWindow::cleanup_sdl()
+void GameWindow::CleanupSDL()
 {
   Entity::EntityList.clear();
   Enemy::EnemyList.clear();
-	SDL_FreeSurface(HeartSurface);
+  SDL_FreeSurface(HeartSurface);
 }
 
 void GameWindow::on_event(SDL_Event* EventInput)
@@ -73,7 +73,7 @@ void GameWindow::spawn_powerup()
 			break;
 	}
 
-	// Randomize a spawntime (max 300 updates/18 seconds @ 60 FPS)
+	// Randomize a spawntime (max 300 updates/18 Seconds @ 60 FPS)
 	int Lifetime = rand() % 300;
 
 	new Powerups(X, Y, Lifetime, Type);
@@ -133,9 +133,9 @@ void GameWindow::run_game(bool HardcoreMode)
 			spawn_powerup();
 
 		// Levels
-		CurrentLevel = (1 + floor(s->get_currentscore() / 1000));
+		CurrentLevel = (1 + floor(s->get_current_score() / 1000));
 
-		if (NumberOfEnemies != (currentLevel*2) && s->get_currentscore() != 0)
+		if (NumberOfEnemies != (CurrentLevel*2) && s->get_current_score() != 0)
 			NumberOfEnemies += 1;
 
 		// Set the shield off when it has reached it has reached timeWhenShieldOff
@@ -144,7 +144,7 @@ void GameWindow::run_game(bool HardcoreMode)
 
 		// Set max enemys on the playfield
 		if (Enemy::EnemyList.size() < NumberOfEnemies)
-			spawn_enemy(p->surfaceRectangle.x, p->surfaceRectangle.y);
+			spawn_enemy(p->SurfaceRectangle.x, p->SurfaceRectangle.y);
 
 		// Check for collisions
 		for (it = Entity::EntityList.begin(); it != Entity::EntityList.end(); it++) 
@@ -155,13 +155,13 @@ void GameWindow::run_game(bool HardcoreMode)
 				for (; eit != Enemy::EnemyList.end(); eit++) 
 				{
 					// If a projectile collides with an enemy
-					if ((*it)->get_type() == "Projectile" && (*eit)->has_collided((*it)->surfaceRectangle)) 
+					if ((*it)->get_type() == "Projectile" && (*eit)->has_collided((*it)->SurfaceRectangle)) 
 					{
-						// Set the p's currentscore depending on which enemy type that's killed
+						// Set the p's currentScore depending on which enemy type that's killed
 						if ((*eit)->get_type() == "Stalker")
-							s->add_to_currentscore(100);
+							s->add_to_current_score(100);
 						else if ((*eit)->get_type() == "Dodger")
-							s->add_to_currentscore(200);
+							s->add_to_current_score(200);
 
 						// Delete the projectile
 						Entity *del = *it;
@@ -174,7 +174,7 @@ void GameWindow::run_game(bool HardcoreMode)
 							if (*it2 == *eit) 
 							{
 								Entity *del2 = *it2;
-								eit = Enemy::enemyList.erase(eit);
+								eit = Enemy::EnemyList.erase(eit);
 								it2 = Entity::EntityList.erase(it2);
 								delete del2;
 								it = Entity::EntityList.begin();
@@ -183,7 +183,7 @@ void GameWindow::run_game(bool HardcoreMode)
 
 					}
 					// If the enemy collided with the p
-					else if ((*eit)->has_collided(p->surfaceRectangle)) {
+					else if ((*eit)->has_collided(p->SurfaceRectangle)) {
 						std::list<Entity*>::iterator it2 = Entity::EntityList.begin();
 						for (; it2 != Entity::EntityList.end(); it2++) {
 							if (*it2 == *eit)
@@ -198,9 +198,9 @@ void GameWindow::run_game(bool HardcoreMode)
 								{
 									p->set_lives(-1);
 
-									// Change the number to decide how long the shield is activated, in seconds
-									TimeWhenHit = seconds;
-									TimeWhenShieldOff = seconds + 5;
+									// Change the number to decide how long the shield is activated, in Seconds
+									TimeWhenHit = Seconds;
+									TimeWhenShieldOff = Seconds + 5;
 
 									p->set_shield_up(true);
 								}
@@ -215,7 +215,7 @@ void GameWindow::run_game(bool HardcoreMode)
 				Powerups *pu = dynamic_cast<Powerups *>(*it);
 	
 				// If the collided
-				if ((*it)->has_collided(p->surfaceRectangle)) {
+				if ((*it)->has_collided(p->SurfaceRectangle)) {
 					pu->set_counter(-1);
 					p->add_bombs();
 				}
@@ -230,7 +230,7 @@ void GameWindow::run_game(bool HardcoreMode)
 				Powerups *pu = dynamic_cast<Powerups *>(*it);
 
 				// If they collided
-				if (pu->has_collided(p->surfaceRectangle)) {
+				if (pu->has_collided(p->SurfaceRectangle)) {
 					pu->set_counter(-1);
 					p->set_lives(1);
 				}
@@ -248,7 +248,7 @@ void GameWindow::run_game(bool HardcoreMode)
 		for (EnemyIterator = Enemy::EnemyList.begin(); 
 				 EnemyIterator != Enemy::EnemyList.end(); EnemyIterator++) {
 			if ((*EnemyIterator)->get_type() == "Stalker") {
-				(*EnemyIterator)->set_chase(p->surfaceRectangle);
+				(*EnemyIterator)->set_chase(p->SurfaceRectangle);
 			}
 			else if ((*EnemyIterator)->get_type() == "Dodger") {
 				it = Entity::EntityList.begin();
@@ -257,20 +257,20 @@ void GameWindow::run_game(bool HardcoreMode)
 				// Check if there's an projectile on the screen
 				for (it = Entity::EntityList.begin(); it != Entity::EntityList.end(); it++) {
 					if ((*it)->get_type() == "Projectile") {
-						dodge = (*it)->surfaceRectangle;
+						dodge = (*it)->SurfaceRectangle;
 					}
 				}
 
 				// If there's prjectiles on the screen, else chase p
 				Dodger *d = dynamic_cast<Dodger*>(*EnemyIterator);
-				if (dodge.x != 0 && abs(dodge.x - (*EnemyIterator)->surfaceRectangle.x) < 50 || 
-						dodge.y != 0 && abs(dodge.y - (*EnemyIterator)->surfaceRectangle.y) < 50)  {
+				if (dodge.x != 0 && abs(dodge.x - (*EnemyIterator)->SurfaceRectangle.x) < 50 || 
+						dodge.y != 0 && abs(dodge.y - (*EnemyIterator)->SurfaceRectangle.y) < 50)  {
 					d->set_dodge(true);
 					(*EnemyIterator)->set_chase(dodge);
 				}
 				else {
 					d->set_dodge(false);
-					(*EnemyIterator)->set_chase(p->surfaceRectangle);
+					(*EnemyIterator)->set_chase(p->SurfaceRectangle);
 				}
 
 			}
@@ -284,8 +284,8 @@ void GameWindow::run_game(bool HardcoreMode)
 
 			// Check if remove any Projectiles
 			if ((*it)->get_type() == "Projectile") {
-				if (((*it)->surfaceRectangle.x < 0 || (*it)->surfaceRectangle.x > 800) ||
-						((*it)->surfaceRectangle.y < 0 || (*it)->surfaceRectangle.y > 600)) {
+				if (((*it)->SurfaceRectangle.x < 0 || (*it)->SurfaceRectangle.x > 800) ||
+						((*it)->SurfaceRectangle.y < 0 || (*it)->SurfaceRectangle.y > 600)) {
 					Entity *del = *it;
 					it = Entity::EntityList.erase(it);
 					delete del;
@@ -300,12 +300,13 @@ void GameWindow::run_game(bool HardcoreMode)
 		for (int i = 0; i < p->get_lives(); i++)
 			d->draw_surface(HeartSurface, DisplaySurface, 25*i, 10);
 
+		// Draw the bombs
 		for (int i = 0; i < p->get_bombs(); i++)
 			d->draw_surface(BombSurface, DisplaySurface, 25*i, 50);
 
-		// Draw the current score
+		// Draw the current Score
 		d->draw_text(DisplaySurface, "Score: ", 18, 10, 470, 255, 255, 255);
-		int CurrentScore = s->get_currentscore();
+		int CurrentScore = s->get_current_score();
 		std::string ScoreString;
 		std::stringstream ScoreStream;
 		ScoreStream << CurrentScore;
@@ -327,7 +328,6 @@ void GameWindow::run_game(bool HardcoreMode)
 		// If the shield is up it will print it on the screen
 		if (p->get_shield_up())
 			d->draw_text(DisplaySurface, "SHIELD    IS    UP!", 18, 30, 10, 255, 255, 255);
-
 		// Draw everything
 		it = Entity::EntityList.begin();
 		for (; it != Entity::EntityList.end(); it++) {
@@ -342,9 +342,9 @@ void GameWindow::run_game(bool HardcoreMode)
 			SDL_Delay(1000/60);
   }
 
-	// If a player exits the game with lives left it wont register any highscore
+	// If a player exits the game with lives left it wont register any highScore
 	if (p->get_lives() == 0)
-		s->set_highscore(Nickname, s->get_currentscore());
+		s->set_highscore(Nickname, s->get_current_score());
 
-  cleanup_sdl();
+  GameWindow::CleanupSDL();
 }

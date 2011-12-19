@@ -17,7 +17,7 @@ private:
 	/**
 	 * The surface of the current subclass
 	 */
-	SDL_Surface* surface;
+	SDL_Surface* Surface;
 public:
 	Entity(std::string);
 	~Entity();
@@ -26,7 +26,7 @@ public:
 	 * hasCollided check for a collision between two objects.
 	 * It takes SDL_Rect from another class
 	 */
-	virtual bool hasCollided(SDL_Rect);
+	virtual bool has_collided(SDL_Rect);
 
 	/**
 	 * Updates all the x- and y-coordinates all entities
@@ -41,6 +41,7 @@ public:
 	/**
 	 * draw draws it's surface to the surface it takes as a paramater 
 	 */
+
 	void draw(SDL_Surface*);
 
 	/**
@@ -56,7 +57,7 @@ public:
 	/**
 	 * surfaceRectangle contains the collision-rectangle x and y value
 	 */
-	SDL_Rect surfaceRectangle;
+	SDL_Rect SurfaceRectangle;
 };
 
 #endif
