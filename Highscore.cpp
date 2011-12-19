@@ -30,8 +30,15 @@ void Highscore::runHighscore()
 
 	std::map<int, std::string> highscoreMap;
 
+	// Used for the map
 	std::string nickname;
 	int highscore = 0;
+
+	// Used for the run-loop
+	std::string scoreString;
+	int yValue = 100;
+	int showNumberOfScores = 0;
+	int score = 0;
 
 	highscoreFile.open("score/HIGHSCORE", std::ios::in | std::ios::binary);
 
@@ -40,7 +47,6 @@ void Highscore::runHighscore()
 		while (highscoreFile.good())
 		{
 			highscoreFile >> nickname >> highscore;
-			std::cerr << highscore << std::endl;
 			highscoreMap[highscore] = nickname;
 		}
 		highscoreFile.close();
@@ -48,11 +54,7 @@ void Highscore::runHighscore()
 
 	std::cerr << "Highscore start" << std::endl;
 
-	int i = 100;
-	int j = 0;
-	int score = 0;
-	std::string testString;
-	std::map<int, std::string>::reverse_iterator it2 = highscoreMap.rbegin();
+	std::map<int, std::string>::reverse_iterator rIt = highscoreMap.rbegin();
 	
 	while (run)
 	{
@@ -63,28 +65,28 @@ void Highscore::runHighscore()
 		d->DrawText(displaySurface, "Initials", 30, 80, 50, 176, 54, 56);
 		d->DrawText(displaySurface, "Score", 30, 80, 640, 176, 54, 56);
 
-		while (it2 != highscoreMap.rend() && j < 15)
+		while (rIt != highscoreMap.rend() && showNumberOfScores < 15)
 		{
-			if (it2->first == 0)
+			if (rIt->first == 0)
 			{
 				d->DrawText(displaySurface, "No score", 15, 140, 50, 255, 255, 255);
 			}
 			else
 			{
-				score = it2->first;
+				score = rIt->first;
 				std::stringstream ss;
 				ss << score;
-				testString = ss.str();
+				scoreString = ss.str();
 				
-				d->DrawText(displaySurface, it2->second, 15, i+40, 50, 255, 255, 255);
-				d->DrawText(displaySurface, testString, 15, i+40, 640, 255, 255, 255);
+				d->DrawText(displaySurface, rIt->second, 15, yValue+40, 50, 255, 255, 255);
+				d->DrawText(displaySurface, scoreString, 15, yValue+40, 640, 255, 255, 255);
 				
-				i += 30;				
+				yValue += 30;				
 
 			}
 
-			++j;
-			++it2;
+			++showNumberOfScores;
+			++rIt;
 
 			SDL_Flip(displaySurface);
 			SDL_Delay(1000/60);
