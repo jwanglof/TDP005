@@ -136,6 +136,10 @@ void MainMenu::RunMenu()
 		delete n;
 		n = 0;
 		enterNickname = false;
+
+		// If the user hits ESCAPE before entering 3 characters it will end this loop
+		if (nickname.size() < 3)
+			run = false;
 	}
 
     // Set the background to black
