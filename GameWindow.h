@@ -23,67 +23,67 @@ class GameWindow
 {
 private:
 	/// displaySurface is where the game gets drawn
-  SDL_Surface* displaySurface;
+  SDL_Surface* DisplaySurface;
 
 	/// heartSurface loads the heart-images that represent the player's life
-  SDL_Surface* heartSurface;
+  SDL_Surface* HeartSurface;
 
 	/// heartSurface loads the heart-images that represent the player's life
-  SDL_Surface* bombSurface;
+  SDL_Surface* BombSurface;
 
 	/// SDLEvent handle all the events in the game
-  SDL_Event SDLEvent;
+  SDL_Event Events;
 
 	/// numberOfEnemies contain how many enemies that will be drawn on the screen
-  int numberOfEnemies;
+  int NumberOfEnemies;
 
 	/// currentLevel keeps track of which level the player is on
-	int currentLevel;
+	int CurrentLevel;
 
 	/// running decides if the game-loop is active or not
-  bool running;
+  bool Running;
 
 	/// Contains the nickname, required to set the highscore
-	std::string nickname;
+	std::string Nickname;
 
 	/**
 	 * spawnEnemy takes the player's x and y value
 	 * Then it will pick out a random number between 0-800 or 0-600 for x and y, respectively
 	 * If this number is closer then spawnDistance to the player it will randomize another x and y value
 	 */
-  void spawnEnemy(int, int);
+  void spawn_enemy(int, int);
 public:
   GameWindow(std::string);
   ~GameWindow();
 
-	void setLevel(int);
-	int getLevel();
+	void set_level(int);
+	int get_level();
 
 	/**
 	 * LoadImage loads a bmp-picture
 	 */
-  static SDL_Surface* LoadImage(std::string File);
+  static SDL_Surface* load_image(std::string);
 
 	/**
 	 * cleanupSDL empties EntityList and enemyList and free heartSurface
 	 */
-  void cleanupSDL();
+  void cleanup_sdl();
 
 	/**
 	 * runGame draws everything shown in the game
 	 * The hearts, the score, the current level, the player, the enemies, the power-ups and the "bullets". It also handles all movement
 	 */
-  void runGame(bool hardcoreMode);
+  void run_game(bool);
 
 	/**
 	 *	 onEvent handles all the events in the game
 	 */
-  void onEvent(SDL_Event* eventInput);
+  void on_event(SDL_Event*);
 
 	/**
 	 * Spawn an powerup for the player to grab
 	 */
-  void spawnPowerup();	
+  void spawn_powerup();
 };
 
 #endif

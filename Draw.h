@@ -22,18 +22,18 @@ public:
 	/**
 	 * DrawText prints a string in the window
 	 */
-	void DrawText(SDL_Surface* src, const std::string text, int size, int y, int x, Uint8 R, Uint8 G, Uint8 B);
+	void draw_text(SDL_Surface*, const std::string, int, int, int, Uint8, Uint8, Uint8);
 
 	/**
 	 * DrawSurface makes a rectangle and draws src in it at x and y
 	 */
-	void DrawSurface(SDL_Surface* src, SDL_Surface* dest, int x, int y);
+	void draw_surface(SDL_Surface*, SDL_Surface*, int, int);
 
 	/**
 	 * DrawMenuArrow is only used in MainMenu.
 	 * It draws the choose-arrow the is shown in the menu
 	 */
-  void DrawMenuArrow(SDL_Surface* src, const int y, const int x);
+  void draw_menu_arrow(SDL_Surface*, const int, const int);
 };
 
 #endif
