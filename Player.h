@@ -6,7 +6,6 @@
 
 #include "Entity.h"
 #include "Projectile.h"
-#include "Enemy.h"
 
 class Player : public Entity
 {
