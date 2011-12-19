@@ -20,16 +20,16 @@ class Highscore
 {
 private:
 	/// Contain the highsore. NOT SURE IF THIS IS NEEDED!
-  int gameHighscore;
+  int GameHighscore;
 
 	/// Contain the current score of the game
-  int gameCurrentscore;
+  int GameCurrentscore;
 
 	/// If this is true the highscore window will be shown
-	bool run;
+	bool Running;
 
 	/// Where everything gets drawn onto
-	SDL_Surface* displaySurface;
+	SDL_Surface* DisplaySurface;
 public:
 	Highscore();
 	~Highscore();
@@ -38,22 +38,22 @@ public:
 	 * getHighscore gets the highscore from a file
 	 * getCurrentscore gets the current score of the game
 	 */
-  int getHighscore();
-  int getCurrentscore();
+  int get_highscore();
+  int get_currentscore();
   
   /**
 	 * setHighscore sets the highscore at the end of the game. Writes to a file
 	 * setCurrentscore sets the current score to gameCurrentscore
 	 * addToCurrentscore adds point in the current game
 	 */
-  void setHighscore(const std::string nickname, const int highscore);
-  void setCurrentscore(const int currentscore);
-  void addToCurrentscore(const int currentscore);
+  void set_highscore(const std::string, const int);
+  void set_currentscore(const int);
+  void add_to_currentscore(const int);
 
 	/**
 	 * When this is called the highscore list is shownd
 	 */
-	void runHighscore();
+	void run_highscore();
 };
 
 #endif

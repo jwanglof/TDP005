@@ -1,25 +1,25 @@
 #include "Nickname.h"
 
-Nickname::Nickname(std::string nickname) : nickname(nickname)
+Nickname::Nickname(std::string Nickname) : Nickname(Nickname)
 {
-	run = true;
-	displaySurface = SDL_GetVideoSurface();
+	Running = true;
+	DisplaySurface = SDL_GetVideoSurface();
 }
 
 Nickname::~Nickname()
 { }
 
-void Nickname::setNickname(std::string nick)
+void Nickname::set_nickname(std::string Nick)
 {
-	nickname = nick;
+	Nickname = Nick;
 }
 
-std::string Nickname::getNickname()
+std::string Nickname::get_nickname()
 {
-	return nickname;
+	return Nickname;
 }
 
-void Nickname::HandleEvents(SDL_Event &Event)
+void Nickname::handle_events(SDL_Event &Event)
 {
 	while (SDL_PollEvent(&Event))
   {
@@ -29,24 +29,24 @@ void Nickname::HandleEvents(SDL_Event &Event)
 
 			if (Event.key.keysym.sym == SDLK_BACKSPACE)
 			{
-				if (nickname.size() > 0)
-					nickname.erase(nickname.size()-1);
+				if (Nickname.size() > 0)
+					Nickname.erase(Nickname.size()-1);
 			}
 
-			if (nickname.size() < 3)
+			if (Nickname.size() < 3)
 			{
 				int keystroke = Event.key.keysym.sym;
 				if ((Uint16)keystroke >= 97 && (Uint16)keystroke <= 122)
 				{
-					nickname += toupper((Uint16)keystroke);
+					Nickname += toupper((Uint16)keystroke);
 				}
 			}
 			else
 			{
 				if (Event.key.keysym.sym == SDLK_y)
 				{
-					setNickname(nickname);
-					run = false;
+					set_nickname(Nickname);
+					Running = false;
 				}
 			}
 
@@ -55,32 +55,30 @@ void Nickname::HandleEvents(SDL_Event &Event)
 	}
 }
 
-void Nickname::RunNickname()
+void Nickname::run_nickname()
 {
 	Draw *d = new Draw();
-//	std::cerr << "Nickname start" << std::endl;
 
-	while(run)
+	while(Running)
 	{
-		SDL_FillRect(displaySurface, NULL, 0x000000);
+		SDL_FillRect(DisplaySurface, NULL, 0x000000);
 
-		d->DrawText(displaySurface, "Initials    plz", 50, 100, -1, 51, 108, 184);
+		d->draw_text(DisplaySurface, "Initials    plz", 50, 100, -1, 51, 108, 184);
 
-		d->DrawText(displaySurface, nickname, 30, 200, -1, 255, 255, 0);
+		d->draw_text(DisplaySurface, Nickname, 30, 200, -1, 255, 255, 0);
 
-		if (nickname.length() == 3)
+		if (Nickname.length() == 3)
 		{
-			d->DrawText(displaySurface, "Proceed    with    '"+ nickname +"'?", 20, 450, -1, 255, 0, 0);
-			d->DrawText(displaySurface, "Y    /    Backspace", 20, 500, -1, 255, 0, 255);
+			d->draw_text(DisplaySurface, "Proceed    with    '"+ Nickname +"'?", 20, 450, -1, 255, 0, 0);
+			d->draw_text(DisplaySurface, "Y    /    Backspace", 20, 500, -1, 255, 0, 255);
 		}
 
 		SDL_Delay(10);
-		SDL_Flip(displaySurface);
+		SDL_Flip(DisplaySurface);
 
 		HandleEvents(Events);
 	}
+
 	delete d;
 	d = 0;
-
-//	std::cerr << "Nickname end" << std::endl;
 }

@@ -18,30 +18,30 @@ class MainMenu
 {
 private:
 	/// Where everything gets drawn onto
-  SDL_Surface* displaySurface;
+  SDL_Surface* DisplaySurface;
 
 	/// If this is true the menu-loop will run
-  bool run;
+  bool Running;
 
 	/// If this is true the nickname-loop will run
-  bool enterNickname;
+  bool EnterNickname;
 
 	/// Captures events
   SDL_Event Events;
 
 	/// Is to get the coordinates where the menu arrow is
-  int menuMovementY;
+  int MenuMovementY;
 
 	/// Contains the nickname the player has chosen
-	std::string nickname;
+	std::string Nickname;
 
 	/// If this is true the enemies will move very fast
-	bool hardcoreMode;
+	bool HardcoreMode;
 
 	/**
 	 * Inits SDL with a window that have title as caption, width and height as size and bpp as resolution
 	 */
-  SDL_Surface* Init(const std::string title, int width, int height, int bpp);
+  SDL_Surface* init(const std::string, int, int, int);
 public:
   MainMenu(std::string);
   ~MainMenu();
@@ -50,25 +50,25 @@ public:
 	 * setHardcore sets hardcoreMode to true or false depending on the player's choice
 	 * getHardcore returns hardcoreMode
 	 */
-	void setHardcore(bool);
-	bool getHardcore();
+	void set_hardcore(bool);
+	bool get_hardcore();
 
 	/**
 	 * setMenuMovementY set the new movement of the menu-arrow
 	 * getMenuMovementY get the coordinates of the menu-arrow
 	 */
-  void setMenuMovementY(const int value);
-  int getMenuMovementY();
+  void set_menu_movement_y(const int);
+  int get_menu_movement_y();
 
 	/**
 	 * When this is called the menu-loop will run
 	 */
-  void RunMenu();
+  void run_menu();
 
 	/**
 	 * Handle the events of the main menu
 	 */
-  void HandleEvents(SDL_Event &event);
+  void handle_events(SDL_Event&);
 };
 
 #endif

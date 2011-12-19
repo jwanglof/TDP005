@@ -2,93 +2,92 @@
 
 Highscore::Highscore()
 {
-	displaySurface = SDL_GetVideoSurface();
-	run = true;
-	gameCurrentscore = 0;
+	DisplaySurface = SDL_GetVideoSurface();
+	Running = true;
+	GameCurrentscore = 0;
 }
 
 Highscore::~Highscore()
 { }
 
-int Highscore::getHighscore()
+int Highscore::get_highscore()
 {
-  return gameHighscore;
+  return game_highscore;
 }
 
-int Highscore::getCurrentscore()
+int Highscore::get_currentscore()
 {
-	return gameCurrentscore;
+	return game_currentscore;
 }
 
-void Highscore::runHighscore()
+void Highscore::run_highscore()
 {
 	SDL_Event Events;
 
 	Draw *d = new Draw();
 
-	std::ifstream highscoreFile;
+	std::ifstream HighscoreFile;
 
-	std::map<int, std::string> highscoreMap;
+	std::map<int, std::string> HighscoreMap;
 
 	// Used for the map
-	std::string nickname;
-	int highscore = 0;
+	std::string Nickname;
+	int Highscore = 0;
 
 	// Used for the run-loop
-	std::string scoreString;
-	int yValue = 100;
-	int showNumberOfScores = 0;
-	int score = 0;
+	std::string ScoreString;
+	int YValue = 100;
+	int ShowNumberOfScores = 0;
+	int Score = 0;
 
-	highscoreFile.open("score/HIGHSCORE", std::ios::in | std::ios::binary);
+	HighscoreFile.open("score/HIGHSCORE", std::ios::in | std::ios::binary);
 
-	if (highscoreFile.is_open())
+	if (HighscoreFile.is_open())
 	{
-		while (highscoreFile.good())
+		while (HighscoreFile.good())
 		{
-			highscoreFile >> nickname >> highscore;
-			highscoreMap[highscore] = nickname;
+			HighscoreFile >> Nickname >> Highscore;
+			HighscoreMap[Highscore] = Nickname;
 		}
-		highscoreFile.close();
+		HighscoreFile.close();
 	}
 
-//	std::cerr << "Highscore start" << std::endl;
-
-	std::map<int, std::string>::reverse_iterator rIt = highscoreMap.rbegin();
+	std::map<int, std::string>::reverse_iterator ReversedHighscoreIterator = HighscoreMap.rbegin();
 	
 	while (run)
 	{
 		// Set the background to black
-		SDL_FillRect(displaySurface, NULL, 0x000000);
+		SDL_FillRect(DisplaySurface, NULL, 0x000000);
 
-		d->DrawText(displaySurface, "Top 15", 55, 20, -1, 51, 108, 184);
-		d->DrawText(displaySurface, "Initials", 30, 80, 50, 176, 54, 56);
-		d->DrawText(displaySurface, "Score", 30, 80, 640, 176, 54, 56);
+		d->draw_text(DisplaySurface, "Top 15", 55, 20, -1, 51, 108, 184);
+		d->draw_text(DisplaySurface, "Initials", 30, 80, 50, 176, 54, 56);
+		d->draw_text(DisplaySurface, "Score", 30, 80, 640, 176, 54, 56);
 
-		while (rIt != highscoreMap.rend() && showNumberOfScores < 15)
+		while (ReversedHighscoreIterator != HighscoreMap.rend() && ShowNumberOfScores < 15)
 		{
-			if (rIt->first == 0)
+			// If there isn't any highscores yet
+			if (ReversedHighscoreIterator->first == 0)
 			{
-				d->DrawText(displaySurface, "No score", 15, 140, 50, 255, 255, 255);
+				d->draw_text(DisplaySurface, "No score", 15, 140, 50, 255, 255, 255);
 			}
 			else
 			{
-				score = rIt->first;
-				std::stringstream ss;
-				ss << score;
-				scoreString = ss.str();
+				Score = ReversedHighscoreIterator->first;
+				std::stringstream ScoreStream;
+				ScoreStream << Score;
+				ScoreString = ScoreString.str();
 				
-				d->DrawText(displaySurface, rIt->second, 15, yValue+40, 50, 255, 255, 255);
-				d->DrawText(displaySurface, scoreString, 15, yValue+40, 640, 255, 255, 255);
+				d->draw_text(DisplaySurface, ReversedHighscoreIterator->second, 15, YValue+40, 50, 255, 255, 255);
+				d->draw_text(DisplaySurface, ScoreString, 15, YValue+40, 640, 255, 255, 255);
 				
-				yValue += 30;				
+				YValue += 30;
 
 			}
 
-			++showNumberOfScores;
-			++rIt;
+			++ShowNumberOfScores;
+			++ReversedHighscoreIterator;
 
-			SDL_Flip(displaySurface);
+			SDL_Flip(DisplaySurface);
 			SDL_Delay(1000/60);
 		}
 
@@ -98,43 +97,40 @@ void Highscore::runHighscore()
 			{
 				if (Events.key.keysym.sym == SDLK_ESCAPE)
 				{
-					run = false;
+					Running = false;
 				}
 			}
 		}
 	}
 	
-
-//	std::cerr << "Highscore end" << std::endl;
-
 	return;
 }
 
-void Highscore::setHighscore(const std::string nickname, const int highscore)
+void Highscore::set_highscore(const std::string Nickname, const int Highscore)
 {
-  std::ofstream highscoreFile;
+  std::ofstream HighscoreFile;
 
-  highscoreFile.open("score/HIGHSCORE", std::ios::out | std::ios::binary | std::ios::app);
+  HighscoreFile.open("score/HIGHSCORE", std::ios::out | std::ios::binary | std::ios::app);
 
-  if (highscoreFile.is_open())
+  if (HighscoreFile.is_open())
   {
-		highscoreFile << nickname;
-		highscoreFile << " ";
-		highscoreFile << highscore;
-		highscoreFile << "\n";
+		HighscoreFile << nickname;
+		HighscoreFile << " ";
+		HighscoreFile << highscore;
+		HighscoreFile << "\n";
   }
 
-	highscoreFile.close();
+	HighscoreFile.close();
 	
   return;
 }
 
-void Highscore::addToCurrentscore(const int currentscore)
+void Highscore::add_to_turrentscore(const int Currentscore)
 {
-  gameCurrentscore += currentscore;
+  GameCurrentscore += Currentscore;
 }
 
-void Highscore::setCurrentscore(const int currentscore)
+void Highscore::set_currentscore(const int Currentscore)
 {
-	gameCurrentscore = currentscore;
+	GameCurrentscore = Currentscore;
 }
