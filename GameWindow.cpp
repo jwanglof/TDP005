@@ -51,8 +51,6 @@ void GameWindow::onEvent(SDL_Event* eventInput)
 		if (eventInput->key.keysym.sym == SDLK_ESCAPE) {
 			running = false;
 		}
-		else if (eventInput->key.keysym.sym == SDLK_k)
-			spawnPowerup();
 		/*else if (eventInput->key.keysym.sym == SDLK_j)
 			spawnEnemy();*/
 	}
@@ -132,6 +130,11 @@ void GameWindow::runGame(bool hardcoreMode)
 			p->check_events(SDLEvent);
 		}
 		
+		// Randomize a bomb
+		int randomNumber = rand() % 5000;
+		if (randomNumber == 42)
+			spawnPowerup();
+
 		// Levels
 		currentLevel = (1 + floor(score->getCurrentscore() / 1000));
 
@@ -312,7 +315,7 @@ void GameWindow::runGame(bool hardcoreMode)
 			d->DrawSurface(heartSurface, displaySurface, 25*i, 10);
 
 		for (int i = 0; i < p->get_bombs(); i++)
-			d->DrawSurface(displaySurface, bombSurface, 25*i, 50);
+			d->DrawSurface(bombSurface, displaySurface, 25*i, 50);
 
 		// MOVE THE SCORE TO THE FAR LEFT WHEN THE HEARTS HAVE BEEN MOVED TO THE CENTER!
 		// Draw the current score
