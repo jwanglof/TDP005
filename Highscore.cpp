@@ -52,7 +52,7 @@ void Highscore::runHighscore()
 		highscoreFile.close();
 	}
 
-	std::cerr << "Highscore start" << std::endl;
+//	std::cerr << "Highscore start" << std::endl;
 
 	std::map<int, std::string>::reverse_iterator rIt = highscoreMap.rbegin();
 	
@@ -105,7 +105,7 @@ void Highscore::runHighscore()
 	}
 	
 
-	std::cerr << "Highscore end" << std::endl;
+//	std::cerr << "Highscore end" << std::endl;
 
 	return;
 }

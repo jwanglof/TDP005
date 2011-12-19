@@ -4,7 +4,6 @@ Nickname::Nickname(std::string nickname) : nickname(nickname)
 {
 	run = true;
 	displaySurface = SDL_GetVideoSurface();
-	std::cout << displaySurface << std::endl;
 }
 
 Nickname::~Nickname()
@@ -59,7 +58,8 @@ void Nickname::HandleEvents(SDL_Event &Event)
 void Nickname::RunNickname()
 {
 	Draw *d = new Draw();
-	std::cerr << "Nickname start" << std::endl;
+//	std::cerr << "Nickname start" << std::endl;
+
 	while(run)
 	{
 		SDL_FillRect(displaySurface, NULL, 0x000000);
@@ -82,5 +82,5 @@ void Nickname::RunNickname()
 	delete d;
 	d = 0;
 
-	std::cerr << "Nickname end" << std::endl;
+//	std::cerr << "Nickname end" << std::endl;
 }

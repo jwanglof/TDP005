@@ -1,12 +1,10 @@
 #ifndef ENTITY_H_
 #define ENTITY_H_
 
-#include "SDL/SDL.h"
-#include "SDL/SDL_ttf.h"
-#include "SDL/SDL_image.h"
-
 #include <iostream>
 #include <list>
+
+#include "SDL/SDL.h"
 
 /**
  * Entity class

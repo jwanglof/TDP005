@@ -4,9 +4,10 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include <string>
 
-// To get SDL library
-#include "GameWindow.h"
+#include "SDL/SDL.h"
+
 #include "Draw.h"
 
 /**

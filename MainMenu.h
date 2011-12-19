@@ -1,6 +1,10 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
 
+#include <string>
+
+#include "SDL/SDL.h"
+
 #include "GameWindow.h"
 #include "Highscore.h"
 #include "Nickname.h"

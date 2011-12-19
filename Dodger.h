@@ -1,5 +1,5 @@
-#include "Enemy.h"
 #include <cmath>
+#include "Enemy.h"
 
 /**
  * Dodger class

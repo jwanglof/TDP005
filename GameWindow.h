@@ -1,15 +1,18 @@
 #ifndef GAMEWINDOW_H_
 #define GAMEWINDOW_H_
 
-#include <iostream>
 #include <string>
 #include <cstdlib>
 #include <sstream>
 #include <time.h>
 
 #include "SDL/SDL.h"
-#include "SDL/SDL_ttf.h"
-#include "SDL/SDL_image.h"
+
+#include "Player.h"
+#include "Stalker.h"
+#include "Dodger.h"
+#include "Highscore.h"
+#include "Draw.h"
 
 /**
  * GameWindow class

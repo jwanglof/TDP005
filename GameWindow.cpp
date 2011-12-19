@@ -1,8 +1,4 @@
 #include "GameWindow.h"
-#include "Player.h"
-#include "Stalker.h"
-#include "Dodger.h"
-#include "Highscore.h"
 
 GameWindow::GameWindow(std::string nickname) : nickname(nickname)
 {

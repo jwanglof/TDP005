@@ -21,7 +21,7 @@ SDL_Surface* MainMenu::Init(const std::string title, int width, int height, int 
   displaySurface = SDL_SetVideoMode(width, height, bpp, SDL_HWSURFACE | SDL_DOUBLEBUF);
 	SDL_FillRect(displaySurface, NULL, 0x000000);
 
-  std::cout << "Game initialized successfully" << std::endl;
+  //std::cout << "Game initialized successfully" << std::endl;
 
   return displaySurface;
 }
@@ -72,12 +72,12 @@ void MainMenu::HandleEvents(SDL_Event &event)
 					case SDLK_u:
 						if (getHardcore())
 						{
-							std::cout << "Hardcore mode disabled!" << std::endl;
+							//std::cout << "Hardcore mode disabled!" << std::endl;
 							setHardcore(false);
 						}
 						else
 						{
-							std::cout << "Hardcore mode!" << std::endl;
+							//std::cout << "Hardcore mode!" << std::endl;
 							setHardcore(true);
 						}
 						break;
@@ -123,7 +123,7 @@ void MainMenu::HandleEvents(SDL_Event &event)
 void MainMenu::RunMenu()
 {
 	Draw *d = new Draw();
-	std::cout << "MainMenu start" << std::endl;
+//	std::cout << "MainMenu start" << std::endl;
 
 	/*Nickname n(nickname);
 	n.RunNickname(); */
@@ -178,5 +178,5 @@ void MainMenu::RunMenu()
 
     HandleEvents(Events);
   }
-	std::cerr << "Game successfully exited." << std::endl;
+	//std::cerr << "Game successfully exited." << std::endl;
 }

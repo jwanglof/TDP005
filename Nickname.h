@@ -1,8 +1,9 @@
 #ifndef NICKNAME_H_
 #define NICKNAME_H_
 
-// To get SDL libs
-#include "GameWindow.h"
+#include <string>
+
+#include "SDL/SDL.h"
 
 #include "Draw.h"
 
