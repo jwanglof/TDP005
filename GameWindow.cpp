@@ -1,12 +1,9 @@
 #include "GameWindow.h"
-<<<<<<< HEAD
 #include "Player.h"
 #include "Stalker.h"
 #include "Powerups.h"
 #include "Dodger.h"
 #include "Highscore.h"
-=======
->>>>>>> ee561c82c0ba10556e8044014bf10375e6e77009
 
 GameWindow::GameWindow(std::string nickname) : nickname(nickname)
 {
@@ -315,7 +312,7 @@ void GameWindow::runGame(bool hardcoreMode)
 			d->DrawSurface(heartSurface, displaySurface, 25*i, 10);
 
 		for (int i = 0; i < p->get_bombs(); i++)
-			drawSurface(displaySurface, bombSurface, 25*i, 50);
+			d->DrawSurface(displaySurface, bombSurface, 25*i, 50);
 
 		// MOVE THE SCORE TO THE FAR LEFT WHEN THE HEARTS HAVE BEEN MOVED TO THE CENTER!
 		// Draw the current score
@@ -357,11 +354,7 @@ void GameWindow::runGame(bool hardcoreMode)
 			SDL_Delay(1000/60);
   }
 
-<<<<<<< HEAD
-	// If a p exits the game it wont register any highscore
-=======
 	// If a player exits the game with lives left it wont register any highscore
->>>>>>> ee561c82c0ba10556e8044014bf10375e6e77009
 	if (p->get_lives() == 0)
 		score->setHighscore(nickname, score->getCurrentscore());
 
