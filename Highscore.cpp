@@ -12,12 +12,12 @@ Highscore::~Highscore()
 
 int Highscore::get_highscore()
 {
-  return game_highscore;
+  return GameHighscore;
 }
 
 int Highscore::get_currentscore()
 {
-	return game_currentscore;
+	return GameCurrentscore;
 }
 
 void Highscore::run_highscore()
@@ -54,7 +54,7 @@ void Highscore::run_highscore()
 
 	std::map<int, std::string>::reverse_iterator ReversedHighscoreIterator = HighscoreMap.rbegin();
 	
-	while (run)
+	while (Running)
 	{
 		// Set the background to black
 		SDL_FillRect(DisplaySurface, NULL, 0x000000);
@@ -75,7 +75,7 @@ void Highscore::run_highscore()
 				Score = ReversedHighscoreIterator->first;
 				std::stringstream ScoreStream;
 				ScoreStream << Score;
-				ScoreString = ScoreString.str();
+				ScoreString = ScoreStream.str();
 				
 				d->draw_text(DisplaySurface, ReversedHighscoreIterator->second, 15, YValue+40, 50, 255, 255, 255);
 				d->draw_text(DisplaySurface, ScoreString, 15, YValue+40, 640, 255, 255, 255);
@@ -114,9 +114,9 @@ void Highscore::set_highscore(const std::string Nickname, const int Highscore)
 
   if (HighscoreFile.is_open())
   {
-		HighscoreFile << nickname;
+		HighscoreFile << Nickname;
 		HighscoreFile << " ";
-		HighscoreFile << highscore;
+		HighscoreFile << Highscore;
 		HighscoreFile << "\n";
   }
 
@@ -125,7 +125,7 @@ void Highscore::set_highscore(const std::string Nickname, const int Highscore)
   return;
 }
 
-void Highscore::add_to_turrentscore(const int Currentscore)
+void Highscore::add_to_currentscore(const int Currentscore)
 {
   GameCurrentscore += Currentscore;
 }

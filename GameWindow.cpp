@@ -5,11 +5,11 @@
 #include "Dodger.h"
 #include "Highscore.h"
 
-GameWindow::GameWindow(std::string nickname) : nickname(nickname)
+GameWindow::GameWindow(std::string Nickname) : Nickname(Nickname)
 {
   DisplaySurface = SDL_GetVideoSurface();
-  HeartSurface = LoadImage("./gfx/heart.bmp");
-  BombSurface = LoadImage("./gfx/bomb.bmp");
+  HeartSurface = load_image("./gfx/heart.bmp");
+  BombSurface = load_image("./gfx/bomb.bmp");
   NumberOfEnemies = 2;
   CurrentLevel = 1;
 
@@ -56,7 +56,7 @@ void GameWindow::on_event(SDL_Event* EventInput)
 void GameWindow::spawn_powerup() 
 {
 	// 40 is witdh and height of the powerup
-	int Y = rand() % (800 - 40);
+	int X = rand() % (800 - 40);
 	int Y = rand() % (600 - 40);
 
 	int ChooseType = rand() % 3;
@@ -102,7 +102,7 @@ void GameWindow::spawn_enemy(int X, int Y)
 		new Dodger(SpawnX, SpawnY);
 }
 
-void GameWindow::run_game(bool hardcoreMode)
+void GameWindow::run_game(bool HardcoreMode)
 {
 	Player *p = new Player();
 	std::list<Entity *>::iterator it;
@@ -116,14 +116,14 @@ void GameWindow::run_game(bool hardcoreMode)
 
 	time_t Seconds;
 
-  while (running && p->get_lives() > 0)
+  while (Running && p->get_lives() > 0)
 	{
 		Seconds = time(NULL);
 
 		// Get all events
     while (SDL_PollEvent(&Events))
 		{
-    	onEvent(&Events);
+    	on_event(&Events);
 			p->check_events(Events);
 		}
 		
@@ -139,11 +139,11 @@ void GameWindow::run_game(bool hardcoreMode)
 			NumberOfEnemies += 1;
 
 		// Set the shield off when it has reached it has reached timeWhenShieldOff
-		if (seconds >= TimeWhenShieldOff)
+		if (Seconds >= TimeWhenShieldOff)
 			p->set_shield_up(false);
 
 		// Set max enemys on the playfield
-		if (Enemy::EnemyList.size() < numberOfEnemies)
+		if (Enemy::EnemyList.size() < NumberOfEnemies)
 			spawn_enemy(p->surfaceRectangle.x, p->surfaceRectangle.y);
 
 		// Check for collisions
